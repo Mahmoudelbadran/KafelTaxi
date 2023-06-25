@@ -44,7 +44,7 @@ class ItemProgramCar extends StatelessWidget {
                     builder: (BuildContext context) {
                       return SizedBox(
                         width: 100.w,
-                        height: 30.h,
+                        height: 40.h,
                         child: const CallScreen(),
                       );
                     },
@@ -66,88 +66,93 @@ class ItemProgramCar extends StatelessWidget {
           Expanded(
             flex: 2,
               child: Container(
+                height: 17.h,
                 padding: EdgeInsets.only(left: 5.w),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
             children: [
-                Text(
-                  "كيفن فراي",
-                  maxLines: 1,
-                  style: TextStyle(
+                Expanded(
+                  child: Text(
+                    "كيفن فراي",
+                    maxLines: 1,
+                    style: TextStyle(
 
-                      fontSize: 13.sp,
-                      fontWeight: FontWeight.w700,
-                      color: textcolor),
+                        fontSize: 13.sp,
+                        fontWeight: FontWeight.w700,
+                        color: textcolor),
+                  ),
                 ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                Text(
-                  "ميني باص",
-                  style: TextStyle(
-                      fontSize: 11.sp,
-                      fontWeight: FontWeight.w400,
-                      color: textcolor),
-                ),
-                Icon(Icons.car_crash_outlined,color: ycolor,size: 15.sp,),
-              ],),
-              Padding(
-                padding:  EdgeInsets.only(left: 10.w),
+              Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                   Text(
-                    "10",
-                    maxLines: 1,
-                    textAlign: TextAlign.right,
+                    "ميني باص",
                     style: TextStyle(
-                        fontSize: 10.sp,
+                        fontSize: 11.sp,
                         fontWeight: FontWeight.w400,
                         color: textcolor),
                   ),
-                  Icon(Icons.star,color: ycolor,size: 20.sp,),
+                  Icon(Icons.car_crash_outlined,color: ycolor,size: 15.sp,),
                 ],),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "14552",
-                    maxLines: 1,
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.w400,
-                        color: textcolor),
-                  ),
-                  Text(
-                    ": رقم",
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.w400,
-                        color: textcolor),
-                  ),
-                ],),
+              Expanded(
+                child: Padding(
+                  padding:  EdgeInsets.only(left: 10.w),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                    Text(
+                      "10",
+                      maxLines: 1,
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                          fontSize: 10.sp,
+                          fontWeight: FontWeight.w400,
+                          color: textcolor),
+                    ),
+                    Icon(Icons.star,color: ycolor,size: 20.sp,),
+                  ],),
+                ),
+              ),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "14552",
+                      maxLines: 1,
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                          fontSize: 10.sp,
+                          fontWeight: FontWeight.w400,
+                          color: textcolor),
+                    ),
+                    Text(
+                      ": رقم",
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                          fontSize: 10.sp,
+                          fontWeight: FontWeight.w400,
+                          color: textcolor),
+                    ),
+                  ],),
+              ),
             ],
           ),
               )),
           Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-              margin: EdgeInsets.only(right:2.w),
-
-                width: 20.w,
-                height: 8.h,
+              child: Center(child: Container(
+                margin: EdgeInsets.all(3.sp),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100.sp),
-                    border: Border.all(color: ycolor, width: 2.sp)),
-                child: const CircleAvatar(backgroundImage: AssetImage("images/drive.jpg"))
-              ),
-            ],
-          ))
+                    border: Border.all(color: ycolor, width:2.sp)),
+                child: ClipOval(
+                  clipBehavior: Clip.antiAlias,
+                  child: Image.asset("images/drive.jpg",fit: BoxFit.fill,width:18.w,height: 10.h,
+                  ),
+                ),
+              ),))
         ],
       ),
     );

@@ -10,6 +10,6 @@ class ItemBuilderLocation extends StatelessWidget {
     return ListView.separated(
         itemBuilder: (context, index) =>const ItemView(),
         separatorBuilder: (context, index) => const Divider(),
-        itemCount: 4);
+        itemCount: 10);
   }
 }

@@ -17,10 +17,12 @@ class OnboardingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SvgPicture.asset("${modelData.image}"),
+        SizedBox(
+          width: 100.w,
+            height: 40.h,
+            child: SvgPicture.asset("${modelData.image}")),
         Text(
           "${modelData.title}",
           style: TextStyle(
@@ -35,13 +37,14 @@ class OnboardingView extends StatelessWidget {
             child: Text(
               "${modelData.body}",
               textAlign: TextAlign.center,
+              maxLines: 2,
               style: TextStyle(
                   fontSize: 15.sp,
                   fontWeight: FontWeight.w400,
                   color: textcolor.withOpacity(0.7)),
             )),
         Padding(
-          padding:EdgeInsets.only(top:12.h ),
+          padding:EdgeInsets.only(top:8.h ,bottom: 2.h),
           child: ButtonFc(
             width: 50.w,
             height: 5.h,

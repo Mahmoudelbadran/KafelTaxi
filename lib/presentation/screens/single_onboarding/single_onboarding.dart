@@ -34,7 +34,10 @@ class SingleOnBoarding extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              SvgPicture.asset("images/opic.svg"),
+              SizedBox(
+                  width: 100.w,
+                  height: 30.h,
+                  child: SvgPicture.asset("images/opic.svg")),
               Padding(
                 padding: EdgeInsets.only(top: 8.h),
                 child: Text(

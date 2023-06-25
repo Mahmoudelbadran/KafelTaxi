@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 import 'package:taxizer/presentation/model_data_onboarding/model_car_data.dart';
 
 import 'item_car/item_car.dart';
@@ -15,10 +16,14 @@ class ItemBuilderCar extends StatelessWidget {
       ModelCarData(images: "images/carsports.svg",nameCar: "سياره رياضيه",number: "80",speed: "120",price: "35"),
     ];
 
-    return  ListView.separated(
-        itemBuilder: (context, index) => ItemCar(model:dataList[index]),
-        separatorBuilder: (context, index) => const Divider(),
-        itemCount: dataList.length);
+    return  SizedBox(
+      width: 80.w,
+      height:55.h ,
+      child: ListView.separated(
+          itemBuilder: (context, index) => ItemCar(model:dataList[index]),
+          separatorBuilder: (context, index) => const Divider(),
+          itemCount: dataList.length),
+    );
 
   }
 }

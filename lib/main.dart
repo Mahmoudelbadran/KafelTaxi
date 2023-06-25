@@ -5,8 +5,13 @@ import 'package:taxizer/presentation/router/approuter.dart';
 import 'bussinus_logic/login_register_logic/login_and_register_logic.dart';
 import 'bussinus_logic/user_logic/home_user_logic.dart';
 import 'bussinus_logic/user_logic/system_logic.dart';
+import 'package:device_preview/device_preview.dart';
 void main() {
-  runApp(MyApp());
+  runApp(
+    DevicePreview(
+    builder: (context) => MyApp(),
+  ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -17,7 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Sizer(builder: (BuildContext context, Orientation orientation,
-        DeviceType deviceType) {
+         deviceType) {
       return MultiBlocProvider(
         providers: [
           BlocProvider<LoginAndRegisterLogic>(

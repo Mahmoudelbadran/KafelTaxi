@@ -14,7 +14,7 @@ class ItemCar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 90.w,
-      height: 13.h,
+      height: 17.h,
       decoration: BoxDecoration(
           color: wcolor, borderRadius: BorderRadius.circular(10.sp)),
       child: Row(
@@ -24,30 +24,36 @@ class ItemCar extends StatelessWidget {
             child: ButtonFc(
               onpres: () {},
               Boxcolor: ycolor,
-              width: 5.w,
+              width: 7.w,
               height: 3.h,
-              child: const Text(
+              child:  Text(
                 "اختر",
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white,fontSize: 10.sp),
               ),
             ),
           )),
           Expanded(
               child: Container(
+                height: 15.h,
                 alignment: Alignment.topRight,
                 child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-            Text("${model.nameCar}",textAlign: TextAlign.right,style: TextStyle(color: Colors.black,fontWeight: FontWeight.w700,fontSize: 15.sp),),
-              Text("${model.number}",textAlign: TextAlign.right,style: TextStyle(color: Colors.black.withOpacity(0.5),fontSize: 10.sp),),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                Text("كم/ساعة ",textAlign: TextAlign.right,style: TextStyle(color: Colors.black.withOpacity(0.5),fontSize: 10.sp),),
-                  Text("${model.speed} ",textAlign: TextAlign.right,style: TextStyle(color: Colors.black.withOpacity(0.5),fontSize: 10.sp),),
-               const Icon(Icons.speed_outlined,color: ycolor,),
+            Expanded(child: Text("${model.nameCar}",textAlign: TextAlign.right,style: TextStyle(color: Colors.black,fontWeight: FontWeight.w700,fontSize: 12.sp),)),
+              Expanded(child: Padding(
+                padding:  EdgeInsets.only(top:1.h),
+                child: Text("${model.number}",textAlign: TextAlign.right,style: TextStyle(color: Colors.black.withOpacity(0.5),fontSize: 10.sp),),
+              )),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                  Text("كم/ساعة ",textAlign: TextAlign.right,style: TextStyle(color: Colors.black.withOpacity(0.5),fontSize: 10.sp),),
+                    Text("${model.speed} ",textAlign: TextAlign.right,style: TextStyle(color: Colors.black.withOpacity(0.5),fontSize: 10.sp),),
+                 const Icon(Icons.speed_outlined,color: ycolor,),
 
-              ],),
+                ],),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -57,7 +63,9 @@ class ItemCar extends StatelessWidget {
 
                 ],)
           ],),)),
-          Expanded(child: SvgPicture.asset("${model.images}")),
+          Expanded(child: SizedBox(
+              width:18.w,
+              height:10.h,child: SvgPicture.asset("${model.images}"))),
 
         ],
       ),

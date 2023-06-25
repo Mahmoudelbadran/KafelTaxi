@@ -10,12 +10,11 @@ class History extends StatelessWidget {
   Widget build(BuildContext context) {
     return   Column(
       mainAxisAlignment: MainAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
       children: [
         Container(
           margin: EdgeInsets.only(top:7.sp),
           width: 90.w,
-          height: 80.h,
+          height: 77.h,
           child: ListView.separated(
               itemBuilder: (context, index) => const ItemHistoryUser(order: 'تمت العمليه',),
               separatorBuilder: (context, index) => const Divider(),

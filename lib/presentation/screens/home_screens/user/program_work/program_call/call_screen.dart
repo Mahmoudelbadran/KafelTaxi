@@ -76,7 +76,7 @@ class CallScreen extends StatelessWidget {
           Container(
             margin: EdgeInsets.only(top: 5.sp),
             width: 100.w,
-            height: 14.h,
+            height: 18.h,
             decoration: BoxDecoration(
                 color: wcolor, borderRadius: BorderRadius.circular(10.sp)),
             child: Row(
@@ -108,38 +108,65 @@ class CallScreen extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            "كيفن فراي",
-                            maxLines: 1,
-                            style: TextStyle(
-                                fontSize: 13.sp,
-                                fontWeight: FontWeight.w700,
-                                color: textcolor),
+                          Expanded(
+                            child: Text(
+                              "كيفن فراي",
+                              maxLines: 1,
+                              style: TextStyle(
+                                  fontSize: 13.sp,
+                                  fontWeight: FontWeight.w700,
+                                  color: textcolor),
+                            ),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "ميني باص",
-                                style: TextStyle(
-                                    fontSize: 11.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: textcolor),
-                              ),
-                              Icon(
-                                Icons.car_crash_outlined,
-                                color: ycolor,
-                                size: 15.sp,
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 10.w),
+                          Expanded(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  "10",
+                                  "ميني باص",
+                                  style: TextStyle(
+                                      fontSize: 11.sp,
+                                      fontWeight: FontWeight.w400,
+                                      color: textcolor),
+                                ),
+                                Icon(
+                                  Icons.car_crash_outlined,
+                                  color: ycolor,
+                                  size: 15.sp,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 10.w),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "10",
+                                    maxLines: 1,
+                                    textAlign: TextAlign.right,
+                                    style: TextStyle(
+                                        fontSize: 10.sp,
+                                        fontWeight: FontWeight.w400,
+                                        color: textcolor),
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: ycolor,
+                                    size: 20.sp,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "14552",
                                   maxLines: 1,
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
@@ -147,173 +174,154 @@ class CallScreen extends StatelessWidget {
                                       fontWeight: FontWeight.w400,
                                       color: textcolor),
                                 ),
-                                Icon(
-                                  Icons.star,
-                                  color: ycolor,
-                                  size: 20.sp,
+                                Text(
+                                  ": رقم",
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(
+                                      fontSize: 10.sp,
+                                      fontWeight: FontWeight.w400,
+                                      color: textcolor),
                                 ),
                               ],
                             ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "14552",
-                                maxLines: 1,
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                    fontSize: 10.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: textcolor),
-                              ),
-                              Text(
-                                ": رقم",
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                    fontSize: 10.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: textcolor),
-                              ),
-                            ],
                           ),
                         ],
                       ),
                     )),
                 Expanded(
-                    child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                        margin: EdgeInsets.only(right: 2.w),
-                        width: 20.w,
-                        height: 8.h,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100.sp),
-                            border: Border.all(color: ycolor, width: 2.sp)),
-                        child: const CircleAvatar(
-                            backgroundImage: AssetImage("images/drive.jpg"))),
-                  ],
-                ))
+                    child: Center(child: Container(
+                      margin: EdgeInsets.all(2.sp),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100.sp),
+                          border: Border.all(color: ycolor, width:2.sp)),
+                      child: ClipOval(
+                        clipBehavior: Clip.antiAlias,
+                        child: Image.asset("images/drive.jpg",fit: BoxFit.fill,width:20.w,height: 10.h,
+                        ),
+                      ),
+                    ),))
               ],
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(right: 15.w),
-                child: ButtonFc(
-                  onpres: () {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "الغاء الركوب؟",
+          Padding(
+            padding: EdgeInsets.all(10.sp),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(right: 15.w),
+                  child: ButtonFc(
+                    onpres: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "الغاء الركوب؟",
+                                    style: TextStyle(
+                                        fontSize: 15.sp,
+                                        fontWeight: FontWeight.w700,
+                                        color: textcolor),
+                                  ),
+                                  Icon(
+                                    Icons.error,
+                                    color: Rcolor,
+                                    size: 25.sp,
+                                  ),
+                                ],
+                              ),
+                              content: SizedBox(
+                                width: 80.w,
+                                height: 5.h,
+                                child: Text(
+                                  "هل انت متاكد انك تريد الغاء رحلتلك؟",
+                                  textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: 15.sp,
-                                      fontWeight: FontWeight.w700,
-                                      color: textcolor),
+                                      fontWeight: FontWeight.w600,
+                                      color: textcolor,
+                                      fontSize: 12.sp),
                                 ),
-                                Icon(
-                                  Icons.error,
-                                  color: Rcolor,
-                                  size: 25.sp,
+                              ),
+                              actions: [
+                                ButtonFc(
+                                  onpres: () {
+                                    Navigator.pop(context);
+                                  },
+                                  width: 25.w,
+                                  elevation: 0,
+                                  height: 4.h,
+                                  Boxcolor: wcolor,
+                                  child: Text(
+                                    "الغاء",
+                                    style: TextStyle(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black),
+                                  ),
+                                ),
+                                ButtonFc(
+                                  onpres: () {
+                                    Navigator.pushNamedAndRemoveUntil(context, HomeUserScreen, (route) => false);
+                                  },
+                                  width: 25.w,
+                                  elevation: 0,
+                                  height: 4.h,
+                                  Boxcolor: ycolor,
+                                  child: Text(
+                                    "تاكيد",
+                                    style: TextStyle(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.white),
+                                  ),
                                 ),
                               ],
-                            ),
-                            content: SizedBox(
-                              width: 80.w,
-                              height: 5.h,
-                              child: Text(
-                                "هل انت متاكد انك تريد الغاء رحلتلك؟",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: textcolor,
-                                    fontSize: 12.sp),
-                              ),
-                            ),
-                            actions: [
-                              ButtonFc(
-                                onpres: () {
-                                  Navigator.pop(context);
-                                },
-                                width: 25.w,
-                                elevation: 0,
-                                height: 4.h,
-                                Boxcolor: wcolor,
-                                child: Text(
-                                  "الغاء",
-                                  style: TextStyle(
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.black),
-                                ),
-                              ),
-                              ButtonFc(
-                                onpres: () {
-                                   Navigator.pushNamedAndRemoveUntil(context, HomeUserScreen, (route) => false);
-                                },
-                                width: 25.w,
-                                elevation: 0,
-                                height: 4.h,
-                                Boxcolor: ycolor,
-                                child: Text(
-                                  "تاكيد",
-                                  style: TextStyle(
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white),
-                                ),
-                              ),
-                            ],
-                          );
-                        });
+                            );
+                          });
+                    },
+                    width: 25.w,
+                    elevation: 0,
+                    height: 4.h,
+                    Boxcolor: Rcolor,
+                    child: Text(
+                      "الغاء",
+                      style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white),
+                    ),
+                  ),
+                ),
+                ButtonFc(
+                  onpres: () {
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Container(
+                            color: Colors.transparent.withOpacity(0.1),
+                            height: 30.h,
+                            child: const LoadingCallScreen(),
+                          );}
+                    );
                   },
                   width: 25.w,
                   elevation: 0,
                   height: 4.h,
-                  Boxcolor: Rcolor,
+                  Boxcolor: ycolor,
                   child: Text(
-                    "الغاء",
+                    "اتصال",
                     style: TextStyle(
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w600,
                         color: Colors.white),
                   ),
                 ),
-              ),
-              ButtonFc(
-                onpres: () {
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Container(
-                          color: Colors.transparent.withOpacity(0.1),
-                          height: 30.h,
-                          child: const LoadingCallScreen(),
-                        );}
-                  );
-                },
-                width: 25.w,
-                elevation: 0,
-                height: 4.h,
-                Boxcolor: ycolor,
-                child: Text(
-                  "اتصال",
-                  style: TextStyle(
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),

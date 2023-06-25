@@ -26,7 +26,7 @@ class RateScreen extends StatelessWidget {
           icon: Icon(
             Icons.arrow_back_ios,
             color: Colors.black,
-            size: 30.sp,
+            size: 20.sp,
           ),
           onPressed: () {
             Navigator.pop(context);
@@ -38,14 +38,17 @@ class RateScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                margin: EdgeInsets.all(1.sp),
-                width: 25.w,
-                height: 13.h,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100.sp),
-                    border: Border.all(color: ycolor, width: 3.sp)),
-                child: Image.asset("images/usericons.png"),
+              Center(
+                child: ClipOval(
+                  clipBehavior:Clip.antiAlias,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100.sp),
+                        border: Border.all(color: ycolor, width:2.sp)),
+                    child: Image.asset("images/usericons.png",fit: BoxFit.fill,width:20.w,
+                    ),
+                  ),
+                ),
               ),
               Container(
                 padding: EdgeInsets.all(10.sp),

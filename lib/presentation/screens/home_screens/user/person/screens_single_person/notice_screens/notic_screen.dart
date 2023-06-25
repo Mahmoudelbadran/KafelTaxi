@@ -25,7 +25,7 @@ class NoticScreen extends StatelessWidget {
             icon: Icon(
               Icons.arrow_back_ios,
               color: Colors.black,
-              size: 30.sp,
+              size: 20.sp,
             ),
             onPressed: () {
               Navigator.pop(context);

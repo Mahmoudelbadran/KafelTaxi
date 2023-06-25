@@ -11,7 +11,7 @@ class ShareScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 100.w,
-      height: 100.h,
+      height: 3.h,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -22,12 +22,13 @@ class ShareScreen extends StatelessWidget {
           ),
           SizedBox(
               width: 100.w,
-              height: 8.h,
+              height:10.h,
               child: Row(
                 children: [
                   Expanded(
                       child: ButtonFc(
                     onpres: () {},
+                        height: 10.h,
                     Boxcolor: backgroundcolor,
                     elevation: 0,
                     child: Column(
@@ -35,11 +36,11 @@ class ShareScreen extends StatelessWidget {
                         Icon(
                           Icons.more_horiz,
                           color: Colors.black,
-                          size: 30.sp,
+                          size: 25.sp,
                         ),
                         Text(
                           "اخرون",
-                          style: TextStyle(fontSize: 10.sp),
+                          style: TextStyle(fontSize: 8.sp),
                         )
                       ],
                     ),
@@ -58,7 +59,7 @@ class ShareScreen extends StatelessWidget {
                         ),
                         Text(
                           "SMS",
-                          style: TextStyle(fontSize: 10.sp),
+                          style: TextStyle(fontSize: 8.sp),
                         )
                       ],
                     ),
@@ -77,7 +78,7 @@ class ShareScreen extends StatelessWidget {
                         ),
                         Text(
                           "FaceBook",
-                          style: TextStyle(fontSize: 10.sp),
+                          style: TextStyle(fontSize: 8.sp),
                         )
                       ],
                     ),

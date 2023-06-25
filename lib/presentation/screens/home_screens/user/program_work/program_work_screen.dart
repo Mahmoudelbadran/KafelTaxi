@@ -19,7 +19,7 @@ class ProgramWorkScreen extends StatelessWidget {
           icon: Icon(
             Icons.arrow_back_ios,
             color: Colors.black,
-            size: 30.sp,
+            size: 20.sp,
           ),
           onPressed: () {
             Navigator.pop(context);
@@ -39,7 +39,7 @@ class ProgramWorkScreen extends StatelessWidget {
                 Text(
                   "موقعك الحالي",
                   style: TextStyle(
-                      color: Colors.black.withOpacity(0.5), fontSize: 12.sp),
+                      color: Colors.black.withOpacity(0.5), fontSize: 9.sp),
                 ),
               ],
             ),
@@ -47,7 +47,7 @@ class ProgramWorkScreen extends StatelessWidget {
               cubit.address,
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: 10.sp,
+                  fontSize: 7.sp,
                   fontWeight: FontWeight.w600),
             )
           ],
@@ -70,7 +70,7 @@ class ProgramWorkScreen extends StatelessWidget {
 
               ),
             ),
-            SizedBox(width:90.w,height: 85.h,child: const ItemBuilderView(),)
+            SizedBox(width:90.w,height: 83.h,child: const ItemBuilderView(),)
           ],
         ),
       ),

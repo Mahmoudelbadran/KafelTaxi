@@ -37,7 +37,7 @@ class _UpdateUserState extends State<UpdateUser> {
         icon: Icon(
           Icons.arrow_back_ios,
           color: Colors.black,
-          size: 30.sp,
+          size: 20.sp,
         ),
         onPressed: () {
           Navigator.pop(context);
@@ -55,14 +55,17 @@ class _UpdateUserState extends State<UpdateUser> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Container(
-                      margin: EdgeInsets.all(5.sp),
-                      width: 40.w,
-                      height: 19.h,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100.sp),
-                          border: Border.all(color: ycolor, width: 3.sp)),
-                      child: Image.asset("images/usericons.png"),
+                    Center(
+                      child: ClipOval(
+                        clipBehavior:Clip.antiAlias,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100.sp),
+                              border: Border.all(color: ycolor, width:2.sp)),
+                          child: Image.asset("images/usericons.png",fit: BoxFit.fill,width:20.w,
+                          ),
+                        ),
+                      ),
                     ),
                     Container(
                       padding: EdgeInsets.all(10.sp),
@@ -135,6 +138,7 @@ class _UpdateUserState extends State<UpdateUser> {
                                       icon: Icon(
                                         cubit.surFixIcons,
                                         color: ycolor,
+
                                       ),
                                       onPressed: () => cubit.showPasswordDriver()),
                                   border: InputBorder.none,

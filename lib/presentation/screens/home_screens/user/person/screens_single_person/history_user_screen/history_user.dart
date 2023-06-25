@@ -39,7 +39,7 @@ class _HistoryUserState extends State<HistoryUser> with TickerProviderStateMixin
           icon: Icon(
             Icons.arrow_back_ios,
             color: Colors.black,
-            size: 30.sp,
+            size: 20.sp,
           ),
           onPressed: () {
             Navigator.pop(context);
