@@ -1,16 +1,25 @@
-# taxizer
+# KafelHares
 
-A new Flutter project.
+A new Taxi project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This is a taxi application, like Uber, that works on a connection between the customer and the driver on the map, and it has many capabilities, discover it
+## package:
+  flutter_svg,
+  shared_preferences,
+  bloc,
+  flutter_bloc,
+  sizer,
+  smooth_page_indicator,
+  flutter_launcher_icons,
+  url_launcher,
+  country_code_picker,
+  google_maps_flutter,
+  geolocator,
+  geocoding,
+  animated_bottom_navigation_bar,
+  permission_handler,
+  googleapis,
+  http,
+  flutter_polyline_points
