@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../bussinus_logic/login_register_logic/login_and_register_logic.dart';
+import '../../../../core/chang_page/controle_page.dart';
 import '../../../style/style.dart';
 import '../../../widget/button_fc.dart';
 
@@ -146,7 +147,7 @@ class _SignUpDriverDoneState extends State<SignUpDriverDone> {
                     child: ButtonFc(onpres:(){
                       if(key.currentState!.validate()){
                         if(password==passwordConfirm){
-                          //go to home
+                          Navigator.pushNamedAndRemoveUntil(context, HomeDriveScreen, (route) => false);
                         }
                       }
 

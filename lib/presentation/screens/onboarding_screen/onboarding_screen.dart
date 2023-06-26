@@ -41,33 +41,35 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           width: 100.w,
           height: 100.h,
           color: backgroundcolor,
-          child: Column(
-            mainAxisAlignment:MainAxisAlignment.start
-            ,children: [
-            SizedBox(
-              width: 100.w,
-              height: 83.h,
-              child: PageView.builder(
-                  onPageChanged: (int index) {
-                    setState(() {
-                      currentPageIndex = index;
-                    });
-                  },
-                  controller: _pageController,
-                  itemCount: onboardinglist.length,
-                  itemBuilder: (context,index)=> OnboardingView(modelData:onboardinglist[index], pageController: _pageController, currentPage: currentPageIndex,)),
-            ),
-            SmoothPageIndicator(
-              controller: _pageController,
-              count: onboardinglist.length,
-              effect: const ExpandingDotsEffect(
-                activeDotColor: ycolor,
-                dotColor:wcolor,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment:MainAxisAlignment.start
+              ,children: [
+              SizedBox(
+                width: 100.w,
+                height: 83.h,
+                child: PageView.builder(
+                    onPageChanged: (int index) {
+                      setState(() {
+                        currentPageIndex = index;
+                      });
+                    },
+                    controller: _pageController,
+                    itemCount: onboardinglist.length,
+                    itemBuilder: (context,index)=> OnboardingView(modelData:onboardinglist[index], pageController: _pageController, currentPage: currentPageIndex,)),
               ),
-            ),
+              SmoothPageIndicator(
+                controller: _pageController,
+                count: onboardinglist.length,
+                effect: const ExpandingDotsEffect(
+                  activeDotColor: ycolor,
+                  dotColor:wcolor,
+                ),
+              ),
 
 
-          ],)
+            ],),
+          )
         ),
       ),
     );

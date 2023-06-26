@@ -57,21 +57,23 @@ class ProgramWorkScreen extends StatelessWidget {
         width: 100.w,
         height: 100.h,
         color: backgroundcolor,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Center(
-              child: Text(
-                "برامج التشغيل المتوفرة",
-                style: TextStyle(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w700,
-                    color: textcolor),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Center(
+                child: Text(
+                  "برامج التشغيل المتوفرة",
+                  style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w700,
+                      color: textcolor),
 
+                ),
               ),
-            ),
-            SizedBox(width:90.w,height: 83.h,child: const ItemBuilderView(),)
-          ],
+              SizedBox(width:90.w,height: 83.h,child: const ItemBuilderView(),)
+            ],
+          ),
         ),
       ),
     );

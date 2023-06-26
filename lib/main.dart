@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 import 'package:taxizer/presentation/router/approuter.dart';
+import 'bussinus_logic/driver_logic/home_driver_logic.dart';
 import 'bussinus_logic/login_register_logic/login_and_register_logic.dart';
 import 'bussinus_logic/user_logic/home_user_logic.dart';
 import 'bussinus_logic/user_logic/system_logic.dart';
@@ -35,6 +36,10 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<SystemLogic>(
             create: (context) => SystemLogic(),
+            lazy: true,
+          ),
+          BlocProvider<HomeDriveLogic>(
+            create: (context) => HomeDriveLogic(),
             lazy: true,
           ),
 

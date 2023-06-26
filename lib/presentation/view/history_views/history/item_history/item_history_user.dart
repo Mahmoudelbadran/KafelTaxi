@@ -82,6 +82,7 @@ class ItemHistoryUser extends StatelessWidget {
                               flex: 2,
                               child: Text("القاهره - مصر",
                                   maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                       fontSize: 12.sp,
                                       fontWeight: FontWeight.w400,
@@ -103,6 +104,7 @@ class ItemHistoryUser extends StatelessWidget {
                               flex: 2,
                               child: Text("الاسكندرية - مصر",
                                   maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                       fontSize: 10.sp,
                                       fontWeight: FontWeight.w500,

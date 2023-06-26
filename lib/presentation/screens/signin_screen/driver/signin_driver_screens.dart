@@ -7,6 +7,7 @@ import 'package:taxizer/bussinus_logic/login_register_logic/login_and_register_l
 import 'package:taxizer/core/chang_page/controle_page.dart' as screens;
 import 'package:taxizer/presentation/style/style.dart';
 
+import '../../../../core/chang_page/controle_page.dart';
 import '../../../widget/button_fc.dart';
 
 class SignInDriverScreen extends StatefulWidget {
@@ -179,8 +180,7 @@ class _SignInDriverScreenState extends State<SignInDriverScreen> {
                   padding:  EdgeInsets.only(top:2.h),
                   child: ButtonFc(onpres:(){
                     if(key.currentState!.validate()) {
-                        Navigator.pushNamed(
-                            context, screens.CodeLoginDriverScreen);
+                     Navigator.pushNamedAndRemoveUntil(context, HomeDriveScreen, (route) => false);
                       }
                     },
                     Boxcolor: ycolor,

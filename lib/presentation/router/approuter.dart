@@ -12,6 +12,7 @@ import '../../core/chang_page/controle_page.dart' as screens;
 import '../screens/admin/admin_login_screen.dart';
 import '../screens/code_screen/code_login_user_screen.dart';
 import '../screens/confirmation_screen/confirm_signUp/confirmation_user_screen.dart';
+import '../screens/home_screens/driver/home_drive_screen.dart';
 import '../screens/home_screens/user/home_user_screen.dart';
 import '../screens/home_screens/user/person/screens_single_person/history_user_screen/history_user.dart';
 import '../screens/home_screens/user/person/screens_single_person/notice_screens/notic_screen.dart';
@@ -87,6 +88,8 @@ class AppRouter{
         return MaterialPageRoute(builder: (_)=>const CallContentUser());
       case screens.CallContentUserCancel:
         return MaterialPageRoute(builder: (_)=>const CallContentUserCancel());
+      case screens.HomeDriveScreen:
+        return MaterialPageRoute(builder: (_)=>const HomeDriveScreen());
 
 
       default:
