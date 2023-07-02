@@ -26,8 +26,11 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
     const String assetName = 'images/icons.svg';
     return Scaffold(
+      key:scaffoldKey ,
       body: Container(
         color: backgroundcolor,
           child: Center(child:SvgPicture.asset(

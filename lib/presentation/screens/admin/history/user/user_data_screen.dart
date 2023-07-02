@@ -16,9 +16,11 @@ class _UserDataScreenState extends State<UserDataScreen> {
    TextEditingController numberUser=TextEditingController() ;
    TextEditingController todayPrice=TextEditingController() ;
    TextEditingController monthPrice =TextEditingController();
+   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
         backgroundColor: backgroundcolor,
         appBar: AppBar(
           leading: IconButton(

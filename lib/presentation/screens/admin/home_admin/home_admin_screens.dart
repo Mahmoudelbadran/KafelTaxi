@@ -13,9 +13,11 @@ class HomeAdminScreen extends StatefulWidget {
 }
 
 class _HomeAdminScreenState extends State<HomeAdminScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key:_scaffoldKey ,
       backgroundColor: backgroundcolor,
       appBar: AppBar(
         backgroundColor: ycolor,

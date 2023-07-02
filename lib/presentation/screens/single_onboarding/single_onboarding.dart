@@ -10,7 +10,9 @@ class SingleOnBoarding extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
+      key:scaffoldKey ,
       backgroundColor: backgroundcolor,
       appBar: AppBar(
         leading: IconButton(

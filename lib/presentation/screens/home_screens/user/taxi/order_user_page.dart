@@ -12,9 +12,11 @@ class OrderUserPage extends StatefulWidget {
 }
 
 class _OrderUserPageState extends State<OrderUserPage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
+      key:_scaffoldKey ,
       appBar: AppBar(
         backgroundColor: backgroundcolor,
         elevation: 0,

@@ -19,6 +19,7 @@ class HomeDriverPage extends StatefulWidget {
 }
 
 class _HomeDriverPageState extends State<HomeDriverPage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   late final cubit = HomeUserLogic.get(context);
   late final drive = HomeDriveLogic.get(context);
   @override
@@ -43,6 +44,7 @@ bool isCall=false;
                 return BlocBuilder<HomeDriveLogic, HomeDriveState>(
                   builder: (context, state) {
                     return Scaffold(
+                      key: _scaffoldKey,
                       backgroundColor: backgroundcolor,
                       appBar: AppBar(
                         backgroundColor: backgroundcolor,

@@ -12,9 +12,11 @@ class PersonUserPage extends StatefulWidget {
 }
 
 class _PersonUserPageState extends State<PersonUserPage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
           backgroundColor: backgroundcolor,
           elevation: 0,

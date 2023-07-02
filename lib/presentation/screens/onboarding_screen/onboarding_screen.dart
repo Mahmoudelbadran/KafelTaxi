@@ -21,6 +21,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
      ModelData(image: "images/pagethre.svg",title: "تتبع رحلتك",body: "تعرف علي سائقك مقدما وكن قادرا علي عرض الموقع الحالي في الوقت الفعلي علي الخريطه"),
 
    ];
+   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
    int currentPageIndex = 0;
    final PageController _pageController=PageController();
    @override
@@ -31,6 +32,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key:_scaffoldKey ,
       appBar: AppBar(
 
         backgroundColor: backgroundcolor,

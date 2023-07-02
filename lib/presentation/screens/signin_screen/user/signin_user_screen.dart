@@ -21,6 +21,7 @@ class _SignInUserScreenState extends State<SignInUserScreen> {
   TextEditingController numberPhone = TextEditingController();
   TextEditingController password = TextEditingController();
   late final cubit = LoginAndRegisterLogic.get(context);
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   void dispose() {
     numberPhone.dispose();
@@ -30,6 +31,7 @@ class _SignInUserScreenState extends State<SignInUserScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: backgroundcolor,
       appBar: AppBar(
         backgroundColor: backgroundcolor,

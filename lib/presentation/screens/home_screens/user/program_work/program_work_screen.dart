@@ -10,8 +10,10 @@ class ProgramWorkScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     final cubit = HomeUserLogic.get(context);
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         backgroundColor: backgroundcolor,
         elevation: 0,
