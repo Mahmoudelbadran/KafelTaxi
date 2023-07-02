@@ -10,6 +10,10 @@ import 'package:taxizer/presentation/screens/signin_screen/user/signin_user_scre
 import 'package:taxizer/presentation/screens/single_onboarding/single_onboarding.dart';
 import '../../core/chang_page/controle_page.dart' as screens;
 import '../screens/admin/admin_login_screen.dart';
+import '../screens/admin/history/driver/drive_data_screen.dart';
+import '../screens/admin/history/user/user_data_screen.dart';
+import '../screens/admin/history/user/user_history/user_history.dart';
+import '../screens/admin/home_admin/home_admin_screens.dart';
 import '../screens/code_screen/code_login_user_screen.dart';
 import '../screens/confirmation_screen/confirm_signUp/confirmation_user_screen.dart';
 import '../screens/home_screens/driver/home_drive_screen.dart';
@@ -90,6 +94,16 @@ class AppRouter{
         return MaterialPageRoute(builder: (_)=>const CallContentUserCancel());
       case screens.HomeDriveScreen:
         return MaterialPageRoute(builder: (_)=>const HomeDriveScreen());
+      case screens.HomeAdminScreen:
+        return MaterialPageRoute(builder: (_)=>const HomeAdminScreen());
+      case screens.UserDataScreen:
+        return MaterialPageRoute(builder: (_)=>const UserDataScreen());
+      case screens.DriveDataScreens:
+        return MaterialPageRoute(builder: (_)=>const DriveDataScreens());
+      case screens.UserHistory:
+        return MaterialPageRoute(builder: (_)=>const UserHistory());
+
+
 
 
       default:

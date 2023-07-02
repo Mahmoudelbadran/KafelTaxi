@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../bussinus_logic/login_register_logic/login_and_register_logic.dart';
+import '../../../core/chang_page/controle_page.dart';
 import '../../style/style.dart';
 import '../../widget/button_fc.dart';
 
@@ -135,9 +136,8 @@ class _AdminLoginScreensState extends State<AdminLoginScreens> {
                           validator: (text) {
                             if (text!.isEmpty) {
                               return '!يرجي كتابه الباسورد';
-                            } else {
-                              return "يجب وضع اكثر من 6ارقام هنا";
                             }
+                            return null;
                           },
                           decoration: InputDecoration(
                             prefixIcon: IconButton(
@@ -160,9 +160,9 @@ class _AdminLoginScreensState extends State<AdminLoginScreens> {
                         child: ButtonFc(
                           onpres: () {
                             if (key.currentState!.validate()) {
-
+                        Navigator.pushNamedAndRemoveUntil(context, HomeAdminScreen, (route) => false);
                             }
-                            //go to homeadmin
+
                           },
                           Boxcolor: ycolor,
                           elevation: 0,

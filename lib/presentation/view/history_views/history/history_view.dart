@@ -18,7 +18,7 @@ class History extends StatelessWidget {
           child: ListView.separated(
               itemBuilder: (context, index) => const ItemHistoryUser(order: 'تمت العمليه',),
               separatorBuilder: (context, index) => const Divider(),
-              itemCount: 10,
+              itemCount: 15,
           ),
         ),
       ],

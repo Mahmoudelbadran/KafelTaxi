@@ -27,4 +27,8 @@ const ProgramWorkScreen="/ProgramWorkScreen";
 const CallContentUser="/CallContentUser";
 const CallContentUserCancel="/CallContentUserCancel";
 const HomeDriveScreen="/HomeDriveScreen";
+const HomeAdminScreen="/HomeAdminScreen";
+const UserDataScreen="/UserDataScreen";
+const DriveDataScreens="/DriveDataScreens";
+const UserHistory="/UserHistory";
 

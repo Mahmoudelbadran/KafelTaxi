@@ -166,16 +166,18 @@ class HomeUserLogic extends Cubit<HomeUserState> {
       'name': 'Jane',
       'images': 'images/car.png'
     },
-  ];
-
-  final List<Map<String, dynamic>> users = const [
     {
-      'position': LatLng(30.0444, 31.2357),
-      'name': 'Mahmoud',
-      'images': 'images/usericons.png'
+      'position': LatLng(31.7914, 30.2555),
+      'name': 'ahmed',
+      'images': 'images/car.png'
     },
-
+    {
+      'position': LatLng(30.9914, 31.9992),
+      'name': 'ahmm',
+      'images': 'images/car.png'
+    },
   ];
+
 
   final List<Marker> markers = [];
 
@@ -224,21 +226,7 @@ class HomeUserLogic extends Cubit<HomeUserState> {
       markers.add(marker);
     }
 
-    for (int i = 0; i < users.length; i++) {
-      final Uint8List markerIcon = await getBytesFromAsset(
-        path: users[i]['images'],
-        width: 100,
-      );
 
-      final Marker marker = Marker(
-        markerId: MarkerId('user$i'),
-        position: users[i]['position'],
-        icon: BitmapDescriptor.fromBytes(markerIcon),
-      );
-
-      markers.add(marker);
-      emit(LoadDataState());
-    }
   }
   Set<Polyline> polyline = <Polyline>{};
   int polylineIdCounter = 1;
