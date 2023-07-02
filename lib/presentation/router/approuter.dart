@@ -35,6 +35,7 @@ import '../screens/splash_screen/splash_screen.dart';
 class AppRouter{
 
   late Widget startpage;
+
   Route?onGenerateRoute(RouteSettings settings){
     startpage=const SplashScreen();
     switch(settings.name){

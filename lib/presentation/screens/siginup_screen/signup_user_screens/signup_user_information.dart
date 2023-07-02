@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
+import 'package:taxizer/data/Remote/drive/sign_up_api/sign_up.dart';
 import '../../../../core/chang_page/controle_page.dart'as screens;
 import '../../../style/style.dart';
 import '../../../widget/button_fc.dart';
@@ -16,9 +18,17 @@ class _SignInUserInformationState extends State<SignInUserInformation> {
   GlobalKey<FormState> key = GlobalKey();
   TextEditingController firstName = TextEditingController();
   TextEditingController lastName = TextEditingController();
-  TextEditingController number = TextEditingController();
+  late final userdata=SignUpUserApi.get(context);
+  
+  @override
+  void initState() {
+
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<SignUpUserApi, SignUpUserState>(
+  builder: (context, state) {
     return Scaffold(
       appBar: AppBar(backgroundColor: backgroundcolor,elevation: 0,),
       body: SafeArea(
@@ -86,7 +96,7 @@ class _SignInUserInformationState extends State<SignInUserInformation> {
                         borderRadius: BorderRadius.circular(10.sp)
                     ),
                     child: TextFormField(
-      controller: firstName,
+                    controller: firstName,
                       keyboardType: TextInputType.text,
                       textDirection: TextDirection.rtl,
                       decoration:    InputDecoration(
@@ -131,27 +141,14 @@ class _SignInUserInformationState extends State<SignInUserInformation> {
                         boxShadow: const [BoxShadow(color:wcolor)],
                         borderRadius: BorderRadius.circular(10.sp)
                     ),
-                    child: TextFormField(
-                      controller: number,
-                      keyboardType: TextInputType.number,
-                      textDirection: TextDirection.rtl,
-                      decoration:    InputDecoration(
-                        contentPadding: EdgeInsets.all(10.sp),
-                        border: InputBorder.none,
-                        hintTextDirection: TextDirection.rtl,
-                        hintStyle: TextStyle(fontSize: 13.sp),
-                        hintText: '  رقم الهاتف',
-
-                      ),
-
-                    ),
-
                   ),
                   Padding(
                     padding:  EdgeInsets.only(top:2.h,bottom: 2.h),
                     child: ButtonFc(onpres:(){
                       if(key.currentState!.validate()) {
-                          Navigator.pushNamed(context, screens.SignInUserDone);
+                        userdata.nameFirst=firstName.text;
+                        userdata.nameLast=lastName.text;
+                        Navigator.pushNamed(context, screens.SignInUserDone);
                         }
                       },
                       Boxcolor: ycolor,
@@ -168,5 +165,13 @@ class _SignInUserInformationState extends State<SignInUserInformation> {
         ),
       ),
     );
+  },
+);
+  }
+  @override
+  void dispose() {
+    firstName.dispose();
+    lastName.dispose();
+    super.dispose();
   }
 }
