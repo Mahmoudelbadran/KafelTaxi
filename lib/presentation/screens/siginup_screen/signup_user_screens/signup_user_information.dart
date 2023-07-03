@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
-import 'package:taxizer/data/Remote/drive/sign_up_api/sign_up.dart';
+import 'package:taxizer/data/Remote/user/sign_up_api/sign_up.dart';
 import '../../../../core/chang_page/controle_page.dart'as screens;
 import '../../../style/style.dart';
 import '../../../widget/button_fc.dart';
@@ -146,8 +146,8 @@ class _SignInUserInformationState extends State<SignInUserInformation> {
                     padding:  EdgeInsets.only(top:2.h,bottom: 2.h),
                     child: ButtonFc(onpres:(){
                       if(key.currentState!.validate()) {
-                        userdata.nameFirst=firstName.text;
-                        userdata.nameLast=lastName.text;
+                        userdata.first=firstName.text;
+                        userdata.last=lastName.text;
                         Navigator.pushNamed(context, screens.SignInUserDone);
                         }
                       },

@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
-import 'package:taxizer/data/Remote/drive/sign_up_api/sign_up.dart';
+import 'package:taxizer/data/Remote/user/sign_up_api/sign_up.dart';
 
 import '../../../../bussinus_logic/login_register_logic/login_and_register_logic.dart';
+import '../../../../core/chang_page/controle_page.dart';
 import '../../../style/style.dart';
 import '../../../widget/button_fc.dart';
 
@@ -186,24 +187,44 @@ class _SignInUserDoneState extends State<SignInUserDone> {
                           ),
                           Padding(
                             padding: EdgeInsets.only(top: 2.h, bottom: 2.h),
-                            child: ButtonFc(
-                              onpres: () {
-                                if (key.currentState!.validate()) {
-                             userdata.postData(emailR: email.text, password: password.text, passwordConfirmation: passwordConfirm.text, adress: dressName.text);
-                             print("email:${email.text},firstname:${userdata.nameFirst},lastName:${userdata.nameLast},number:${userdata.phone}");
-
-                                }
+                            child: BlocBuilder<SignUpUserApi, SignUpUserState>(
+                              builder: (context, state) {
+                                return ButtonFc(
+                                  onpres: () {
+                                    if (key.currentState!.validate()) {
+                                     if(password.text==passwordConfirm.text){
+                                       userdata.postData(
+                                           emailR: email.text,
+                                           password: password.text,
+                                           passwordConfirmation:
+                                           passwordConfirm.text,
+                                           adress: dressName.text,
+                                           nameFirst: userdata.first,
+                                           nameLast: userdata.last,
+                                           phone: userdata.numPhone);
+                                       if(state is SucessSignUpUser){
+                                         Navigator.pushNamedAndRemoveUntil(context, HomeUserScreen, (route) => false);
+                                       }else if(state is ErrorSignUpUser){
+                                         print(state);
+                                       }
+                                     }else{
+                                       print("الباسورد فيه خطا ");
+                                     }
+                                    }
+                                  },
+                                  Boxcolor: ycolor,
+                                  elevation: 0,
+                                  padding: EdgeInsets.only(
+                                      left: 40.w, right: 40.w),
+                                  child: Text(
+                                    "متابعة",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                );
                               },
-                              Boxcolor: ycolor,
-                              elevation: 0,
-                              padding: EdgeInsets.only(left: 40.w, right: 40.w),
-                              child: Text(
-                                "متابعة",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w500),
-                              ),
                             ),
                           ),
                         ],

@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
 import 'package:taxizer/core/chang_page/controle_page.dart' as screens;
-import 'package:taxizer/data/Remote/drive/sign_up_api/sign_up.dart';
+import 'package:taxizer/data/Remote/user/sign_up_api/sign_up.dart';
 import 'package:taxizer/presentation/style/style.dart';
 import '../../../widget/button_fc.dart';
 
@@ -144,7 +144,7 @@ class _SignUpUserScreensState extends State<SignUpUserScreens> {
                   padding:  EdgeInsets.only(top:2.h,bottom: 2.h),
                   child: ButtonFc(onpres:(){
                     if(key.currentState!.validate()) {
-                      userdata.phone=numberPhone.text;
+                      userdata.numPhone=numberPhone.text;
                       Navigator.pushNamed(context, screens.SignInUserInformation);
                       }
                     },

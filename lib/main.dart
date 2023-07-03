@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
-import 'package:taxizer/data/Remote/drive/sign_up_api/sign_up.dart';
 import 'package:taxizer/presentation/router/approuter.dart';
 import 'bussinus_logic/driver_logic/home_driver_logic.dart';
 import 'bussinus_logic/login_register_logic/login_and_register_logic.dart';
 import 'bussinus_logic/user_logic/home_user_logic.dart';
 import 'bussinus_logic/user_logic/system_logic.dart';
+import 'data/Remote/user/sign_up_api/sign_up.dart';
 
 
 void main() async {
@@ -28,25 +28,25 @@ class MyApp extends StatelessWidget {
         deviceType) {
       return MultiBlocProvider(
         providers: [
-          BlocProvider<LoginAndRegisterLogic>(
+          BlocProvider(
             create: (context) => LoginAndRegisterLogic(),
             lazy: true,
           ),
-          BlocProvider<HomeUserLogic>(
+          BlocProvider(
             create: (context) => HomeUserLogic(),
             lazy: true,
           ),
-          BlocProvider<SystemLogic>(
+          BlocProvider(
             create: (context) => SystemLogic(),
             lazy: true,
           ),
-          BlocProvider<HomeDriveLogic>(
+          BlocProvider(
             create: (context) => HomeDriveLogic(),
             lazy: true,
           ),
-          BlocProvider<SignUpUserApi>(
+          BlocProvider(
             create: (context) => SignUpUserApi(),
-            lazy: false,
+            lazy: true,
           ),
         ],
         child: MaterialApp(
