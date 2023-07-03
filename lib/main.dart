@@ -8,17 +8,13 @@ import 'bussinus_logic/driver_logic/home_driver_logic.dart';
 import 'bussinus_logic/login_register_logic/login_and_register_logic.dart';
 import 'bussinus_logic/user_logic/home_user_logic.dart';
 import 'bussinus_logic/user_logic/system_logic.dart';
-import 'package:device_preview/device_preview.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp]);
-  runApp(
-    DevicePreview(
-      builder: (context) => MyApp(),
-    ),
-  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

@@ -190,6 +190,7 @@ class _SignInUserDoneState extends State<SignInUserDone> {
                               onpres: () {
                                 if (key.currentState!.validate()) {
                              userdata.postData(emailR: email.text, password: password.text, passwordConfirmation: passwordConfirm.text, adress: dressName.text);
+                             print("email:${email.text},firstname:${userdata.nameFirst},lastName:${userdata.nameLast},number:${userdata.phone}");
 
                                 }
                               },
