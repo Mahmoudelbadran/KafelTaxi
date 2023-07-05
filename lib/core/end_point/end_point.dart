@@ -1,2 +1,1 @@
-const placeId="/place/findplacefromtext/json";
-const place="/place/details/json";
+const directions="/directions/json";

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sizer/sizer.dart';
 import 'package:taxizer/data/Remote/user/sign_up_api/sign_up.dart';
 
@@ -205,10 +206,26 @@ class _SignInUserDoneState extends State<SignInUserDone> {
                                        if(state is SucessSignUpUser){
                                          Navigator.pushNamedAndRemoveUntil(context, HomeUserScreen, (route) => false);
                                        }else if(state is ErrorSignUpUser){
-                                         print(state);
+                                         Fluttertoast.showToast(
+                                             msg: "خطا في معلومات التسجيل",
+                                             toastLength: Toast.LENGTH_SHORT,
+                                             gravity: ToastGravity.BOTTOM,
+                                             timeInSecForIosWeb: 1,
+                                             backgroundColor: Colors.red,
+                                             textColor: Colors.white,
+                                             fontSize: 16.0
+                                         );
                                        }
                                      }else{
-                                       print("الباسورد فيه خطا ");
+                                       Fluttertoast.showToast(
+                                           msg: "الباسورد غير مطابق",
+                                           toastLength: Toast.LENGTH_SHORT,
+                                           gravity: ToastGravity.BOTTOM,
+                                           timeInSecForIosWeb: 1,
+                                           backgroundColor: Colors.red,
+                                           textColor: Colors.white,
+                                           fontSize: 16.0
+                                       );
                                      }
                                     }
                                   },

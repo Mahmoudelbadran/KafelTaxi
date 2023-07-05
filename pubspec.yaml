@@ -29,9 +29,9 @@ dependencies:
   animated_bottom_navigation_bar: ^1.2.0
   permission_handler: ^8.0.0+2
   googleapis: ^11.2.0
-  http: ^0.13.6
   flutter_polyline_points: ^1.0.0
-
+  fluttertoast: ^8.2.2
+  http: ^0.13.6
 
 
 
