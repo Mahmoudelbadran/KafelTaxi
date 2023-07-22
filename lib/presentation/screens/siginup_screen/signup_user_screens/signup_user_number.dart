@@ -1,10 +1,10 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
 import 'package:taxizer/core/chang_page/controle_page.dart' as screens;
-import 'package:taxizer/data/Remote/user/sign_up_api/sign_up.dart';
+
 import 'package:taxizer/presentation/style/style.dart';
 import '../../../widget/button_fc.dart';
 
@@ -19,7 +19,7 @@ class SignUpUserScreens extends StatefulWidget {
 class _SignUpUserScreensState extends State<SignUpUserScreens> {
   GlobalKey<FormState> key = GlobalKey();
   TextEditingController numberPhone = TextEditingController();
-  late final userdata=SignUpUserApi.get(context);
+
   @override
   void initState() {
 
@@ -28,8 +28,6 @@ class _SignUpUserScreensState extends State<SignUpUserScreens> {
   @override
   Widget build(BuildContext context) {
 
-    return BlocBuilder<SignUpUserApi, SignUpUserState>(
-  builder: (context, state) {
     return Scaffold(
       backgroundColor: backgroundcolor,
       appBar: AppBar(
@@ -144,10 +142,9 @@ class _SignUpUserScreensState extends State<SignUpUserScreens> {
                   padding:  EdgeInsets.only(top:2.h,bottom: 2.h),
                   child: ButtonFc(onpres:(){
                     if(key.currentState!.validate()) {
-                      userdata.numPhone=numberPhone.text;
                       Navigator.pushNamed(context, screens.SignInUserInformation);
-                      }
-                    },
+                    }
+                  },
                     Boxcolor: ycolor,
                     elevation: 0,
                     padding: EdgeInsets.only(left: 40.w,right: 40.w),
@@ -228,7 +225,5 @@ class _SignUpUserScreensState extends State<SignUpUserScreens> {
         ),
       ),
     );
-  },
-);
   }
 }

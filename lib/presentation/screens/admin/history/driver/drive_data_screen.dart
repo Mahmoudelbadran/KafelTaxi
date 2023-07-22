@@ -1,3 +1,4 @@
+import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -42,6 +43,17 @@ class _DriveDataScreensState extends State<DriveDataScreens> {
           ),
           elevation: 0,
         ),
+        floatingActionButton: AnimSearchBar(
+          color: ycolor,
+          width: 400,
+          textController: nameUser,
+          onSuffixTap: () {
+            setState(() {
+              nameUser.clear();
+            });
+          }, onSubmitted: (val) {  },
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
         body: ListView.separated(
             itemBuilder: (context, index) => DriveDataView(
                   numberUser: numberUser,

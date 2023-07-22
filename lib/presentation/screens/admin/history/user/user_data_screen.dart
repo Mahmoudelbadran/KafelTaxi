@@ -1,3 +1,4 @@
+import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:taxizer/presentation/style/style.dart';
@@ -17,6 +18,7 @@ class _UserDataScreenState extends State<UserDataScreen> {
    TextEditingController todayPrice=TextEditingController() ;
    TextEditingController monthPrice =TextEditingController();
    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,6 +40,17 @@ class _UserDataScreenState extends State<UserDataScreen> {
           title: Text("قائمه المستخدمين",style: TextStyle(fontSize: 20.sp,color: ycolor,fontWeight: FontWeight.w800),),
           elevation: 0,
         ),
+        floatingActionButton: AnimSearchBar(
+          color: ycolor,
+          width: 400,
+          textController: nameUser,
+          onSuffixTap: () {
+            setState(() {
+              nameUser.clear();
+            });
+          }, onSubmitted: (String ) {  },
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
         body: ListView.separated(
             itemBuilder: (context, index) =>  UserDataView(nameUser: nameUser,numberUser: numberUser,monthPrice: monthPrice,todayPrice: todayPrice,),
             separatorBuilder: (context, index) => const Divider(),

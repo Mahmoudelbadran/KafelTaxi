@@ -31,7 +31,11 @@ dependencies:
   googleapis: ^11.2.0
   flutter_polyline_points: ^1.0.0
   fluttertoast: ^8.2.2
+  anim_search_bar: ^2.0.3
   http: ^0.13.6
+  cloud_firestore: ^4.8.3
+  firebase_messaging: ^14.6.5
+  firebase_core: ^2.13.1
 
 
 

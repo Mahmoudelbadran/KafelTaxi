@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:taxizer/data/Remote/request/driver/login/login_driver_request.dart';
+import 'package:taxizer/data/Remote/response/driver/login_response/login_driver_response.dart';
 part 'login_register_state.dart';
 class LoginAndRegisterLogic extends Cubit<LoginAndRegisterState> {
   LoginAndRegisterLogic() : super(AppIntialStates());
@@ -17,6 +19,22 @@ class LoginAndRegisterLogic extends Cubit<LoginAndRegisterState> {
   isHidden=!isHidden;
     emit(ShowPasswordDriverState());
 
+  }
+ LoginDriverResponse loginDriverResponse=LoginDriverResponse();
+  void loginDriver({required String phone,required String password
+    ,required String deviceToken
+  }) {
+    emit(LoadingDriverApiAppState());
+
+    LoginDriverRequest().loginDriverRequest(phone: phone, password: password, deviceToken: deviceToken)
+        .then((value) {
+      loginDriverResponse = value;
+      emit(SuscessDriverApiAppState());
+      print("sucessLogin");
+    }).catchError((error) {
+      print("this error logic:$error");
+      emit(ErorrDriverApiAppState());
+    });
   }
 
 }
