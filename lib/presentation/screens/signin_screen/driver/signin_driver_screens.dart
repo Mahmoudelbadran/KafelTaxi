@@ -33,9 +33,7 @@ class _SignInDriverScreenState extends State<SignInDriverScreen> {
   void initState() {
     _fcm = FirebaseMessaging.instance;
     _fcm.getToken().then((value) {
-      if (kDebugMode) {
         deviceToken = value.toString();
-      }
     });
     cubit = LoginAndRegisterLogic.get(context);
 
@@ -207,11 +205,15 @@ class _SignInDriverScreenState extends State<SignInDriverScreen> {
                                 if (kDebugMode) {
                                   print("${selectedCountryCode.toString() + numberPhone.text},this password:,${password.text},token:$deviceToken");
                                 }
-                                if (state is SuscessDriverApiAppState) {
+                                if (state is LoadingDriverApiAppState) {
+                                  if (kDebugMode) {
+                                    print("loading....");
+                                  }
 
+                                } else if(state is SuscessDriverApiAppState){
                                   Navigator.pushNamedAndRemoveUntil(context,
-                                      HomeDriveScreen, (route) => false);
-                                } else if(state is ErorrDriverApiAppState){
+                                      HomeUserScreen, (route) => false);
+                                }else{
                                   Fluttertoast.showToast(
                                       msg: "خطا في البيانات",
                                       toastLength: Toast.LENGTH_SHORT,

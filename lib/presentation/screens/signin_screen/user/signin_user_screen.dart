@@ -1,12 +1,16 @@
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sizer/sizer.dart';
 import 'package:taxizer/core/chang_page/controle_page.dart' as screens;
 import 'package:taxizer/presentation/style/style.dart';
 
 import '../../../../bussinus_logic/login_register_logic/login_and_register_logic.dart';
+import '../../../../core/chang_page/controle_page.dart';
 import '../../../widget/button_fc.dart';
 
 class SignInUserScreen extends StatefulWidget {
@@ -20,16 +24,24 @@ class _SignInUserScreenState extends State<SignInUserScreen> {
   GlobalKey<FormState> key = GlobalKey();
   TextEditingController numberPhone = TextEditingController();
   TextEditingController password = TextEditingController();
-  late final cubit = LoginAndRegisterLogic.get(context);
+  late LoginAndRegisterLogic cubit ;
+  late FirebaseMessaging _fcm;
+  late String deviceToken;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  @override
-  void dispose() {
-    numberPhone.dispose();
-    password.dispose();
-    super.dispose();
+  CountryCode selectedCountryCode = CountryCode.fromCountryCode('AE');
+ @override
+  void initState() {
+   _fcm = FirebaseMessaging.instance;
+   _fcm.getToken().then((value) {
+     deviceToken = value.toString();
+   });
+   cubit = LoginAndRegisterLogic.get(context);
+    super.initState();
   }
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<LoginAndRegisterLogic, LoginAndRegisterState>(
+  builder: (context, state) {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: backgroundcolor,
@@ -128,10 +140,14 @@ class _SignInUserScreenState extends State<SignInUserScreen> {
                       border: InputBorder.none,
                       hintTextDirection: TextDirection.rtl,
                       hintText: 'ادخل رقم هاتفك',
-                      suffixIcon: const CountryCodePicker(
-                        onChanged: print,
+                      suffixIcon:  CountryCodePicker(
+                        onChanged: (CountryCode? code) {
+                          setState(() {
+                            selectedCountryCode = code!;
+                          });
+                        },
                         initialSelection: 'AE',
-                        favorite: ['+971', 'AE'],
+                        favorite: const ['+971', 'AE'],
                         showFlag: true, // عرض العلم فقط
                         showCountryOnly: true, // إخفاء النص المرتبط بالعلم
 
@@ -178,11 +194,34 @@ class _SignInUserScreenState extends State<SignInUserScreen> {
                   padding: EdgeInsets.only(top: 2.h),
                   child: ButtonFc(
                     onpres: () {
-                      if(key.currentState!.validate()) {
-                            Navigator.pushNamed(
-                                context, screens.CodeLoginUserScreen);
-                          }
-                        },
+                      if (key.currentState!.validate()) {
+                        cubit.loginUser(
+                            phone: selectedCountryCode.toString() + numberPhone.text,
+                            password: password.text,
+                            deviceToken: deviceToken);
+                        if (kDebugMode) {
+                          print("${selectedCountryCode.toString() + numberPhone.text},this password:,${password.text},token:$deviceToken");
+                        }
+                        if (state is LoadingUserApiAppState) {
+                        if (kDebugMode) {
+                          print("loading....");
+                        }
+
+                        } else if(state is SuscessUserApiAppState){
+                          Navigator.pushNamedAndRemoveUntil(context,
+                              HomeUserScreen, (route) => false);
+                        }else if(state is ErorrUserApiAppState){
+                          Fluttertoast.showToast(
+                              msg: "خطا في البيانات",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 15.sp);
+                        }
+                      }
+                    },
                     Boxcolor: ycolor,
                     elevation: 0,
                     padding: EdgeInsets.only(left: 40.w, right: 40.w),
@@ -293,5 +332,13 @@ class _SignInUserScreenState extends State<SignInUserScreen> {
   },
 ),
     );
+  },
+);
+  }
+  @override
+  void dispose() {
+    numberPhone.dispose();
+    password.dispose();
+    super.dispose();
   }
 }

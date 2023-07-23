@@ -7,5 +7,8 @@ class ShowPasswordDriverState extends LoginAndRegisterState{}
 class LoadingDriverApiAppState extends LoginAndRegisterState{}
 class SuscessDriverApiAppState extends LoginAndRegisterState{}
 class ErorrDriverApiAppState extends LoginAndRegisterState{}
+class LoadingUserApiAppState extends LoginAndRegisterState{}
+class SuscessUserApiAppState extends LoginAndRegisterState{}
+class ErorrUserApiAppState extends LoginAndRegisterState{}
 
 

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -174,12 +175,16 @@ class _AdminLoginScreensState extends State<AdminLoginScreens> {
                                       userAdmin.login(
                                           username: username.text,
                                           password: password.text);
-                                      if (state is SuscessApiAppState) {
+                                      if (state is LoadingApiAppState) {
+                                       if (kDebugMode) {
+                                         print("loading...");
+                                       }
+                                      } else if(state is SuscessApiAppState) {
                                         Navigator.pushNamedAndRemoveUntil(
                                             context,
                                             HomeAdminScreen,
-                                            (route) => false);
-                                      } else {
+                                                (route) => false);
+                                      }else{
                                         Fluttertoast.showToast(
                                             msg: "خطا في البيانات",
                                             toastLength: Toast.LENGTH_SHORT,
