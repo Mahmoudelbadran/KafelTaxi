@@ -4,8 +4,8 @@ String loginUserResponseToJson(LoginUserResponse data) => json.encode(data.toJso
 class LoginUserResponse {
   LoginUserResponse({
       String? message, 
-      String? token, 
-      Data? data,}){
+      String? token,
+    UserData? data,}){
     _message = message;
     _token = token;
     _data = data;
@@ -14,15 +14,15 @@ class LoginUserResponse {
   LoginUserResponse.fromJson(dynamic json) {
     _message = json['message'];
     _token = json['token'];
-    _data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    _data = json['data'] != null ? UserData.fromJson(json['data']) : null;
   }
   String? _message;
   String? _token;
-  Data? _data;
+  UserData? _data;
 
-  String? get message => _message;
-  String? get token => _token;
-  Data? get data => _data;
+  String get message => _message??'';
+  String get token => _token??'';
+  UserData? get data => _data;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -36,10 +36,10 @@ class LoginUserResponse {
 
 }
 
-Data dataFromJson(String str) => Data.fromJson(json.decode(str));
-String dataToJson(Data data) => json.encode(data.toJson());
-class Data {
-  Data({
+UserData dataFromJson(String str) => UserData.fromJson(json.decode(str));
+String dataToJson(UserData data) => json.encode(data.toJson());
+class UserData {
+  UserData({
       Location? location, 
       String? id, 
       String? userName, 
@@ -70,7 +70,7 @@ class Data {
     _deviceToken = deviceToken;
 }
 
-  Data.fromJson(dynamic json) {
+  UserData.fromJson(dynamic json) {
     _location = json['location'] != null ? Location.fromJson(json['location']) : null;
     _id = json['_id'];
     _userName = json['userName'];
@@ -106,18 +106,18 @@ class Data {
   num? _v;
   String? _deviceToken;
 
-  Location? get location => _location;
-  String? get id => _id;
-  String? get userName => _userName;
-  String? get email => _email;
-  String? get password => _password;
-  String? get phone => _phone;
-  String? get addresses => _addresses;
+  Location get location => _location??Location();
+  String get id => _id??"";
+  String get userName => _userName??"";
+  String get email => _email??"";
+  String get password => _password??"";
+  String get phone => _phone??"";
+  String get addresses => _addresses??"";
   bool? get active => _active;
   String? get role => _role;
   List<dynamic>? get history => _history;
-  String? get createdAt => _createdAt;
-  String? get updatedAt => _updatedAt;
+  String get createdAt => _createdAt??"";
+  String get updatedAt => _updatedAt??"";
   num? get v => _v;
   String? get deviceToken => _deviceToken;
 
@@ -164,7 +164,7 @@ class Location {
   }
   List<dynamic>? _coordinates;
 
-  List<dynamic>? get coordinates => _coordinates;
+  List<dynamic> get coordinates => _coordinates??[];
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

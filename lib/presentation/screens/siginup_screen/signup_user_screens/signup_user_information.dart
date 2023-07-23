@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
+import 'package:taxizer/bussinus_logic/login_register_logic/login_and_register_logic.dart';
 import '../../../../core/chang_page/controle_page.dart'as screens;
 import '../../../style/style.dart';
 import '../../../widget/button_fc.dart';
@@ -16,11 +17,11 @@ class _SignInUserInformationState extends State<SignInUserInformation> {
   GlobalKey<FormState> key = GlobalKey();
   TextEditingController firstName = TextEditingController();
   TextEditingController lastName = TextEditingController();
-
+ late LoginAndRegisterLogic cubit;
   
   @override
   void initState() {
-
+cubit=LoginAndRegisterLogic.get(context);
     super.initState();
   }
   @override
@@ -142,7 +143,8 @@ class _SignInUserInformationState extends State<SignInUserInformation> {
                     padding:  EdgeInsets.only(top:2.h,bottom: 2.h),
                     child: ButtonFc(onpres:(){
                       if(key.currentState!.validate()) {
-
+                     cubit.firstName=firstName.text;
+                     cubit.lastName=lastName.text;
                         Navigator.pushNamed(context, screens.SignInUserDone);
                       }
                     },

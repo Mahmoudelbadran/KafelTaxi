@@ -1,63 +1,55 @@
 import 'dart:convert';
-LoginDriverResponse loginDriverResponseFromJson(String str) => LoginDriverResponse.fromJson(json.decode(str));
-String loginDriverResponseToJson(LoginDriverResponse data) => json.encode(data.toJson());
-class LoginDriverResponse {
-  LoginDriverResponse({
+SignupDriverResponse signupDriverResponseFromJson(String str) => SignupDriverResponse.fromJson(json.decode(str));
+String signupDriverResponseToJson(SignupDriverResponse data) => json.encode(data.toJson());
+class SignupDriverResponse {
+  SignupDriverResponse({
       String? message, 
-      String? token, 
-      Data? data,}){
+      Driver? driver,}){
     _message = message;
-    _token = token;
-    _data = data;
+    _driver = driver;
 }
 
-  LoginDriverResponse.fromJson(dynamic json) {
+  SignupDriverResponse.fromJson(dynamic json) {
     _message = json['message'];
-    _token = json['token'];
-    _data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    _driver = json['driver'] != null ? Driver.fromJson(json['driver']) : null;
   }
   String? _message;
-  String? _token;
-  Data? _data;
+  Driver? _driver;
 
   String get message => _message??'';
-  String get token => _token??'';
-  Data get data => _data??data;
+  Driver? get driver => _driver;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['message'] = _message;
-    map['token'] = _token;
-    if (_data != null) {
-      map['data'] = _data?.toJson();
+    if (_driver != null) {
+      map['driver'] = _driver?.toJson();
     }
     return map;
   }
 
 }
 
-Data dataFromJson(String str) => Data.fromJson(json.decode(str));
-String dataToJson(Data data) => json.encode(data.toJson());
-class Data {
-  Data({
-      Location? location, 
-      String? id, 
+Driver driverFromJson(String str) => Driver.fromJson(json.decode(str));
+String driverToJson(Driver data) => json.encode(data.toJson());
+class Driver {
+  Driver({
       String? userName, 
       String? email, 
       String? password, 
       String? phone, 
       String? carType, 
       num? carId, 
-      num? listId,
+      num? listId, 
+      String? id, 
+      Location? location, 
+      String? addresses, 
       bool? active, 
       bool? complete, 
-      String? role, 
+      String? role,
       String? createdAt, 
       String? updatedAt, 
-      num? v, 
-      String? deviceToken,}){
-    _location = location;
-    _id = id;
+      num? v,}){
     _userName = userName;
     _email = email;
     _password = password;
@@ -66,18 +58,18 @@ class Data {
     _carId = carId;
     _listId = listId;
     _id = id;
+    _location = location;
+    _addresses = addresses;
     _active = active;
     _complete = complete;
     _role = role;
+    _id = id;
     _createdAt = createdAt;
     _updatedAt = updatedAt;
     _v = v;
-    _deviceToken = deviceToken;
 }
 
-  Data.fromJson(dynamic json) {
-    _location = json['location'] != null ? Location.fromJson(json['location']) : null;
-    _id = json['_id'];
+  Driver.fromJson(dynamic json) {
     _userName = json['userName'];
     _email = json['email'];
     _password = json['password'];
@@ -86,16 +78,16 @@ class Data {
     _carId = json['carId'];
     _listId = json['listId'];
     _id = json['id'];
+    _location = json['location'] != null ? Location.fromJson(json['location']) : null;
+    _addresses = json['addresses'];
     _active = json['active'];
     _complete = json['complete'];
     _role = json['role'];
+    _id = json['_id'];
     _createdAt = json['createdAt'];
     _updatedAt = json['updatedAt'];
     _v = json['__v'];
-    _deviceToken = json['deviceToken'];
   }
-  Location? _location;
-  String? _id;
   String? _userName;
   String? _email;
   String? _password;
@@ -103,16 +95,16 @@ class Data {
   String? _carType;
   num? _carId;
   num? _listId;
+  String? _id;
+  Location? _location;
+  String? _addresses;
   bool? _active;
   bool? _complete;
   String? _role;
   String? _createdAt;
   String? _updatedAt;
   num? _v;
-  String? _deviceToken;
 
-  Location get location => _location??location;
-  String get id => _id??'';
   String get userName => _userName??'';
   String get email => _email??'';
   String get password => _password??'';
@@ -120,20 +112,18 @@ class Data {
   String get carType => _carType??'';
   num get carId => _carId??0;
   num get listId => _listId??0;
+  String get id => _id??'';
+  Location? get location => _location;
+  String get addresses => _addresses??'';
   bool get active => _active??false;
   bool get complete => _complete??false;
   String get role => _role??'';
   String get createdAt => _createdAt??'';
   String get updatedAt => _updatedAt??'';
   num get v => _v??0;
-  String? get deviceToken => _deviceToken;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    if (_location != null) {
-      map['location'] = _location?.toJson();
-    }
-    map['_id'] = _id;
     map['userName'] = _userName;
     map['email'] = _email;
     map['password'] = _password;
@@ -142,13 +132,17 @@ class Data {
     map['carId'] = _carId;
     map['listId'] = _listId;
     map['id'] = _id;
+    if (_location != null) {
+      map['location'] = _location?.toJson();
+    }
+    map['addresses'] = _addresses;
     map['active'] = _active;
     map['complete'] = _complete;
     map['role'] = _role;
+    map['_id'] = _id;
     map['createdAt'] = _createdAt;
     map['updatedAt'] = _updatedAt;
     map['__v'] = _v;
-    map['deviceToken'] = _deviceToken;
     return map;
   }
 

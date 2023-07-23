@@ -1,7 +1,9 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
+import 'package:taxizer/bussinus_logic/login_register_logic/login_and_register_logic.dart';
 import 'package:taxizer/core/chang_page/controle_page.dart' as screens;
 import 'package:taxizer/presentation/style/style.dart';
 
@@ -17,13 +19,18 @@ class SigInUpDriverScreen extends StatefulWidget {
 class _SigInUpDriverScreenState extends State<SigInUpDriverScreen> {
   GlobalKey<FormState> key = GlobalKey();
   TextEditingController numberPhone = TextEditingController();
+ late LoginAndRegisterLogic cubit;
+ CountryCode selectedCountryCode = CountryCode.fromCountryCode('AE');
+
   @override
-  void dispose() {
-   numberPhone.dispose();
-    super.dispose();
+  void initState() {
+   cubit=LoginAndRegisterLogic.get(context);
+    super.initState();
   }
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<LoginAndRegisterLogic, LoginAndRegisterState>(
+  builder: (context, state) {
     return Scaffold(
       backgroundColor: backgroundcolor,
       appBar: AppBar(
@@ -115,14 +122,18 @@ class _SigInUpDriverScreenState extends State<SigInUpDriverScreen> {
                     controller: numberPhone,
                     keyboardType: TextInputType.number,
                     textDirection: TextDirection.rtl,
-                    decoration:   const InputDecoration(
+                    decoration:    InputDecoration(
                       border: InputBorder.none,
                       hintTextDirection: TextDirection.rtl,
                       hintText: 'ادخل رقم هاتفك',
                       suffixIcon: CountryCodePicker(
-                        onChanged: print,
+                        onChanged: (CountryCode? code) {
+                          setState(() {
+                            selectedCountryCode = code!;
+                          });
+                        },
                         initialSelection: 'AE',
-                        favorite: ['+971','AE'],
+                        favorite: const ['+971','AE'],
                         showFlag: true, // عرض العلم فقط
                         showCountryOnly: true, // إخفاء النص المرتبط بالعلم
 
@@ -138,8 +149,9 @@ class _SigInUpDriverScreenState extends State<SigInUpDriverScreen> {
                   padding:  EdgeInsets.only(top:2.h,bottom: 2.h),
                   child: ButtonFc(onpres:(){
                     if(key.currentState!.validate()) {
+                      cubit.numberDriverPhone="$selectedCountryCode${numberPhone.text}";
                         Navigator.pushNamed(
-                            context, screens.CodeSigInUpDriverScreen);
+                            context, screens.SignUpDriverFirst);
                       }
                     },
                     Boxcolor: ycolor,
@@ -222,5 +234,12 @@ class _SigInUpDriverScreenState extends State<SigInUpDriverScreen> {
         ),
       ),
     );
+  },
+);
+  } 
+  @override
+  void dispose() {
+    numberPhone.dispose();
+    super.dispose();
   }
 }

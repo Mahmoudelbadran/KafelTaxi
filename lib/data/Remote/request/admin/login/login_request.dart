@@ -24,9 +24,7 @@ class LoginRequest {
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode(data),
       );
-      if (kDebugMode) {
-        print(response.body);
-      }
+
       return LoginResponse.fromJson(jsonDecode(response.body));
     } catch (error) {
       if (kDebugMode) {

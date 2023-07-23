@@ -20,8 +20,8 @@ class LoginResponse {
   String? _token;
   Data? _data;
 
-  String? get message => _message;
-  String? get token => _token;
+  String get message => _message??'';
+  String get token => _token??'';
   Data? get data => _data;
 
   Map<String, dynamic> toJson() {
@@ -73,13 +73,13 @@ class Data {
   String? _updatedAt;
   num? _v;
 
-  String? get id => _id;
-  String? get userName => _userName;
-  String? get password => _password;
-  String? get role => _role;
-  String? get createdAt => _createdAt;
-  String? get updatedAt => _updatedAt;
-  num? get v => _v;
+  String get id => _id??'';
+  String get userName => _userName??'';
+  String get password => _password??'';
+  String get role => _role??'';
+  String get createdAt => _createdAt??'';
+  String get updatedAt => _updatedAt??'';
+  num get v => _v??0;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

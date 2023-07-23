@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:taxizer/core/chang_page/controle_page.dart' as screens;
+import '../../../data/Remote/response/user/login_user_response/login_user_response.dart';
 import '../../screens/home_screens/user/person/screens_single_person/share/share_screen.dart';
 import '../../style/style.dart';
 
 class PersonUserView extends StatelessWidget {
-  const PersonUserView({Key? key}) : super(key: key);
+  final UserData userData;
+  const PersonUserView({Key? key, required this.userData,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,14 +42,14 @@ class PersonUserView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    "محمود بدران",
+                    userData.userName,
                     style: TextStyle(
                         fontSize: 17.sp,
                         fontWeight: FontWeight.w600,
                         color: textcolor),
                   ),
                   Text(
-                    "+0201033093103",
+                    userData.phone,
                     style: TextStyle(
                         fontSize: 8.sp,
                         fontWeight: FontWeight.w600,

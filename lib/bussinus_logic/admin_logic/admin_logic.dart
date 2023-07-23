@@ -12,17 +12,15 @@ class AdminLogic extends Cubit<AdminState> {
   static AdminLogic get(context) => BlocProvider.of<AdminLogic>(context);
 
   LoginResponse loginResponse=LoginResponse();
-  void login({required String username,required String password}) {
+  void login({required String username,required String password}) async{
     emit(LoadingApiAppState());
 
-  LoginRequest().loginRequest(username: username, password: password)
+ await LoginRequest().loginRequest(username: username, password: password)
         .then((value) {
       loginResponse = value;
       emit(SuscessApiAppState());
-      print("sucessLogin");
     }).catchError((error) {
       emit(ErorrApiAppState());
-      print(error);
     });
   }
   }

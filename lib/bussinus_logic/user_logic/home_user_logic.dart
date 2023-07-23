@@ -57,7 +57,7 @@ class HomeUserLogic extends Cubit<HomeUserState> {
       final List<Placemark> placeMarks = await placemarkFromCoordinates(
           currentLocation!.latitude, currentLocation!.longitude);
 
-      if (placeMarks != null && placeMarks.isNotEmpty) {
+      if (placeMarks.isNotEmpty) {
         final Placemark placeMark = placeMarks[0];
         address =
             "${placeMark.street},${placeMark.country}";
@@ -89,7 +89,7 @@ class HomeUserLogic extends Cubit<HomeUserState> {
     final double lat = place['lat'];
     final double lng = place['lng'];
     goGetLocationPointOne=LatLng(lat, lng);
-    if (getLocation != null && mapController != null) {
+    if (mapController != null) {
       mapController!
           .animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
         target: goGetLocationPointOne!,
@@ -106,7 +106,7 @@ class HomeUserLogic extends Cubit<HomeUserState> {
     final double lat = place['lat'];
     final double lng = place['lng'];
     goGetLocation=LatLng(lat, lng);
-    if (getLocation != null && mapController != null) {
+    if (mapController != null) {
       mapController!
           .animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
         target: goGetLocation!,

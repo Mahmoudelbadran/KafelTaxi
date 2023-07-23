@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
+import 'package:taxizer/bussinus_logic/login_register_logic/login_and_register_logic.dart';
 import '../../../../core/chang_page/controle_page.dart' as screens;
 import '../../../style/style.dart';
 import '../../../widget/button_fc.dart';
@@ -18,16 +20,16 @@ class _SignUpDriverFirstState extends State<SignUpDriverFirst> {
   TextEditingController numberId = TextEditingController();
   TextEditingController carId = TextEditingController();
   TextEditingController id = TextEditingController();
+  late LoginAndRegisterLogic cubit;
   @override
-  void dispose() {
-    nameDriver.dispose();
-    numberId.dispose();
-    carId.dispose();
-    id.dispose();
-    super.dispose();
+  void initState() {
+   cubit=LoginAndRegisterLogic.get(context);
+    super.initState();
   }
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<LoginAndRegisterLogic, LoginAndRegisterState>(
+  builder: (context, state) {
     return Scaffold(
       appBar: AppBar(backgroundColor: backgroundcolor,elevation: 0,),
       body: SafeArea(
@@ -123,7 +125,7 @@ class _SignUpDriverFirstState extends State<SignUpDriverFirst> {
                         borderRadius: BorderRadius.circular(10.sp)
                     ),
                     child: TextFormField(
-                      controller: numberId,
+                      controller: id,
                       validator: (text){
                         if(text!.isEmpty){
                           return "الرجاء املئ ذلك ";
@@ -181,7 +183,7 @@ class _SignUpDriverFirstState extends State<SignUpDriverFirst> {
                         borderRadius: BorderRadius.circular(10.sp)
                     ),
                     child: TextFormField(
-                      controller: id,
+                      controller: numberId,
                       validator: (text){
                         if(text!.isEmpty){
                           return "الرجاء املئ ذلك ";
@@ -205,6 +207,10 @@ class _SignUpDriverFirstState extends State<SignUpDriverFirst> {
                   Padding(
                     padding:  EdgeInsets.only(top:2.h,bottom: 2.h),
                     child: ButtonFc(onpres:(){
+                      cubit.nameDriver=nameDriver.text;
+                      cubit.carId=carId.text;
+                      cubit.id=id.text;
+                      cubit.numberId=numberId.text;
                       Navigator.pushNamed(
                           context, screens.SignUpDriverDone);
                       },
@@ -222,5 +228,15 @@ class _SignUpDriverFirstState extends State<SignUpDriverFirst> {
         ),
       ),
     );
+  },
+);
+  }
+  @override
+  void dispose() {
+    nameDriver.dispose();
+    numberId.dispose();
+    carId.dispose();
+    id.dispose();
+    super.dispose();
   }
 }

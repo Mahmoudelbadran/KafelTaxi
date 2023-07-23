@@ -8,6 +8,7 @@ import 'bussinus_logic/admin_logic/admin_logic.dart';
 import 'bussinus_logic/driver_logic/home_driver_logic.dart';
 import 'bussinus_logic/login_register_logic/login_and_register_logic.dart';
 import 'bussinus_logic/user_logic/home_user_logic.dart';
+import 'bussinus_logic/user_logic/person_user_logic/person_user_logic.dart';
 import 'bussinus_logic/user_logic/system_logic.dart';
 
 
@@ -49,6 +50,10 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => AdminLogic(),
+            lazy: true,
+          ),
+          BlocProvider(
+            create: (context) => PersonUserLogic(),
             lazy: true,
           ),
 

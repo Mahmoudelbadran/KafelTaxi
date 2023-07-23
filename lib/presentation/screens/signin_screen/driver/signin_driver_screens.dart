@@ -1,6 +1,5 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -199,16 +198,18 @@ class _SignInDriverScreenState extends State<SignInDriverScreen> {
                             onpres: () {
                               if (key.currentState!.validate()) {
                                 cubit.loginDriver(
-                                    phone: selectedCountryCode.toString() + numberPhone.text,
+                                    phone: "$selectedCountryCode${numberPhone.text}",
                                     password: password.text,
                                     deviceToken: deviceToken);
-                                if (kDebugMode) {
-                                  print("${selectedCountryCode.toString() + numberPhone.text},this password:,${password.text},token:$deviceToken");
-                                }
                                 if (state is LoadingDriverApiAppState) {
-                                  if (kDebugMode) {
-                                    print("loading....");
-                                  }
+                                  Fluttertoast.showToast(
+                                      msg: "جاري تسجيل الدخول",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: ycolor,
+                                      textColor: Colors.white,
+                                      fontSize: 15.sp);
 
                                 } else if(state is SuscessDriverApiAppState){
                                   Navigator.pushNamedAndRemoveUntil(context,

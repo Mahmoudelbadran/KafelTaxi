@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sizer/sizer.dart';
+import 'package:taxizer/core/chang_page/controle_page.dart';
 import '../../../../bussinus_logic/login_register_logic/login_and_register_logic.dart';
 import '../../../style/style.dart';
 import '../../../widget/button_fc.dart';
+
 class SignInUserDone extends StatefulWidget {
   const SignInUserDone({Key? key}) : super(key: key);
 
@@ -19,7 +22,6 @@ class _SignInUserDoneState extends State<SignInUserDone> {
   TextEditingController dressName = TextEditingController();
   GlobalKey<FormState> key = GlobalKey();
   late final cubit = LoginAndRegisterLogic.get(context);
-
 
   @override
   Widget build(BuildContext context) {
@@ -124,8 +126,7 @@ class _SignInUserDoneState extends State<SignInUserDone> {
                                   cubit.surFixIcons,
                                   color: ycolor,
                                 ),
-                                onPressed: () =>
-                                    cubit.showPasswordDriver()),
+                                onPressed: () => cubit.showPasswordDriver()),
                             border: InputBorder.none,
                             hintTextDirection: TextDirection.rtl,
                             hintStyle: TextStyle(fontSize: 13.sp),
@@ -180,26 +181,62 @@ class _SignInUserDoneState extends State<SignInUserDone> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(top: 2.h, bottom: 2.h),
-                        child: ButtonFc(
-                          onpres: () {
-                            if (key.currentState!.validate()) {
-
-                            }
-                          },
-                          Boxcolor: ycolor,
-                          elevation: 0,
-                          padding: EdgeInsets.only(
-                              left: 40.w, right: 40.w),
-                          child: Text(
-                            "متابعة",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        )
-                      ),
+                          padding: EdgeInsets.only(top: 2.h, bottom: 2.h),
+                          child: ButtonFc(
+                            onpres: () {
+                              if (key.currentState!.validate()) {
+                                cubit.signUpUser(
+                                    userName:
+                                        "${cubit.firstName}${cubit.lastName}",
+                                    email: email.text,
+                                    phone: cubit.numberPhone.toString(),
+                                    password: password.text,
+                                    confirmPassword: passwordConfirm.text,
+                                    addresses: dressName.text);
+                                if (state is LoadingSignUpUserApiAppState) {
+                                  Fluttertoast.showToast(
+                                      msg: "جاري تسجيل الدخول",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: ycolor,
+                                      textColor: Colors.white,
+                                      fontSize: 15.sp);
+                                } else if (state
+                                    is SuscessSignUpUserApiAppState) {
+                                  Fluttertoast.showToast(
+                                      msg: "نجحت في التسجيل الدخول",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: Colors.green,
+                                      textColor: Colors.white,
+                                      fontSize: 15.sp);
+                                  Navigator.pushNamedAndRemoveUntil(context,
+                                      SignInUserScreen, (route) => false);
+                                } else if(state is ErorrSignUpUserApiAppState) {
+                                  Fluttertoast.showToast(
+                                      msg: "خطا البيانات",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: Colors.red,
+                                      textColor: Colors.white,
+                                      fontSize: 15.sp);
+                                }
+                              }
+                            },
+                            Boxcolor: ycolor,
+                            elevation: 0,
+                            padding: EdgeInsets.only(left: 40.w, right: 40.w),
+                            child: Text(
+                              "متابعة",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          )),
                     ],
                   ),
                 ),

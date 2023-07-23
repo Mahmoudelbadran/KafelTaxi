@@ -10,5 +10,10 @@ class ErorrDriverApiAppState extends LoginAndRegisterState{}
 class LoadingUserApiAppState extends LoginAndRegisterState{}
 class SuscessUserApiAppState extends LoginAndRegisterState{}
 class ErorrUserApiAppState extends LoginAndRegisterState{}
-
+class LoadingSignUpUserApiAppState extends LoginAndRegisterState{}
+class SuscessSignUpUserApiAppState extends LoginAndRegisterState{}
+class ErorrSignUpUserApiAppState extends LoginAndRegisterState{}
+class LoadingSignUpDriverApiAppState extends LoginAndRegisterState{}
+class SuscessSignUpDriverApiAppState extends LoginAndRegisterState{}
+class ErorrSignUpDriverApiAppState extends LoginAndRegisterState{}
 
