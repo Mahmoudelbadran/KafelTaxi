@@ -33,6 +33,7 @@ class _SignInUserScreenState extends State<SignInUserScreen> {
     _fcm = FirebaseMessaging.instance;
     _fcm.getToken().then((value) {
       deviceToken = value.toString();
+      print("this tokennnnn:$deviceToken");
     });
     cubit = LoginAndRegisterLogic.get(context);
     super.initState();
@@ -216,8 +217,8 @@ class _SignInUserScreenState extends State<SignInUserScreen> {
                                     } else if (state
                                         is SuscessUserApiAppState) {
                                       Navigator.pushNamedAndRemoveUntil(context,
-                                          HomeUserScreen, (route) => false);
-                                    } else if (state is ErorrUserApiAppState) {
+                                          LoadingScreenUser, (route) => false);
+                                    } else{
                                       Fluttertoast.showToast(
                                           msg: "خطا في البيانات",
                                           toastLength: Toast.LENGTH_SHORT,

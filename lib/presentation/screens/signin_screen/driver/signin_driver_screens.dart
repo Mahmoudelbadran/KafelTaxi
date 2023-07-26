@@ -28,11 +28,13 @@ class _SignInDriverScreenState extends State<SignInDriverScreen> {
   late FirebaseMessaging _fcm;
   late String deviceToken;
   CountryCode selectedCountryCode = CountryCode.fromCountryCode('AE');
+
   @override
   void initState() {
     _fcm = FirebaseMessaging.instance;
     _fcm.getToken().then((value) {
-        deviceToken = value.toString();
+      deviceToken = value.toString();
+      print("this tokennnnn:$deviceToken");
     });
     cubit = LoginAndRegisterLogic.get(context);
 
@@ -109,7 +111,7 @@ class _SignInDriverScreenState extends State<SignInDriverScreen> {
                                 ),
                                 TextSpan(
                                   text:
-                                      '.ادخل التفاصيل الخاصة بك ادناه لمواصلة الطلب.',
+                                  '.ادخل التفاصيل الخاصة بك ادناه لمواصلة الطلب.',
                                   style: TextStyle(
                                       color: textcolor.withOpacity(0.7),
                                       fontSize: 13.sp,
@@ -138,14 +140,14 @@ class _SignInDriverScreenState extends State<SignInDriverScreen> {
                             controller: numberPhone,
                             keyboardType: TextInputType.number,
                             textDirection: TextDirection.rtl,
-                            decoration:  InputDecoration(
+                            decoration: InputDecoration(
                               border: InputBorder.none,
                               hintTextDirection: TextDirection.rtl,
                               hintText: 'ادخل رقم هاتفك',
                               suffixIcon: CountryCodePicker(
                                 onChanged: (CountryCode? code) {
                                   setState(() {
-                                     selectedCountryCode = code!;
+                                    selectedCountryCode = code!;
                                   });
                                 },
                                 initialSelection: 'AE',
@@ -194,48 +196,53 @@ class _SignInDriverScreenState extends State<SignInDriverScreen> {
                         ),
                         Padding(
                           padding: EdgeInsets.only(top: 2.h),
-                          child: ButtonFc(
-                            onpres: () {
-                              if (key.currentState!.validate()) {
-                                cubit.loginDriver(
-                                    phone: "$selectedCountryCode${numberPhone.text}",
-                                    password: password.text,
-                                    deviceToken: deviceToken);
-                                if (state is LoadingDriverApiAppState) {
-                                  Fluttertoast.showToast(
-                                      msg: "جاري تسجيل الدخول",
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.BOTTOM,
-                                      timeInSecForIosWeb: 1,
-                                      backgroundColor: ycolor,
-                                      textColor: Colors.white,
-                                      fontSize: 15.sp);
-
-                                } else if(state is SuscessDriverApiAppState){
-                                  Navigator.pushNamedAndRemoveUntil(context,
-                                      HomeUserScreen, (route) => false);
-                                }else{
-                                  Fluttertoast.showToast(
-                                      msg: "خطا في البيانات",
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.BOTTOM,
-                                      timeInSecForIosWeb: 1,
-                                      backgroundColor: Colors.red,
-                                      textColor: Colors.white,
-                                      fontSize: 15.sp);
-                                }
-                              }
+                          child: BlocBuilder<LoginAndRegisterLogic, LoginAndRegisterState>(
+                            builder: (context, state) {
+                              return ButtonFc(
+                                onpres: () {
+                                  if (key.currentState!.validate()) {
+                                    cubit.loginDriver(
+                                        phone: numberPhone.text,
+                                        password: password.text,
+                                        deviceToken: deviceToken);
+                                    if (state is LoadingDriverApiAppState) {
+                                      Fluttertoast.showToast(
+                                          msg: "جاري تسجيل الدخول",
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 1,
+                                          backgroundColor: ycolor,
+                                          textColor: Colors.white,
+                                          fontSize: 15.sp);
+                                    } else
+                                    if (state is SuscessDriverApiAppState) {
+                                      Navigator.pushNamedAndRemoveUntil(context,
+                                          LoadingScreenDriver, (route) => false);
+                                    } else {
+                                      Fluttertoast.showToast(
+                                          msg: "حاول مره اخري",
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 1,
+                                          backgroundColor: Colors.red,
+                                          textColor: Colors.white,
+                                          fontSize: 15.sp);
+                                    }
+                                  }
+                                },
+                                Boxcolor: ycolor,
+                                elevation: 0,
+                                padding: EdgeInsets.only(
+                                    left: 40.w, right: 40.w),
+                                child: Text(
+                                  "متابعة",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              );
                             },
-                            Boxcolor: ycolor,
-                            elevation: 0,
-                            padding: EdgeInsets.only(left: 40.w, right: 40.w),
-                            child: Text(
-                              "متابعة",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500),
-                            ),
                           ),
                         ),
                         Padding(
@@ -244,9 +251,9 @@ class _SignInDriverScreenState extends State<SignInDriverScreen> {
                             children: [
                               Expanded(
                                   child: Divider(
-                                color: Colors.black.withOpacity(0.4),
-                                height: 2.sp,
-                              )),
+                                    color: Colors.black.withOpacity(0.4),
+                                    height: 2.sp,
+                                  )),
                               Text(
                                 " او المتابعة ب  ",
                                 style: TextStyle(
@@ -255,9 +262,9 @@ class _SignInDriverScreenState extends State<SignInDriverScreen> {
                               ),
                               Expanded(
                                   child: Divider(
-                                color: Colors.black.withOpacity(0.4),
-                                height: 2.sp,
-                              )),
+                                    color: Colors.black.withOpacity(0.4),
+                                    height: 2.sp,
+                                  )),
                             ],
                           ),
                         ),

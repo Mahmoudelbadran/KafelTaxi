@@ -21,6 +21,7 @@ class SignUpDriverRequest {
 
   }) async {
     try {
+      print("loading....");
       Map<String, dynamic> data = {
         'userName': userName,
         'email': email,
@@ -33,14 +34,14 @@ class SignUpDriverRequest {
         'listId':listId,
         'id':id,
       };
+      print("cccccc....");
       final response = await http.post(
         Uri.parse("$baseUrlUser/$driverSignUp"),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode(data),
       );
-      if (response.statusCode == 200) {
+      print("ssxx....");
         return SignupDriverResponse.fromJson(jsonDecode(response.body));
-      }
     } catch (error) {
       if (kDebugMode) {
         print("this error api:$error");

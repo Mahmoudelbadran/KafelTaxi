@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 import 'package:taxizer/bussinus_logic/login_register_logic/login_and_register_logic.dart';
 
+import '../../../../../core/my_cache_keys/my_cache_keys.dart';
+import '../../../../../data/local/my_cache.dart';
 import '../../../../style/style.dart';
 import '../../../../view/person_user_view/person_user_view.dart';
 
@@ -16,8 +18,10 @@ class PersonUserPage extends StatefulWidget {
 class _PersonUserPageState extends State<PersonUserPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 late LoginAndRegisterLogic cubit;
+ late String? token;
   @override
   void initState() {
+    token=MyCache.getString(keys: MyCacheKeys.token);
    cubit=LoginAndRegisterLogic.get(context);
     super.initState();
   }
@@ -39,7 +43,7 @@ late LoginAndRegisterLogic cubit;
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600),
               )),
-          body: PersonUserView(userData: cubit.loginUserResponse.data!,),
+          body:  PersonUserView(token: token.toString(),),
         );
       },
     );

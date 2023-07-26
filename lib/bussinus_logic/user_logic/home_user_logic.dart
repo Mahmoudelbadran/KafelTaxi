@@ -1,4 +1,3 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,14 +7,15 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:sizer/sizer.dart';
+import 'package:taxizer/data/Remote/request/user/location_user_request/location_user_request.dart';
+import 'package:taxizer/data/Remote/response/user/location_user_response/location_user_response.dart';
 import 'dart:ui' as ui;
 import 'package:taxizer/presentation/screens/home_screens/user/home/home_user_page.dart';
 import 'package:taxizer/presentation/screens/home_screens/user/payment/payment_user_page.dart';
 import 'package:taxizer/presentation/screens/home_screens/user/person/person_user_page.dart';
 import 'package:taxizer/presentation/screens/home_screens/user/taxi/order_user_page.dart';
-import 'package:taxizer/presentation/view/program_view/item_program_view/item_program_car.dart';
-
+import '../../data/Remote/request/user/nearest_request/nearest_request.dart';
+import '../../data/Remote/response/user/nearest_response/nearest_response.dart';
 import '../../presentation/style/style.dart';
 part 'home_user_state.dart';
 
@@ -46,9 +46,9 @@ class HomeUserLogic extends Cubit<HomeUserState> {
     emit(ChangeClickButtonStates());
   }
 
-  String address="";
+  String address = "";
   LatLng? pickerLocation;
-  LatLng ?currentLocation;
+  LatLng? currentLocation;
   LatLng? goGetLocation;
   LatLng? goGetLocationPointOne;
   GoogleMapController? mapController;
@@ -59,8 +59,7 @@ class HomeUserLogic extends Cubit<HomeUserState> {
 
       if (placeMarks.isNotEmpty) {
         final Placemark placeMark = placeMarks[0];
-        address =
-            "${placeMark.street},${placeMark.country}";
+        address = "${placeMark.street},${placeMark.country}";
 
         emit(GetAdressState());
       }
@@ -78,17 +77,17 @@ class HomeUserLogic extends Cubit<HomeUserState> {
         target: currentLocation!,
         zoom: 14,
       )));
-    }
-    else{
+    } else {
       return;
     }
     emit(GetLocationState());
   }
 
-  Future<void> gotoLocationUserOne({required Map<String, dynamic> place}) async {
+  Future<void> gotoLocationUserOne(
+      {required Map<String, dynamic> place}) async {
     final double lat = place['lat'];
     final double lng = place['lng'];
-    goGetLocationPointOne=LatLng(lat, lng);
+    goGetLocationPointOne = LatLng(lat, lng);
     if (mapController != null) {
       mapController!
           .animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
@@ -96,16 +95,17 @@ class HomeUserLogic extends Cubit<HomeUserState> {
         zoom: 9,
       )));
       emit(GotoLocationUserState());
-    }
-    else{
+    } else {
       return;
     }
     emit(GetLocationState());
   }
-  Future<void> gotoLocationUserTwo({required Map<String, dynamic> place}) async {
+
+  Future<void> gotoLocationUserTwo(
+      {required Map<String, dynamic> place}) async {
     final double lat = place['lat'];
     final double lng = place['lng'];
-    goGetLocation=LatLng(lat, lng);
+    goGetLocation = LatLng(lat, lng);
     if (mapController != null) {
       mapController!
           .animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
@@ -113,22 +113,25 @@ class HomeUserLogic extends Cubit<HomeUserState> {
         zoom: 9,
       )));
       emit(GotoLocationUserState());
-    }
-    else{
+    } else {
       return;
     }
     emit(GetLocationState());
   }
-
+ double lat=0;
+  double lng=0;
   void getCurrentLocation() async {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-      currentLocation = LatLng(position.latitude, position.longitude);
-      emit(GetCurrentLocationState());
+    currentLocation = LatLng(position.latitude, position.longitude);
+    lat=position.latitude;
+    lng=position.longitude;
+    emit(GetCurrentLocationState());
   }
 
   Future<void> requestLocationPermission(BuildContext context) async {
-    final PermissionStatus permissionStatus = await Permission.location.request();
+    final PermissionStatus permissionStatus =
+        await Permission.location.request();
     if (permissionStatus == PermissionStatus.granted) {
       // Permission granted
 
@@ -137,7 +140,8 @@ class HomeUserLogic extends Cubit<HomeUserState> {
       // Permission denied, show a message to the user
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Text('You must grant permission to access your location to use this app.'),
+          content: const Text(
+              'You must grant permission to access your location to use this app.'),
           action: SnackBarAction(
             label: 'Grant',
             onPressed: () {
@@ -146,42 +150,20 @@ class HomeUserLogic extends Cubit<HomeUserState> {
           ),
         ),
       );
-
     }
     emit(RequestLocationPermissionState());
   }
-  bool isBottomSheet=false;
-  IconData floatingIcon=Icons.add;
-  void changeBottonSheets({required bool isShow,required IconData icon}){
-    isBottomSheet=isShow;
-    floatingIcon=icon;
+
+  bool isBottomSheet = false;
+  IconData floatingIcon = Icons.add;
+  void changeBottonSheets({required bool isShow, required IconData icon}) {
+    isBottomSheet = isShow;
+    floatingIcon = icon;
     emit(ShowButtomsheetstates());
   }
 
 
-  final List<Map<String, dynamic>> drivers = const [
-
-    {
-      'position': LatLng(30.7914, 30.9992),
-      'name': 'Jane',
-      'images': 'images/car.png'
-    },
-    {
-      'position': LatLng(31.7914, 30.2555),
-      'name': 'ahmed',
-      'images': 'images/car.png'
-    },
-    {
-      'position': LatLng(30.9914, 31.9992),
-      'name': 'ahmm',
-      'images': 'images/car.png'
-    },
-  ];
-
-
-  final List<Marker> markers = [];
-
-
+String imageDriver='images/car.png';
 
   Future<Uint8List> getBytesFromAsset(
       {required String path, required int width}) async {
@@ -197,40 +179,11 @@ class HomeUserLogic extends Cubit<HomeUserState> {
         .asUint8List();
   }
 
-  Future<void> loadData(BuildContext context) async {
-    for (int i = 0; i < drivers.length; i++) {
-      final Uint8List markerIcon = await getBytesFromAsset(
-        path: drivers[i]['images'],
-        width: 100,
-      );
 
-      final Marker marker = Marker(
-        markerId: MarkerId('driver$i'),
-        position: drivers[i]['position'],
-        onTap: (){
-          showModalBottomSheet(
-              context: context,
-              builder: (BuildContext context)
-              {
-                return SizedBox(
-                  width: 100.w,
-                  height: 25.h,
-                  child: const ItemProgramCar(),
-                );
-              }
-          );
-        },
-        icon: BitmapDescriptor.fromBytes(markerIcon),
-      );
-
-      markers.add(marker);
-    }
-
-
-  }
   Set<Polyline> polyline = <Polyline>{};
   int polylineIdCounter = 1;
   void setPolyline(List<PointLatLng> points) {
+    print(points);
     final String polylineIdVal = 'polyline_$polylineIdCounter';
     polylineIdCounter++;
     polyline.clear();
@@ -245,5 +198,39 @@ class HomeUserLogic extends Cubit<HomeUserState> {
     emit(SetPolylineState());
   }
 
-
+  LocationUserResponse locationUserResponse = LocationUserResponse();
+  void locationUser({
+    required String token,
+    required String type,
+    required double lat,
+    required double lng,
+  }) async {
+    print("this lat,lng:$lat,$lng");
+    emit(LoadingLocationUserApiAppState());
+    await LocationUserRequest()
+        .locationUserRequest(token: token, type: type, lat: lat, lng: lng)
+        .then((value) {
+          print("sucess lat");
+      locationUserResponse = value;
+      emit(SuscessLocationUserApiAppState());
+    }).catchError((error) {
+      emit(ErorrLocationUserApiAppState());
+    });
+  }
+  NearestResponse nearestResponse=NearestResponse();
+  void getNearest({
+    required String token,
+  }) async {
+    print("loadingDriver");
+    emit(LoadingLocationDriverApiAppState());
+    await NearestRequset()
+        .nearestRequset(token: token,)
+        .then((value) {
+      nearestResponse = value;
+      print("sucessDriver");
+      emit(SuscessLocationDriverApiAppState());
+    }).catchError((error) {
+      emit(ErorrLocationDriverApiAppState());
+    });
+  }
 }

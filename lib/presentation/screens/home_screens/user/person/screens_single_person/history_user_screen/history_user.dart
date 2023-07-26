@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import '../../../../../../style/style.dart';
 import '../../../../../../view/history_views/history/history_view.dart';
-import '../../../../../../view/history_views/runing_view/runing_view.dart';
 
 class HistoryUser extends StatefulWidget {
   const HistoryUser({Key? key}) : super(key: key);
@@ -45,28 +44,9 @@ class _HistoryUserState extends State<HistoryUser> with TickerProviderStateMixin
             Navigator.pop(context);
           },
         ),
-        bottom: TabBar(
-          indicatorWeight: 3,
-     indicatorColor: ycolor,
-          dividerColor: wcolor,
-          controller: _tabController,
-          tabs:  const [
-            Tab(
-             child:Text("التاريخ",style: TextStyle(color: Colors.black),) ,
-            ),
-            Tab(
-              child:Text("قيد التشغيل",style: TextStyle(color: Colors.black),) ,
-            ),
-          ],
-        ),
+
       ),
-      body: TabBarView(
-        controller: _tabController,
-        children: const [
-          History(),
-          RunningView()
-        ],
-      ),
+      body: const Center(child: History()),
     );
   }
 

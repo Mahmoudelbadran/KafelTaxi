@@ -1,11 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../core/my_cache_keys/my_cache_keys.dart';
-
-
-
-
-
 class MyCache{
   static SharedPreferences? preferences;
   static Future<void> initcachce()async{

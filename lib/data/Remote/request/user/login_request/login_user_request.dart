@@ -24,7 +24,7 @@ class LoginUserRequest {
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode(data),
       );
-
+print(response.body);
         return LoginUserResponse.fromJson(jsonDecode(response.body));
 
     } catch (error) {

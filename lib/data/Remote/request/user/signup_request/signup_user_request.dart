@@ -14,6 +14,7 @@ class SignUpUserRequest {
     required String addresses,
   }) async {
     try {
+      print("loading..2225");
       Map<String, dynamic> data = {
         'userName': userName,
         'email': email,
@@ -27,11 +28,8 @@ class SignUpUserRequest {
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode(data),
       );
-      if (response.statusCode == 200) {
-        print(response.statusCode);
-        print(response.body);
+      print("sucess21112");
         return SignupUserResponse.fromJson(jsonDecode(response.body));
-      }
     } catch (error) {
       if (kDebugMode) {
         print("this error api:$error");

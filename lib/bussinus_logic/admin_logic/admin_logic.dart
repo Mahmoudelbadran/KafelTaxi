@@ -15,12 +15,12 @@ class AdminLogic extends Cubit<AdminState> {
   void login({required String username,required String password}) async{
     emit(LoadingApiAppState());
 
- await LoginRequest().loginRequest(username: username, password: password)
-        .then((value) {
-      loginResponse = value;
+    try {
+      final response = await LoginRequest().loginRequest(username: username, password: password);
+      loginResponse = response;
       emit(SuscessApiAppState());
-    }).catchError((error) {
+    } catch (error) {
       emit(ErorrApiAppState());
-    });
+    }
   }
-  }
+}

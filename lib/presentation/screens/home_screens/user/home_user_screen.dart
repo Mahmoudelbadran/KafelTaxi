@@ -2,11 +2,13 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
+import 'package:taxizer/bussinus_logic/login_register_logic/login_and_register_logic.dart';
 import 'package:taxizer/bussinus_logic/user_logic/home_user_logic.dart';
 import '../../../../bussinus_logic/user_logic/system_logic.dart';
 import '../../../../core/chang_page/controle_page.dart';
 import '../../../style/style.dart';
 import '../../../view/floating_view/floating_view.dart';
+
 class HomeUserScreen extends StatefulWidget {
   const HomeUserScreen({Key? key}) : super(key: key);
 
@@ -15,12 +17,21 @@ class HomeUserScreen extends StatefulWidget {
 }
 
 class _HomeUserScreenState extends State<HomeUserScreen> {
-  late final cubit = HomeUserLogic.get(context);
-  late final system = SystemLogic.get(context);
+  late HomeUserLogic cubit;
+  late SystemLogic system;
+  late LoginAndRegisterLogic data;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController myMap = TextEditingController();
   TextEditingController location = TextEditingController();
+  @override
+  void initState() {
+    cubit = HomeUserLogic.get(context);
+    system = SystemLogic.get(context);
+    data = LoginAndRegisterLogic.get(context);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeUserLogic, HomeUserState>(
@@ -39,9 +50,15 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
                 _scaffoldKey.currentState!
                     .showBottomSheet((context) => Container(
                           width: 100.w,
-                          height: 50.h,
+                          height: 30.h,
                           color: backgroundcolor,
-                          child: FloatView(formKey: _formKey,cubit: cubit,system: system,myMap: myMap,location: location,),
+                          child: FloatView(
+                            formKey: _formKey,
+                            cubit: cubit,
+                            system: system,
+                            myMap: myMap,
+                            location: location,
+                          ),
                         ))
                     .closed
                     .then((value) => cubit.changeBottonSheets(

@@ -1,3 +1,3 @@
 enum MyCacheKeys{
-  isHomecolors,isHomewhatsappiconsMode
+  token,profileData
 }

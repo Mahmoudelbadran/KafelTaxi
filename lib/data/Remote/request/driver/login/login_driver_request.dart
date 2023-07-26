@@ -24,9 +24,8 @@ class LoginDriverRequest {
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode(data),
       );
-      if (response.statusCode == 200) {
+      print("hello this api:${response.body}");
         return LoginDriverResponse.fromJson(jsonDecode(response.body));
-      }
     } catch (error) {
       if (kDebugMode) {
         print("this error api:$error");

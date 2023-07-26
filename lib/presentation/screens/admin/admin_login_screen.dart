@@ -189,7 +189,7 @@ class _AdminLoginScreensState extends State<AdminLoginScreens> {
                                             context,
                                             HomeAdminScreen,
                                                 (route) => false);
-                                      }else if(state is ErorrApiAppState){
+                                      }else{
                                         Fluttertoast.showToast(
                                             msg: "خطا في البيانات",
                                             toastLength: Toast.LENGTH_SHORT,

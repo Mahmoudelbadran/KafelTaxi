@@ -17,7 +17,7 @@ class SignupDriverResponse {
   Driver? _driver;
 
   String get message => _message??'';
-  Driver? get driver => _driver;
+  Driver get driver => _driver??Driver();
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -39,8 +39,8 @@ class Driver {
       String? password, 
       String? phone, 
       String? carType, 
-      num? carId, 
-      num? listId, 
+      String? carId, 
+      String? listId, 
       String? id, 
       Location? location, 
       String? addresses, 
@@ -93,8 +93,8 @@ class Driver {
   String? _password;
   String? _phone;
   String? _carType;
-  num? _carId;
-  num? _listId;
+  String? _carId;
+  String? _listId;
   String? _id;
   Location? _location;
   String? _addresses;
@@ -110,14 +110,15 @@ class Driver {
   String get password => _password??'';
   String get phone => _phone??'';
   String get carType => _carType??'';
-  num get carId => _carId??0;
-  num get listId => _listId??0;
+  String get carId => _carId??'';
+  String get listId => _listId??'';
   String get id => _id??'';
-  Location? get location => _location;
+  Location get location => _location??location;
   String get addresses => _addresses??'';
   bool get active => _active??false;
   bool get complete => _complete??false;
   String get role => _role??'';
+
   String get createdAt => _createdAt??'';
   String get updatedAt => _updatedAt??'';
   num get v => _v??0;

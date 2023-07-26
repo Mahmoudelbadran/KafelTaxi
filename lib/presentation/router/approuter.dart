@@ -16,7 +16,11 @@ import '../screens/admin/history/user/user_history/user_history.dart';
 import '../screens/admin/home_admin/home_admin_screens.dart';
 import '../screens/code_screen/code_login_user_screen.dart';
 import '../screens/confirmation_screen/confirm_signUp/confirmation_user_screen.dart';
+import '../screens/home_screens/driver/history_driver/history_driver.dart';
 import '../screens/home_screens/driver/home_drive_screen.dart';
+import '../screens/home_screens/driver/loading_driver_screen/loading_driver_screen.dart';
+import '../screens/home_screens/driver/rate_screen/rate_screen.dart';
+import '../screens/home_screens/driver/update_driver_screen/update_driver_screen.dart';
 import '../screens/home_screens/user/home_user_screen.dart';
 import '../screens/home_screens/user/person/screens_single_person/history_user_screen/history_user.dart';
 import '../screens/home_screens/user/person/screens_single_person/notice_screens/notic_screen.dart';
@@ -31,6 +35,7 @@ import '../screens/siginup_screen/signup_user_screens/signup_user_done.dart';
 import '../screens/siginup_screen/signup_user_screens/signup_user_information.dart';
 import '../screens/siginup_screen/signup_user_screens/signup_user_number.dart';
 import '../screens/signin_screen/driver/signin_driver_screens.dart';
+import '../screens/signin_screen/user/Loading_screen_user.dart';
 import '../screens/splash_screen/splash_screen.dart';
 class AppRouter{
 
@@ -103,6 +108,16 @@ class AppRouter{
         return MaterialPageRoute(builder: (_)=>const DriveDataScreens());
       case screens.UserHistory:
         return MaterialPageRoute(builder: (_)=>const UserHistory());
+      case screens.LoadingScreenUser:
+        return MaterialPageRoute(builder: (_)=>const LoadingScreenUser());
+      case screens.LoadingScreenDriver:
+        return MaterialPageRoute(builder: (_)=>const LoadingScreenDriver());
+      case screens.HistoryDriver:
+        return MaterialPageRoute(builder: (_)=>const HistoryDriver());
+      case screens.updateDriver:
+        return MaterialPageRoute(builder: (_)=>const UpdateDriver());
+      case screens.rateDriverScreen:
+        return MaterialPageRoute(builder: (_)=>const RateDriverScreen());
 
 
 

@@ -13,6 +13,12 @@ class GetBytesFromAssetState extends HomeUserState{}
 class LoadDataState extends HomeUserState{}
 class GotoLocationUserState extends HomeUserState{}
 class SetPolylineState extends HomeUserState{}
+class LoadingLocationUserApiAppState extends HomeUserState{}
+class SuscessLocationUserApiAppState extends HomeUserState{}
+class ErorrLocationUserApiAppState extends HomeUserState{}
+class LoadingLocationDriverApiAppState extends HomeUserState{}
+class SuscessLocationDriverApiAppState extends HomeUserState{}
+class ErorrLocationDriverApiAppState extends HomeUserState{}
 
 
 

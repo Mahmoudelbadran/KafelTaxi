@@ -1,12 +1,18 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sizer/sizer.dart';
 import 'package:taxizer/bussinus_logic/driver_logic/home_driver_logic.dart';
+import 'package:taxizer/bussinus_logic/login_register_logic/login_and_register_logic.dart';
+import 'package:taxizer/data/local/my_cache.dart';
 
+import '../../../../../bussinus_logic/payment_logic/payment_logic.dart';
 import '../../../../../bussinus_logic/user_logic/home_user_logic.dart';
 import '../../../../../bussinus_logic/user_logic/system_logic.dart';
 import '../../../../../core/contant/constant.dart';
+import '../../../../../core/my_cache_keys/my_cache_keys.dart';
 import '../../../../style/style.dart';
 import '../alert_dialog_call/alert_dialog_call.dart';
 import '../item_bulider_user_call/item_bulider_user_call.dart';
@@ -20,19 +26,74 @@ class HomeDriverPage extends StatefulWidget {
 
 class _HomeDriverPageState extends State<HomeDriverPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  late final cubit = HomeUserLogic.get(context);
-  late final drive = HomeDriveLogic.get(context);
+  late HomeUserLogic cubit ;
+  late HomeDriveLogic drive ;
+  late PaymentLogic payment;
+  late LoginAndRegisterLogic userData ;
+  late String? token;
   @override
   void initState() {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message){
+      String? title = message.notification!.title;
+      String? body = message.notification!.body;
+      AwesomeNotifications().createNotification(
+          content: NotificationContent(id: 123, channelKey: "call_channel",
+            title: title,
+            body: body,
+            category: NotificationCategory.Call,
+            wakeUpScreen: true,
+            fullScreenIntent: true,
+            autoDismissible: false,
+            backgroundColor: Colors.orange,
+
+          ),
+          actionButtons: [
+            NotificationActionButton(key: "Accept", label: "Accept Call",color: Colors.green
+              ,autoDismissible: true,
+            ),
+            NotificationActionButton(key: "Reject", label: "Reject Call",color: Colors.red
+              ,autoDismissible: true,
+            ),
+
+          ]
+      );
+      AwesomeNotifications().actionStream.listen((event){
+        if(event.buttonKeyInput=="Reject"){
+          print("call Reject");
+        }else if(event.buttonKeyInput=="Accept"){
+          print("call Accept");
+        }else{
+          print("click of notification");
+        }
+
+      });
+    });
+    drive = HomeDriveLogic.get(context);
+    cubit = HomeUserLogic.get(context);
+    userData = LoginAndRegisterLogic.get(context);
+    payment =PaymentLogic.get(context)..getPaymentUser(token:userData.loginDriverResponse.token);
     drive.loadData(context);
+    token=MyCache.getString(keys: MyCacheKeys.token);
+    cubit
+        .requestLocationPermission(context)
+        .then((value) => cubit.getCurrentLocation())
+        .then((value) => cubit.getLocation());
+    drive.locationDriver(
+        token: token.toString(),
+        type: "type",
+        lat: cubit.lat,
+        lng: cubit.lng);
+
     super.initState();
   }
-bool isCall=false;
-  void showCall(){
+
+  bool isCall = false;
+  void showCall() {
     setState(() {
       isCall = !isCall;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeUserLogic, HomeUserState>(
@@ -178,7 +239,7 @@ bool isCall=false;
                             ),
                           ),
                           Visibility(
-                            visible:isCall,
+                            visible: isCall,
                             child: const Wrap(
                               children: [UserCall()],
                             ),

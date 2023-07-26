@@ -22,7 +22,7 @@ class LoginDriverResponse {
 
   String get message => _message??'';
   String get token => _token??'';
-  Data get data => _data??data;
+  Data get data => _data??Data();
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -47,8 +47,9 @@ class Data {
       String? password, 
       String? phone, 
       String? carType, 
-      num? carId, 
-      num? listId,
+      String? carId, 
+      String? listId,
+    String? addresses,
       bool? active, 
       bool? complete, 
       String? role, 
@@ -66,6 +67,7 @@ class Data {
     _carId = carId;
     _listId = listId;
     _id = id;
+    _addresses = addresses;
     _active = active;
     _complete = complete;
     _role = role;
@@ -86,6 +88,7 @@ class Data {
     _carId = json['carId'];
     _listId = json['listId'];
     _id = json['id'];
+    _addresses = json['addresses'];
     _active = json['active'];
     _complete = json['complete'];
     _role = json['role'];
@@ -101,8 +104,9 @@ class Data {
   String? _password;
   String? _phone;
   String? _carType;
-  num? _carId;
-  num? _listId;
+  String? _carId;
+  String? _listId;
+  String? _addresses;
   bool? _active;
   bool? _complete;
   String? _role;
@@ -111,22 +115,23 @@ class Data {
   num? _v;
   String? _deviceToken;
 
-  Location get location => _location??location;
+  Location get location => _location??Location();
   String get id => _id??'';
   String get userName => _userName??'';
   String get email => _email??'';
   String get password => _password??'';
   String get phone => _phone??'';
   String get carType => _carType??'';
-  num get carId => _carId??0;
-  num get listId => _listId??0;
+  String get carId => _carId??'';
+  String get listId => _listId??'';
+  String get addresses => _addresses??'';
   bool get active => _active??false;
   bool get complete => _complete??false;
   String get role => _role??'';
   String get createdAt => _createdAt??'';
   String get updatedAt => _updatedAt??'';
   num get v => _v??0;
-  String? get deviceToken => _deviceToken;
+  String get deviceToken => _deviceToken??'';
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -142,6 +147,7 @@ class Data {
     map['carId'] = _carId;
     map['listId'] = _listId;
     map['id'] = _id;
+    map['addresses'] = _addresses;
     map['active'] = _active;
     map['complete'] = _complete;
     map['role'] = _role;

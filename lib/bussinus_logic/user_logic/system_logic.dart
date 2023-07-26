@@ -33,13 +33,14 @@ class SystemLogic extends Cubit<SystemState> {
             'polyline': route['overview_polyline']['points'],
             'polyline_decode': PolylinePoints().decodePolyline(route['overview_polyline']['points']),
           };
-     emit(SucessDirectionState());
+          emit(SucessDirectionState());
           return result;
         }
+        throw Exception('No legs found in the route');
       }
-      throw Exception('No routes or legs found');
+      throw Exception('No routes found');
     } else {
-      throw Exception('Failed to fetch places');
+      throw Exception('Failed to fetch directions');
     }
   }
 

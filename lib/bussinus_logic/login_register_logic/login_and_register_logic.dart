@@ -75,6 +75,7 @@ class LoginAndRegisterLogic extends Cubit<LoginAndRegisterState> {
     required String confirmPassword,
     required String addresses,
   }) async {
+    print("Loading1111");
     emit(LoadingSignUpUserApiAppState());
     await SignUpUserRequest()
         .signUpUserRequest(
@@ -86,8 +87,10 @@ class LoginAndRegisterLogic extends Cubit<LoginAndRegisterState> {
             addresses: addresses)
         .then((value) {
       signupUserResponse = value;
+      print("sucess");
       emit(SuscessSignUpUserApiAppState());
     }).catchError((error) {
+      print("Error is:$error");
       emit(ErorrSignUpUserApiAppState());
     });
   }
@@ -110,6 +113,7 @@ class LoginAndRegisterLogic extends Cubit<LoginAndRegisterState> {
     required String id,
   }) async {
     emit(LoadingSignUpDriverApiAppState());
+    print("loading");
     await SignUpDriverRequest()
         .signUpDriverRequest(
             userName: userName,
@@ -124,9 +128,11 @@ class LoginAndRegisterLogic extends Cubit<LoginAndRegisterState> {
       listId: listId
     )
         .then((value) {
+      print("sucess1425555");
       signupDriverResponse = value;
       emit(SuscessSignUpDriverApiAppState());
     }).catchError((error) {
+      print("error this:$error");
       emit(ErorrSignUpDriverApiAppState());
     });
   }

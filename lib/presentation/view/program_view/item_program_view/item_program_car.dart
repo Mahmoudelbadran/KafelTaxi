@@ -3,17 +3,19 @@ import 'package:sizer/sizer.dart';
 import 'package:taxizer/presentation/style/style.dart';
 import 'package:taxizer/presentation/widget/button_fc.dart';
 
+import '../../../../data/Remote/response/user/nearest_response/nearest_response.dart';
 import '../../../screens/home_screens/user/program_work/program_call/call_screen.dart';
 
 class ItemProgramCar extends StatelessWidget {
-  const ItemProgramCar({Key? key}) : super(key: key);
+  final NearestDriver dataDriver;
+  const ItemProgramCar({Key? key, required this.dataDriver}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 5.sp),
       width: 100.w,
-      height: 17.h,
+      height: 15.h,
       decoration: BoxDecoration(
           color: wcolor, borderRadius: BorderRadius.circular(10.sp)),
       child: Row(
@@ -23,19 +25,7 @@ class ItemProgramCar extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                padding: EdgeInsets.only(left: 1.w),
-                width:20.w,
-                height: 7.h,
-                child: Text(
-                  "12.8\$",
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                      fontSize: 11.sp,
-                      fontWeight: FontWeight.w500,
-                      color: textcolor),
-                ),
-              ),
+
               ButtonFc(
 
                 onpres: () {
@@ -73,11 +63,12 @@ class ItemProgramCar extends StatelessWidget {
             children: [
                 Expanded(
                   child: Text(
-                    "كيفن فراي",
+                    dataDriver.userName,
                     maxLines: 1,
+
                     style: TextStyle(
 
-                        fontSize: 13.sp,
+                        fontSize: 12.sp,
                         fontWeight: FontWeight.w700,
                         color: textcolor),
                   ),
@@ -87,7 +78,7 @@ class ItemProgramCar extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                   Text(
-                    "ميني باص",
+                    dataDriver.carType,
                     style: TextStyle(
                         fontSize: 11.sp,
                         fontWeight: FontWeight.w400,
@@ -120,7 +111,7 @@ class ItemProgramCar extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "14552",
+                      dataDriver.carId,
                       maxLines: 1,
                       textAlign: TextAlign.right,
                       style: TextStyle(
@@ -129,7 +120,7 @@ class ItemProgramCar extends StatelessWidget {
                           color: textcolor),
                     ),
                     Text(
-                      ": رقم",
+                      ": رقم السياره",
                       textAlign: TextAlign.right,
                       style: TextStyle(
                           fontSize: 10.sp,

@@ -31,4 +31,9 @@ const HomeAdminScreen="/HomeAdminScreen";
 const UserDataScreen="/UserDataScreen";
 const DriveDataScreens="/DriveDataScreens";
 const UserHistory="/UserHistory";
+const LoadingScreenUser="/LoadingScreenUser";
+const LoadingScreenDriver="/LoadingScreenDriver";
+const HistoryDriver="/HistoryDriver";
+const updateDriver="/UpdateDriver";
+const rateDriverScreen="/RateDriverScreen";
 

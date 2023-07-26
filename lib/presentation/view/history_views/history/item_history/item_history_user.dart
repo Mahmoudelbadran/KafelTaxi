@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:taxizer/data/Remote/response/profile_response/profile_response.dart';
 import 'package:taxizer/presentation/style/style.dart';
 
 class ItemHistoryUser extends StatelessWidget {
   final String order;
-  const ItemHistoryUser({Key? key, required this.order}) : super(key: key);
+final History data;
+  const ItemHistoryUser({Key? key, required this.order, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 80.w,
-      height: 20.h,
+      height: 18.h,
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.sp)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -22,7 +24,7 @@ class ItemHistoryUser extends StatelessWidget {
                 padding: EdgeInsets.all(12.sp),
                 height: 12.h,
                 child: Text(
-                  "12.8\$",
+                  "",
                   style: TextStyle(
                       fontSize: 10.sp,
                       fontWeight: FontWeight.w400,
@@ -37,50 +39,13 @@ class ItemHistoryUser extends StatelessWidget {
                     top: 10.sp, left: 30.sp, right: 10.sp, bottom: 5.sp),
                 child: Column(
                   children: [
-                    Expanded(
-                      child: Row(
-                        children: [
-                          Text(
-                            "مساء ",
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                                fontSize: 11.sp,
-                                fontWeight: FontWeight.w600,
-                                color: textcolor),
-                          ),
-                          Text(
-                            "6:05",
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                                fontSize: 11.sp,
-                                fontWeight: FontWeight.w600,
-                                color: textcolor),
-                          ),
-                          Text(
-                            "يونيو ",
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                                fontSize: 11.sp,
-                                fontWeight: FontWeight.w600,
-                                color: textcolor),
-                          ),
-                          Text(
-                            "27",
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                                fontSize: 11.sp,
-                                fontWeight: FontWeight.w600,
-                                color: textcolor),
-                          ),
-                        ],
-                      ),
-                    ),
+
                     Expanded(
                       child: Row(
                         children: [
                           Expanded(
                               flex: 2,
-                              child: Text("القاهره - مصر",
+                              child: Text(data.from,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
@@ -102,7 +67,7 @@ class ItemHistoryUser extends StatelessWidget {
                         children: [
                           Expanded(
                               flex: 2,
-                              child: Text("الاسكندرية - مصر",
+                              child: Text(data.to,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(

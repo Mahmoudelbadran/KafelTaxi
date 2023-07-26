@@ -25,6 +25,7 @@ class _SignUpDriverDoneState extends State<SignUpDriverDone> {
   TextEditingController carType = TextEditingController();
 
   late LoginAndRegisterLogic cubit;
+
   @override
   void initState() {
     cubit = LoginAndRegisterLogic.get(context);
@@ -210,64 +211,69 @@ class _SignUpDriverDoneState extends State<SignUpDriverDone> {
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: 2.h, bottom: 2.h),
-                        child: ButtonFc(
-                          onpres: () {
-                            if (key.currentState!.validate()) {
-                              cubit.signUpDriver(
-                                  userName: cubit.nameDriver.toString(),
-                                  email: email.text,
-                                  phone: cubit.numberDriverPhone.toString(),
-                                  password: password.text,
-                                  confirmPassword: passwordConfirm.text,
-                                  addresses: address.text,
-                                  carType: carType.text,
-                                  carId: cubit.carId.toString(),
-                                  listId: cubit.numberId.toString(),
-                                  id: cubit.id.toString());
-                              if (state is LoadingSignUpDriverApiAppState) {
-                                Fluttertoast.showToast(
-                                    msg: "جاري تسجيل الدخول",
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.BOTTOM,
-                                    timeInSecForIosWeb: 1,
-                                    backgroundColor: ycolor,
-                                    textColor: Colors.white,
-                                    fontSize: 15.sp);
-                              } else if (state
+                        child: BlocBuilder<LoginAndRegisterLogic, LoginAndRegisterState>(
+                          builder: (context, state) {
+                            return ButtonFc(
+                              onpres: () {
+                                if (key.currentState!.validate()) {
+                                  cubit.signUpDriver(
+                                      userName: cubit.nameDriver.toString(),
+                                      email: email.text,
+                                      phone: cubit.numberDriverPhone.toString(),
+                                      password: password.text,
+                                      confirmPassword: passwordConfirm.text,
+                                      addresses: address.text,
+                                      carType: carType.text,
+                                      carId: cubit.carId.toString(),
+                                      listId: cubit.numberId.toString(),
+                                      id: cubit.id.toString());
+                                  if (state is LoadingSignUpDriverApiAppState) {
+                                    print("loading");
+                                    Fluttertoast.showToast(
+                                        msg: "جاري تسجيل الدخول",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.BOTTOM,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: ycolor,
+                                        textColor: Colors.white,
+                                        fontSize: 15.sp);
+                                  } else if (state
                                   is SuscessSignUpDriverApiAppState) {
-                                Fluttertoast.showToast(
-                                    msg: "نجحت في التسجيل الدخول",
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.BOTTOM,
-                                    timeInSecForIosWeb: 1,
-                                    backgroundColor: Colors.green,
-                                    textColor: Colors.white,
-                                    fontSize: 15.sp);
-                                Navigator.pushNamedAndRemoveUntil(context,
-                                    SignInDriverScreen, (route) => false);
-                              } else if (state
-                                  is ErorrSignUpDriverApiAppState) {
-                                Fluttertoast.showToast(
-                                    msg: "خطا البيانات",
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.BOTTOM,
-                                    timeInSecForIosWeb: 1,
-                                    backgroundColor: Colors.red,
-                                    textColor: Colors.white,
-                                    fontSize: 15.sp);
-                              }
-                            }
+                                    print("sucess");
+                                    Fluttertoast.showToast(
+                                        msg: "نجحت في التسجيل الدخول",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.BOTTOM,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.green,
+                                        textColor: Colors.white,
+                                        fontSize: 15.sp);
+                                    Navigator.pushNamedAndRemoveUntil(context,
+                                        SignInDriverScreen, (route) => false);
+                                  } else {
+                                    Fluttertoast.showToast(
+                                        msg: "خطا البيانات",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.BOTTOM,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 15.sp);
+                                  }
+                                }
+                              },
+                              Boxcolor: ycolor,
+                              elevation: 0,
+                              padding: EdgeInsets.only(left: 40.w, right: 40.w),
+                              child: Text(
+                                "متابعة",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            );
                           },
-                          Boxcolor: ycolor,
-                          elevation: 0,
-                          padding: EdgeInsets.only(left: 40.w, right: 40.w),
-                          child: Text(
-                            "متابعة",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500),
-                          ),
                         ),
                       ),
                     ],
