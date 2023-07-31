@@ -3,11 +3,13 @@ import 'package:sizer/sizer.dart';
 import 'package:taxizer/presentation/style/style.dart';
 
 import '../../../../../../core/chang_page/controle_page.dart';
+import '../../../../../../data/Remote/response/user/nearest_response/nearest_response.dart';
 import '../../../../../widget/button_fc.dart';
 import '../loading_screen/loading_screen.dart';
 
 class CallScreen extends StatelessWidget {
-  const CallScreen({Key? key}) : super(key: key);
+  final NearestDriver dataDriver;
+  const CallScreen({Key? key, required this.dataDriver}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,28 +28,28 @@ class CallScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text(
-                        "كم",
+                        "",
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             color: Colors.black.withOpacity(0.7),
                             fontSize: 12.sp),
                       ),
                       Text(
-                        "3-2",
+                        "",
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             color: Colors.black.withOpacity(0.7),
                             fontSize: 12.sp),
                       ),
                       Text(
-                        "دقائق",
+                        "",
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             color: Colors.black.withOpacity(0.7),
                             fontSize: 12.sp),
                       ),
                       Text(
-                        "7",
+                        "",
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             color: Colors.black.withOpacity(0.7),
@@ -60,7 +62,7 @@ class CallScreen extends StatelessWidget {
               Expanded(
                   child: Center(
                 child: Text(
-                  "المسافة",
+                  "اتصال",
                   style: TextStyle(
                       fontWeight: FontWeight.w700,
                       color: Colors.black.withOpacity(0.8),
@@ -91,7 +93,7 @@ class CallScreen extends StatelessWidget {
                           width: 20.w,
                           height: 7.h,
                           child: Text(
-                            "12.8\$",
+                            "",
                             textAlign: TextAlign.left,
                             style: TextStyle(
                                 fontSize: 11.sp,
@@ -110,7 +112,7 @@ class CallScreen extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              "كيفن فراي",
+                              dataDriver.userName,
                               maxLines: 1,
                               style: TextStyle(
                                   fontSize: 13.sp,
@@ -123,7 +125,7 @@ class CallScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  "ميني باص",
+                                  dataDriver.carType,
                                   style: TextStyle(
                                       fontSize: 11.sp,
                                       fontWeight: FontWeight.w400,
@@ -166,7 +168,7 @@ class CallScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  "14552",
+                                  dataDriver.carId,
                                   maxLines: 1,
                                   textAlign: TextAlign.right,
                                   style: TextStyle(

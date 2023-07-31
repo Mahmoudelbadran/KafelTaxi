@@ -9,17 +9,15 @@ class CommentLogic extends Cubit<CommentState> {
   static CommentLogic get(context) => BlocProvider.of<CommentLogic>(context);
 
   ReviewResponse reviewResponse=ReviewResponse();
-  void sendComment({
+  Future sendComment({
     required String token,
     required String comment
   }) async {
-    print("loadingDriver");
     emit(LoadingSentCommentAppState());
     await ReviewRequest()
         .reviewRequest(token: token,comment: comment)
         .then((value) {
       reviewResponse = value;
-      print("sucessDriver");
       emit(SuscessSentCommentAppState());
     }).catchError((error) {
       emit(ErorrSentCommentAppState());

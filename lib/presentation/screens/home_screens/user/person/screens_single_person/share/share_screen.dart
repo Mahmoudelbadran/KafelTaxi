@@ -3,106 +3,136 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
 import 'package:taxizer/presentation/style/style.dart';
 import 'package:taxizer/presentation/widget/button_fc.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ShareScreen extends StatelessWidget {
   const ShareScreen({Key? key}) : super(key: key);
+
+  Future<void> _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: 100.w,
-      height: 3.h,
+      height: 12.h,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            "شاركنا مع اصدقائك",
+            "شارك التطبيق مع أصدقائك",
             style: TextStyle(
-                fontWeight: FontWeight.w700, color: textcolor, fontSize: 11.sp),
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+              fontSize: 14.sp,
+            ),
           ),
-          SizedBox(
-              width: 100.w,
-              height:10.h,
-              child: Row(
-                children: [
-                  Expanded(
-                      child: ButtonFc(
-                    onpres: () {},
-                        height: 10.h,
-                    Boxcolor: backgroundcolor,
-                    elevation: 0,
-                    child: Column(
-                      children: [
-                        Icon(
-                          Icons.more_horiz,
-                          color: Colors.black,
-                          size: 25.sp,
-                        ),
-                        Text(
-                          "اخرون",
-                          style: TextStyle(fontSize: 8.sp),
-                        )
-                      ],
-                    ),
-                  )),
-                  Expanded(
-                      child: ButtonFc(
-                    onpres: () {},
-                    Boxcolor: backgroundcolor,
-                    elevation: 0,
-                    child: Column(
-                      children: [
-                        Icon(
-                          Icons.sms,
-                          color: Colors.green,
-                          size: 30.sp,
-                        ),
-                        Text(
-                          "SMS",
-                          style: TextStyle(fontSize: 8.sp),
-                        )
-                      ],
-                    ),
-                  )),
-                  Expanded(
-                      child: ButtonFc(
-                    onpres: () {},
-                    Boxcolor: backgroundcolor,
-                    elevation: 0,
-                    child: Column(
-                      children: [
-                        Icon(
-                          Icons.facebook,
-                          color: Colors.blue,
-                          size: 30.sp,
-                        ),
-                        Text(
-                          "FaceBook",
-                          style: TextStyle(fontSize: 8.sp),
-                        )
-                      ],
-                    ),
-                  )),
-                  Expanded(
-                      child: ButtonFc(
-                    onpres: () {},
-                    Boxcolor: backgroundcolor,
-                    elevation: 0,
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 5.h,
-                          child: SvgPicture.asset("images/whatsapp.svg"),
-                        ),
-                        Text(
-                          "Whatsapp",
-                          style: TextStyle(fontSize: 10.sp),
-                        )
-                      ],
-                    ),
-                  )),
-                ],
-              ))
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Expanded(
+                child: ButtonFc(
+                  onpres: () {
+                    const url = "رابط التطبيق";
+                    _launchURL(url);
+                  },
+                  height: 10.h,
+                  Boxcolor: backgroundcolor,
+                  elevation: 0,
+                  child: Column(
+                    children: [
+                      Icon(
+                        Icons.link_outlined,
+                        color: Colors.black,
+                        size: 20.sp,
+                      ),
+                      SizedBox(height: 1.h),
+                      Text(
+                        "نسخ الرابط",
+                        style: TextStyle(fontSize: 8.sp),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Expanded(
+                child: ButtonFc(
+                  onpres: () {
+                    const url = "رابط التطبيق";
+                    _launchURL(url);
+                  },
+                  Boxcolor: backgroundcolor,
+                  elevation: 0,
+                  child: Column(
+                    children: [
+                      Icon(
+                        Icons.sms,
+                        color: Colors.green,
+                        size: 25.sp,
+                      ),
+                      SizedBox(height: 1.h),
+                      Text(
+                        "رسالة نصية",
+                        style: TextStyle(fontSize: 8.sp),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Expanded(
+                child: ButtonFc(
+                  onpres: () {
+                    const url = "https://www.facebook.com/";
+                    _launchURL(url);
+                  },
+                  Boxcolor: backgroundcolor,
+                  elevation: 0,
+                  child: Column(
+                    children: [
+                      Icon(
+                        Icons.facebook,
+                        color: Colors.blue,
+                        size: 25.sp,
+                      ),
+                      SizedBox(height: 1.h),
+                      Text(
+                        "فيسبوك",
+                        style: TextStyle(fontSize: 8.sp),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Expanded(
+                child: ButtonFc(
+                  onpres: () {
+                    const url = "رابط التطبيق";
+                    _launchURL(url);
+                  },
+                  Boxcolor: backgroundcolor,
+                  elevation: 0,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 3.h,
+                        child: SvgPicture.asset("images/whatsapp.svg"),
+                      ),
+                      SizedBox(height: 1.h),
+                      Text(
+                        "واتساب",
+                        style: TextStyle(fontSize: 8.sp),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );

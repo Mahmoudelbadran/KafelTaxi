@@ -120,7 +120,30 @@ class HomeUserLogic extends Cubit<HomeUserState> {
   }
  double lat=0;
   double lng=0;
-  void getCurrentLocation() async {
+  Future getCurrentLocation() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Check if location service is enabled
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      emit(ErrorGettingLocationState());
+      return;
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.deniedForever) {
+        emit(ErrorGettingLocationState());
+        return;
+      }
+      if (permission == LocationPermission.denied) {
+        emit(ErrorGettingLocationState());
+        return;
+      }
+    }
+
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
     currentLocation = LatLng(position.latitude, position.longitude);
@@ -130,28 +153,24 @@ class HomeUserLogic extends Cubit<HomeUserState> {
   }
 
   Future<void> requestLocationPermission(BuildContext context) async {
-    final PermissionStatus permissionStatus =
-        await Permission.location.request();
+    final PermissionStatus permissionStatus = await Permission.location.request();
     if (permissionStatus == PermissionStatus.granted) {
-      // Permission granted
-
-      return;
+      getCurrentLocation();
     } else {
-      // Permission denied, show a message to the user
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: const Text(
-              'You must grant permission to access your location to use this app.'),
+              'يجب أن تمنح الإذن للوصول إلى موقعك لاستخدام هذا التطبيق.'),
           action: SnackBarAction(
-            label: 'Grant',
+            label: 'منح الإذن',
             onPressed: () {
               openAppSettings();
             },
           ),
         ),
       );
+      emit(RequestLocationPermissionState());
     }
-    emit(RequestLocationPermissionState());
   }
 
   bool isBottomSheet = false;
@@ -199,7 +218,7 @@ String imageDriver='images/car.png';
   }
 
   LocationUserResponse locationUserResponse = LocationUserResponse();
-  void locationUser({
+  Future locationUser({
     required String token,
     required String type,
     required double lat,
@@ -218,16 +237,14 @@ String imageDriver='images/car.png';
     });
   }
   NearestResponse nearestResponse=NearestResponse();
-  void getNearest({
+  Future getNearest({
     required String token,
   }) async {
-    print("loadingDriver");
     emit(LoadingLocationDriverApiAppState());
     await NearestRequset()
         .nearestRequset(token: token,)
         .then((value) {
       nearestResponse = value;
-      print("sucessDriver");
       emit(SuscessLocationDriverApiAppState());
     }).catchError((error) {
       emit(ErorrLocationDriverApiAppState());

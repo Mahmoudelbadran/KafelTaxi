@@ -187,9 +187,9 @@ class _SignInUserDoneState extends State<SignInUserDone> {
                           return Padding(
                               padding: EdgeInsets.only(top: 2.h, bottom: 2.h),
                               child: ButtonFc(
-                                onpres: () {
+                                onpres: () async{
                                   if (key.currentState!.validate()) {
-                                    cubit.signUpUser(
+                                   await cubit.signUpUser(
                                         userName:
                                         "${cubit.firstName}${cubit.lastName}",
                                         email: email.text,
@@ -198,7 +198,6 @@ class _SignInUserDoneState extends State<SignInUserDone> {
                                         confirmPassword: passwordConfirm.text,
                                         addresses: dressName.text);
                                     if (state is LoadingSignUpUserApiAppState) {
-                                      print("Loading........");
                                       Fluttertoast.showToast(
                                           msg: "جاري تسجيل الدخول",
                                           toastLength: Toast.LENGTH_SHORT,
@@ -209,7 +208,6 @@ class _SignInUserDoneState extends State<SignInUserDone> {
                                           fontSize: 15.sp);
                                     } else if (state
                                     is SuscessSignUpUserApiAppState) {
-                                      print("sucess");
                                       Fluttertoast.showToast(
                                           msg: "نجحت في التسجيل الدخول",
                                           toastLength: Toast.LENGTH_SHORT,
@@ -218,9 +216,11 @@ class _SignInUserDoneState extends State<SignInUserDone> {
                                           backgroundColor: Colors.green,
                                           textColor: Colors.white,
                                           fontSize: 15.sp);
-                                      Navigator.pushNamedAndRemoveUntil(context,
-                                          SignInUserScreen, (route) => false);
-                                    } else {
+                                      if(mounted){
+                                        Navigator.pushNamedAndRemoveUntil(context,
+                                            SignInUserScreen, (route) => false);
+                                      }
+                                    } else if(state is ErorrSignUpUserApiAppState){
                                       Fluttertoast.showToast(
                                           msg: "خطا البيانات",
                                           toastLength: Toast.LENGTH_SHORT,
@@ -229,7 +229,16 @@ class _SignInUserDoneState extends State<SignInUserDone> {
                                           backgroundColor: Colors.red,
                                           textColor: Colors.white,
                                           fontSize: 15.sp);
-                                    }
+                                    }else {
+                                    Fluttertoast.showToast(
+                                        msg: "خطا البيانات",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.BOTTOM,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 15.sp);
+                                  }
                                   }
                                 },
                                 Boxcolor: ycolor,

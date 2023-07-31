@@ -188,9 +188,11 @@ class PersonUserView extends StatelessWidget {
                     ),
                   ),
                   ListTile(
-                    onTap: () {
+                    onTap: () async{
                       MyCache.removeFormcache(keys: MyCacheKeys.profileData);
+                      MyCache.removeFormcache(keys: MyCacheKeys.tokenDriver);
                       MyCache.removeFormcache(keys: MyCacheKeys.token);
+                      MyCache.removeFormcache(keys: MyCacheKeys.tokenAdmin);
                       Navigator.pushNamedAndRemoveUntil(
                           context, SingleOnBoarding, (route) => false);
                     },

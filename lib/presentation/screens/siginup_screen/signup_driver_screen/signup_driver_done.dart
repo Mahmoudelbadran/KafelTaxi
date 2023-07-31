@@ -214,9 +214,9 @@ class _SignUpDriverDoneState extends State<SignUpDriverDone> {
                         child: BlocBuilder<LoginAndRegisterLogic, LoginAndRegisterState>(
                           builder: (context, state) {
                             return ButtonFc(
-                              onpres: () {
+                              onpres: () async{
                                 if (key.currentState!.validate()) {
-                                  cubit.signUpDriver(
+                                await  cubit.signUpDriver(
                                       userName: cubit.nameDriver.toString(),
                                       email: email.text,
                                       phone: cubit.numberDriverPhone.toString(),
@@ -228,7 +228,6 @@ class _SignUpDriverDoneState extends State<SignUpDriverDone> {
                                       listId: cubit.numberId.toString(),
                                       id: cubit.id.toString());
                                   if (state is LoadingSignUpDriverApiAppState) {
-                                    print("loading");
                                     Fluttertoast.showToast(
                                         msg: "جاري تسجيل الدخول",
                                         toastLength: Toast.LENGTH_SHORT,
@@ -239,18 +238,28 @@ class _SignUpDriverDoneState extends State<SignUpDriverDone> {
                                         fontSize: 15.sp);
                                   } else if (state
                                   is SuscessSignUpDriverApiAppState) {
-                                    print("sucess");
                                     Fluttertoast.showToast(
-                                        msg: "نجحت في التسجيل الدخول",
+                                        msg: "لقد نجح تسجيل الدخول انتظر حتي يتم الموافقه علي اكونت الخاص بك من قبل فريق التطبيق",
                                         toastLength: Toast.LENGTH_SHORT,
                                         gravity: ToastGravity.BOTTOM,
-                                        timeInSecForIosWeb: 1,
+                                        timeInSecForIosWeb: 5,
                                         backgroundColor: Colors.green,
                                         textColor: Colors.white,
                                         fontSize: 15.sp);
-                                    Navigator.pushNamedAndRemoveUntil(context,
-                                        SignInDriverScreen, (route) => false);
-                                  } else {
+                                    if(mounted){
+                                      Navigator.pushNamedAndRemoveUntil(context,
+                                          SignInDriverScreen, (route) => false);
+                                    }
+                                  } else if(state is ErorrSignUpDriverApiAppState){
+                                    Fluttertoast.showToast(
+                                        msg: "خطا في رقم الهاتف او الباسورد",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.BOTTOM,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 15.sp);
+                                  }else {
                                     Fluttertoast.showToast(
                                         msg: "خطا البيانات",
                                         toastLength: Toast.LENGTH_SHORT,

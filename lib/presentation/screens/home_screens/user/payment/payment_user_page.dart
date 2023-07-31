@@ -16,11 +16,13 @@ class PaymentUserPage extends StatefulWidget {
 class _PaymentUserPageState extends State<PaymentUserPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   late PaymentLogic cubit;
-  late String? token;
+  late String token;
+  late String tokenDriver;
   @override
   void initState() {
-    token=MyCache.getString(keys: MyCacheKeys.token);
-    cubit = PaymentLogic.get(context)..getPaymentUser(token: token.toString());
+    token = MyCache.getString(keys: MyCacheKeys.token)??'';
+    tokenDriver = MyCache.getString(keys: MyCacheKeys.tokenDriver)??'';
+    cubit = PaymentLogic.get(context)..getPaymentUser(token: token == '' ? tokenDriver : token);
     super.initState();
 
   }
@@ -77,7 +79,7 @@ class _PaymentUserPageState extends State<PaymentUserPage> {
                                         color: textcolor),
                                   ),
                                   Text(
-                                      "${cubit.paymentResponse.result!.day}\$",
+                                      "${cubit.paymentResponse.result!.month[0].month.toString()}\$",
                                       style: TextStyle(
                                           fontSize: 12.sp, color: textcolor))
                                 ],
@@ -93,7 +95,7 @@ class _PaymentUserPageState extends State<PaymentUserPage> {
                                         color: textcolor),
                                   ),
                                   Text(
-                                      "${cubit.paymentResponse.result!.day}\$",
+                                      "${cubit.paymentResponse.result!.week[0].week.toString()}\$",
                                       style: TextStyle(
                                           fontSize: 12.sp, color: textcolor))
                                 ],
@@ -109,7 +111,7 @@ class _PaymentUserPageState extends State<PaymentUserPage> {
                                         color: textcolor),
                                   ),
                                   Text(
-                                      "${cubit.paymentResponse.result!.day}\$",
+                                      "${cubit.paymentResponse.result!.day[0].day.toString()}\$",
                                       style: TextStyle(
                                           fontSize: 12.sp, color: textcolor))
                                 ],
@@ -128,7 +130,7 @@ class _PaymentUserPageState extends State<PaymentUserPage> {
                                 color: textcolor),
                           ),
                           Text(
-                              "${cubit.paymentResponse.result!.day}\$",
+                              "${cubit.paymentResponse.result!.year[0].year.toString()}\$",
                               style: TextStyle(
                                   fontSize: 12.sp, color: textcolor))
                         ],

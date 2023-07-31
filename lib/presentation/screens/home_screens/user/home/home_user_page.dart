@@ -137,7 +137,7 @@ class _HomeUserPageState extends State<HomeUserPage> {
                       .then((value) => cubit.getCurrentLocation())
                       .then((value) => cubit.getLocation());
                   cubit.locationUser(
-                      token: userData.loginUserResponse.token,
+                      token: token.toString(),
                       type: "point2",
                       lat: cubit.lat,
                       lng: cubit.lng);
@@ -215,8 +215,8 @@ class _HomeUserPageState extends State<HomeUserPage> {
 
                                Marker(
                                  markerId: MarkerId('driver$i'),
-                                 position: const LatLng(
-                                     30.7936, 31.0023
+                                 position:  LatLng(
+                                     cubit.nearestResponse.nearestDriver[i].location.coordinates[0].toDouble(), cubit.nearestResponse.nearestDriver[i].location.coordinates[1].toDouble()
                                  ),
                                  onTap: () {
                                    showModalBottomSheet(

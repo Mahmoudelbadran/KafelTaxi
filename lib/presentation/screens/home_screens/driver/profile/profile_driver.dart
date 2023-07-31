@@ -18,10 +18,10 @@ class ProfileDriver extends StatefulWidget {
 class _ProfileDriverState extends State<ProfileDriver> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   late LoginAndRegisterLogic cubit;
-  late String? token;
+  late String? tokenDriver;
   @override
   void initState() {
-    token=MyCache.getString(keys: MyCacheKeys.token);
+    tokenDriver=MyCache.getString(keys: MyCacheKeys.tokenDriver);
     cubit=LoginAndRegisterLogic.get(context);
     super.initState();
   }
@@ -43,7 +43,7 @@ class _ProfileDriverState extends State<ProfileDriver> {
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600),
               )),
-          body:  ProfileDriverView(token: token.toString(),),
+          body:  ProfileDriverView(token: tokenDriver.toString(),),
         );
       },
     );

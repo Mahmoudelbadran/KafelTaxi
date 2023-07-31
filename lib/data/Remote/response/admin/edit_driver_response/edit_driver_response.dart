@@ -3,25 +3,31 @@ EditDriverResponse editDriverResponseFromJson(String str) => EditDriverResponse.
 String editDriverResponseToJson(EditDriverResponse data) => json.encode(data.toJson());
 class EditDriverResponse {
   EditDriverResponse({
-      String? message,
+      String? message, 
+      num? status,
     EditDriver? result,}){
     _message = message;
+    _status = status;
     _result = result;
 }
 
   EditDriverResponse.fromJson(dynamic json) {
     _message = json['message'];
+    _status = json['status'];
     _result = json['result'] != null ? EditDriver.fromJson(json['result']) : null;
   }
   String? _message;
+  num? _status;
   EditDriver? _result;
 
   String get message => _message??'';
+  num get status => _status??0;
   EditDriver get result => _result??EditDriver();
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['message'] = _message;
+    map['status'] = _status;
     if (_result != null) {
       map['result'] = _result?.toJson();
     }
@@ -43,14 +49,14 @@ class EditDriver {
       String? carType, 
       String? carId, 
       String? listId,
+      String? addresses, 
       bool? active, 
       bool? complete, 
       String? role, 
+      String? driverId, 
       String? createdAt, 
       String? updatedAt, 
-      num? v, 
-      String? deviceToken, 
-      String? addresses,}){
+      num? v,}){
     _location = location;
     _id = id;
     _userName = userName;
@@ -61,14 +67,14 @@ class EditDriver {
     _carId = carId;
     _listId = listId;
     _id = id;
+    _addresses = addresses;
     _active = active;
     _complete = complete;
     _role = role;
+    _driverId = driverId;
     _createdAt = createdAt;
     _updatedAt = updatedAt;
     _v = v;
-    _deviceToken = deviceToken;
-    _addresses = addresses;
 }
 
   EditDriver.fromJson(dynamic json) {
@@ -82,14 +88,14 @@ class EditDriver {
     _carId = json['carId'];
     _listId = json['listId'];
     _id = json['id'];
+    _addresses = json['addresses'];
     _active = json['active'];
     _complete = json['complete'];
     _role = json['role'];
+    _driverId = json['driverId'];
     _createdAt = json['createdAt'];
     _updatedAt = json['updatedAt'];
     _v = json['__v'];
-    _deviceToken = json['deviceToken'];
-    _addresses = json['addresses'];
   }
   Location? _location;
   String? _id;
@@ -100,14 +106,14 @@ class EditDriver {
   String? _carType;
   String? _carId;
   String? _listId;
+  String? _addresses;
   bool? _active;
   bool? _complete;
   String? _role;
+  String? _driverId;
   String? _createdAt;
   String? _updatedAt;
   num? _v;
-  String? _deviceToken;
-  String? _addresses;
 
   Location get location => _location??Location();
   String get id => _id??'';
@@ -118,14 +124,14 @@ class EditDriver {
   String get carType => _carType??'';
   String get carId => _carId??'';
   String get listId => _listId??'';
+  String get addresses => _addresses??'';
   bool get active => _active??false;
   bool get complete => _complete??false;
   String get role => _role??'';
+  String get driverId => _driverId??'';
   String get createdAt => _createdAt??'';
   String get updatedAt => _updatedAt??'';
   num get v => _v??0;
-  String get deviceToken => _deviceToken??'';
-  String get addresses => _addresses??'';
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -141,14 +147,14 @@ class EditDriver {
     map['carId'] = _carId;
     map['listId'] = _listId;
     map['id'] = _id;
+    map['addresses'] = _addresses;
     map['active'] = _active;
     map['complete'] = _complete;
     map['role'] = _role;
+    map['driverId'] = _driverId;
     map['createdAt'] = _createdAt;
     map['updatedAt'] = _updatedAt;
     map['__v'] = _v;
-    map['deviceToken'] = _deviceToken;
-    map['addresses'] = _addresses;
     return map;
   }
 
@@ -158,26 +164,27 @@ Location locationFromJson(String str) => Location.fromJson(json.decode(str));
 String locationToJson(Location data) => json.encode(data.toJson());
 class Location {
   Location({
-      String? type, 
-      List<num>? coordinates,}){
-    _type = type;
+      List<dynamic>? coordinates,}){
     _coordinates = coordinates;
 }
 
   Location.fromJson(dynamic json) {
-    _type = json['type'];
-    _coordinates = json['coordinates'] != null ? json['coordinates'].cast<num>() : [];
+    if (json['coordinates'] != null) {
+      _coordinates = [];
+      json['coordinates'].forEach((v) {
+        _coordinates?.add(v);
+      });
+    }
   }
-  String? _type;
-  List<num>? _coordinates;
+  List<dynamic>? _coordinates;
 
-  String get type => _type??'';
-  List<num> get coordinates => _coordinates??[];
+  List<dynamic> get coordinates => _coordinates??[];
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['type'] = _type;
-    map['coordinates'] = _coordinates;
+    if (_coordinates != null) {
+      map['coordinates'] = _coordinates?.map((v) => v.toJson()).toList();
+    }
     return map;
   }
 

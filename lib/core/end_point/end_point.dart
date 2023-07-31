@@ -18,7 +18,9 @@ const profileDriver="driver/profile";
 const allUsers="admin/allUsers";
 const allDriver="admin/allDriver";
 const driverRequests="admin/driverrequests";
-const adminUser="admin/user/64b86fbd3f3996e2c75729f3";
-const adminDriver="admin/driver/64b863981111636d1bbe8a62";
 const editDriver="admin/driver";
+const getPayment="payment/all";
+const paymentAll="payment/all/";
+const deleteUseri="admin/user";
+const deleteDriver="admin/driver";
 //request

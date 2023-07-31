@@ -21,8 +21,7 @@ class _LoadingScreenDriverState extends State<LoadingScreenDriver> {
   late LoginAndRegisterLogic data=LoginAndRegisterLogic.get(context);
   @override
   void initState() {
-    MyCache.putString(keys: MyCacheKeys.token, value: data.loginDriverResponse.token);
-    print(data.loginDriverResponse.token);
+    MyCache.putString(keys: MyCacheKeys.tokenDriver, value: data.loginDriverResponse.token);
     Timer(const Duration(milliseconds: 5000), () {
       Navigator.pushNamedAndRemoveUntil(
           context, HomeDriveScreen, (route) => false);

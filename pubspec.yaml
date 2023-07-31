@@ -21,7 +21,7 @@ dependencies:
   sizer: ^2.0.15
   smooth_page_indicator: ^1.1.0
   flutter_launcher_icons: ^0.13.1
-  url_launcher: ^6.1.11
+  url_launcher: ^6.0.0
   country_code_picker: ^3.0.0
   google_maps_flutter: ^2.3.1
   geolocator: ^9.0.2
@@ -37,6 +37,7 @@ dependencies:
   firebase_messaging: ^14.6.5
   firebase_core: ^2.13.1
   awesome_notifications: ^0.6.21
+
 
 
 

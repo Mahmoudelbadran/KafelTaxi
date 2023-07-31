@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-
+import '../../../../data/Remote/response/admin/get_all_payment_response/get_all_payment_response.dart';
 import '../../../style/style.dart';
 
 class PaymentAdmin extends StatelessWidget {
-  const PaymentAdmin({Key? key}) : super(key: key);
+  final AllPayment cubit;
+  const PaymentAdmin({Key? key, required this.cubit}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +48,7 @@ class PaymentAdmin extends StatelessWidget {
                                 fontWeight: FontWeight.w600,
                                 color: textcolor),
                           ),
-                          Text("88\$",
+                          Text("${cubit.month[0].month.toString()}\$",
                               style: TextStyle(
                                   fontSize: 11.sp, color: textcolor))
                         ],
@@ -62,7 +63,7 @@ class PaymentAdmin extends StatelessWidget {
                                 fontWeight: FontWeight.w600,
                                 color: textcolor),
                           ),
-                          Text("22\$",
+                          Text("${cubit.week[0].week.toString()}\$",
                               style: TextStyle(
                                   fontSize: 11.sp, color: textcolor))
                         ],
@@ -77,7 +78,7 @@ class PaymentAdmin extends StatelessWidget {
                                 fontWeight: FontWeight.w600,
                                 color: textcolor),
                           ),
-                          Text("1.5\$",
+                          Text("${cubit.day[0].day.toString()}\$",
                               style: TextStyle(
                                   fontSize: 11.sp, color: textcolor))
                         ],
@@ -97,7 +98,7 @@ class PaymentAdmin extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                         color: textcolor),
                   ),
-                  Text("1200 \$",
+                  Text("${cubit.year[0].year.toString()}\$",
                       style: TextStyle(
                           fontSize: 10.sp, color: textcolor))
                 ],

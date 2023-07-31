@@ -5,9 +5,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sizer/sizer.dart';
 import 'package:taxizer/bussinus_logic/admin_logic/admin_logic.dart';
+import 'package:taxizer/data/local/my_cache.dart';
 
 import '../../../bussinus_logic/login_register_logic/login_and_register_logic.dart';
 import '../../../core/chang_page/controle_page.dart';
+import '../../../core/my_cache_keys/my_cache_keys.dart';
 import '../../style/style.dart';
 import '../../widget/button_fc.dart';
 
@@ -24,11 +26,14 @@ class _AdminLoginScreensState extends State<AdminLoginScreens> {
   TextEditingController password = TextEditingController();
   late LoginAndRegisterLogic cubit;
   late AdminLogic userAdmin;
+  late String? tokenAdmin;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   void initState() {
     cubit = LoginAndRegisterLogic.get(context);
-    userAdmin = AdminLogic.get(context);
+    tokenAdmin=MyCache.getString(keys: MyCacheKeys.tokenAdmin);
+    userAdmin = AdminLogic.get(context)..allPayment(token: tokenAdmin.toString());
+
     super.initState();
   }
 
@@ -170,12 +175,12 @@ class _AdminLoginScreensState extends State<AdminLoginScreens> {
                             child: BlocBuilder<AdminLogic, AdminState>(
                               builder: (context, state) {
                                 return ButtonFc(
-                                  onpres: () {
+                                  onpres: () async{
                                     if (key.currentState!.validate()) {
-                                      userAdmin.login(
+                                     await userAdmin.login(
                                           username: username.text,
                                           password: password.text);
-                                      if (state is LoadingApiAppState) {
+                                      if (state is LoadingAdminState) {
                                         Fluttertoast.showToast(
                                             msg: "جاري تسجيل الدخول",
                                             toastLength: Toast.LENGTH_SHORT,
@@ -184,11 +189,13 @@ class _AdminLoginScreensState extends State<AdminLoginScreens> {
                                             backgroundColor: ycolor,
                                             textColor: Colors.white,
                                             fontSize: 15.sp);
-                                      } else if(state is SuscessApiAppState) {
-                                        Navigator.pushNamedAndRemoveUntil(
-                                            context,
-                                            HomeAdminScreen,
-                                                (route) => false);
+                                      } else if(state is SuccessAdminState) {
+                                  if(mounted){
+                                    Navigator.pushNamedAndRemoveUntil(
+                                        context,
+                                        loadingAdminLogin,
+                                            (route) => false);
+                                  }
                                       }else{
                                         Fluttertoast.showToast(
                                             msg: "خطا في البيانات",

@@ -36,4 +36,7 @@ const LoadingScreenDriver="/LoadingScreenDriver";
 const HistoryDriver="/HistoryDriver";
 const updateDriver="/UpdateDriver";
 const rateDriverScreen="/RateDriverScreen";
+const loadingAdminLogin="/LoadingAdminLogin";
+const driverHistory="/DriverHistory";
+const driverWaitingScreen="DriverWaitingScreen";
 

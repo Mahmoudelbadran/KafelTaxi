@@ -53,24 +53,7 @@ class HomeDriveLogic extends Cubit<HomeDriveState> {
     emit(ShowButtomsheetstates());
   }
 
-  final List<Map<String, dynamic>> users = const [
-    {
-      'position': LatLng(30.0444, 31.2357),
-      'name': 'Mahmoud',
-      'images': 'images/usericons.png'
-    },
-    {
-      'position': LatLng(30.0004, 31.25855),
-      'name': 'Mahmoud',
-      'images': 'images/usericons.png'
-    },
-    {
-      'position': LatLng(31.0404, 32.2355),
-      'name': 'Mahmoud',
-      'images': 'images/usericons.png'
-    },
-  ];
-  final List<Marker> markers = [];
+
 
   Future<Uint8List> getBytesFromAsset(
       {required String path, required int width}) async {
@@ -84,24 +67,6 @@ class HomeDriveLogic extends Cubit<HomeDriveState> {
     return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
         .buffer
         .asUint8List();
-  }
-
-  Future<void> loadData(BuildContext context) async {
-    for (int i = 0; i < users.length; i++) {
-      final Uint8List markerIcon = await getBytesFromAsset(
-        path: users[i]['images'],
-        width: 50,
-      );
-
-      final Marker marker = Marker(
-        markerId: MarkerId('user$i'),
-        position: users[i]['position'],
-        icon: BitmapDescriptor.fromBytes(markerIcon),
-      );
-
-      markers.add(marker);
-      emit(LoadDataState());
-    }
   }
 
   Set<Polyline> polyline = <Polyline>{};
@@ -122,14 +87,13 @@ class HomeDriveLogic extends Cubit<HomeDriveState> {
   }
 
   UpdateDriverResponse updateDriverResponse = UpdateDriverResponse();
-  void updateDriver({
+  Future updateDriver({
     required String token,
     required String password,
     required String email,
     required String confirmPassword,
     required String addresses,
   }) async {
-    print("loadingUpDATEDriver");
     emit(LoadingUpdateDriverApiAppState());
     await UpDateDriverRequest()
         .upDateDriverRequest(
@@ -140,14 +104,13 @@ class HomeDriveLogic extends Cubit<HomeDriveState> {
             addresses: addresses)
         .then((value) {
       updateDriverResponse = value;
-      print("sucessgUpDATEDriver");
       emit(SuscessUpdateDriverApiAppState());
     }).catchError((error) {
       emit(ErorrUpdateDriverApiAppState());
     });
   }
   LocationDriverResponse locationDriverResponse=LocationDriverResponse();
-  void locationDriver({
+  Future locationDriver({
     required String token,
     required String type,
     required double lat,
@@ -166,16 +129,14 @@ class HomeDriveLogic extends Cubit<HomeDriveState> {
     });
   }
   ProfileDriverResponse profileDriverRespone=ProfileDriverResponse();
-  void getDriverProfile({
+  Future getDriverProfile({
     required String token,
   }) async {
-    print("loadingprofile");
     emit(LoadingDriverProfile());
     await ProfileDriverRequest()
         .profileDriverRequest(token: token,)
         .then((value) {
       profileDriverRespone = value;
-      print("sucessprofile");
       emit(SucessDriverProfile());
     }).catchError((error) {
       emit(ErrorDriverProfile());

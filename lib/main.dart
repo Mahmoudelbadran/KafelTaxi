@@ -17,6 +17,8 @@ import 'bussinus_logic/user_logic/person_user_logic/person_user_logic.dart';
 import 'bussinus_logic/user_logic/system_logic.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 
+import 'core/my_bloc_observer.dart';
+
 Future<void> backgroundHandar(RemoteMessage message) async {
   String? title = message.notification!.title;
   String? body = message.notification!.body;
@@ -63,6 +65,7 @@ void main() async {
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await Firebase.initializeApp();
   MyCache.initcachce();
+  Bloc.observer = MyBlocObserver();
   runApp(MyApp());
 }
 

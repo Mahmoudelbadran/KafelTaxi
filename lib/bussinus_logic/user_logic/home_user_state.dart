@@ -19,6 +19,8 @@ class ErorrLocationUserApiAppState extends HomeUserState{}
 class LoadingLocationDriverApiAppState extends HomeUserState{}
 class SuscessLocationDriverApiAppState extends HomeUserState{}
 class ErorrLocationDriverApiAppState extends HomeUserState{}
+class ErrorGettingLocationState extends HomeUserState{}
+
 
 
 

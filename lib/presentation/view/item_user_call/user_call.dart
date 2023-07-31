@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../style/style.dart';
 import '../../widget/button_fc.dart';
 
 class ItemUserCall extends StatelessWidget {
   const ItemUserCall({Key? key}) : super(key: key);
-
+  void _makePhoneCall(String phoneNumber) async {
+    final String phoneUrl = 'tel:$phoneNumber';
+    if (await canLaunch(phoneUrl)) {
+      await launch(phoneUrl);
+    } else {
+      throw 'Could not launch $phoneUrl';
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -59,30 +67,32 @@ class ItemUserCall extends StatelessWidget {
                             child: Padding(
                               padding: EdgeInsets.only(top: 1.h, left: 1.w),
                               child: ButtonFc(
-                                  onpres: () {},
-                                  width: 10.w,
-                                  elevation: 0,
-                                  height: 5.h,
-                                  Boxcolor: Colors.green,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text(
-                                        "اتصال",
-                                        style: TextStyle(
-                                            fontSize: 9.sp,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.white),
-                                      ),
-                                      Icon(
-                                        Icons.call,
-                                        color: Colors.white,
-                                        size: 12.sp,
-                                      )
-                                    ],
-                                  )),
+                                onpres: () {
+                                  _makePhoneCall('020103325552');
+                                },
+                                width: 10.w,
+                                elevation: 0,
+                                height: 5.h,
+                                Boxcolor: Colors.green,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      "اتصال",
+                                      style: TextStyle(
+                                          fontSize: 9.sp,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.white),
+                                    ),
+                                    Icon(
+                                      Icons.call,
+                                      color: Colors.white,
+                                      size: 12.sp,
+                                    )
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
                           Expanded(

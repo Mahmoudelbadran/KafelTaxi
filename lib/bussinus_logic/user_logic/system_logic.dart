@@ -7,23 +7,30 @@ class SystemLogic extends Cubit<SystemState> {
   SystemLogic() : super(AppIntialStates());
   String api='AIzaSyBiwJzCZCed-6o7mD4mZnC92dhB2KxJWMs';
   static SystemLogic get(context) => BlocProvider.of<SystemLogic>(context);
-  Future<Map<String, dynamic>> fetchDirection({required String origin,required String destination}) async {
+  Future<Map<String, dynamic>> fetchDirection({
+    required String origin,
+    required String destination,
+  }) async {
     emit(LoadingDirectionState());
     final response = await http.get(
       Uri.parse(
-          'https://maps.googleapis.com/maps/api/directions/json?origin=$origin&destination=$destination&key=$api'
+        'https://maps.googleapis.com/maps/api/directions/json?origin=$origin&destination=$destination&key=$api',
       ),
     );
 
     if (response.statusCode == 200) {
-      var json = convert.jsonDecode(response.body);
+      final json = convert.jsonDecode(response.body);
       if (json.containsKey('routes') && json['routes'].isNotEmpty) {
-        var route = json['routes'][0];
-        if (route.containsKey('legs') && route['legs'] is List && route['legs'].isNotEmpty) {
-          var legs = route['legs'][0];
-          var distanceText = legs['distance'] != null ? legs['distance']['text'] : '';
-          var durationText = legs['duration'] != null ? legs['duration']['text'] : '';
-          var result = {
+        final route = json['routes'][0];
+        if (route.containsKey('legs') &&
+            route['legs'] is List &&
+            route['legs'].isNotEmpty) {
+          final legs = route['legs'][0];
+          final distanceText =
+          legs['distance'] != null ? legs['distance']['text'] : '';
+          final durationText =
+          legs['duration'] != null ? legs['duration']['text'] : '';
+          final result = {
             'bounds_ne': route['bounds']['northeast'],
             'bounds_sw': route['bounds']['southwest'],
             'start_location': legs['start_location'],
@@ -31,7 +38,8 @@ class SystemLogic extends Cubit<SystemState> {
             'distance': distanceText,
             'duration': durationText,
             'polyline': route['overview_polyline']['points'],
-            'polyline_decode': PolylinePoints().decodePolyline(route['overview_polyline']['points']),
+            'polyline_decode':
+            PolylinePoints().decodePolyline(route['overview_polyline']['points']),
           };
           emit(SucessDirectionState());
           return result;

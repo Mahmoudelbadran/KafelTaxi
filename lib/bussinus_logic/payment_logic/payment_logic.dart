@@ -10,16 +10,14 @@ class PaymentLogic extends Cubit<PaymentState> {
 
   static PaymentLogic get(context) => BlocProvider.of<PaymentLogic>(context);
   PaymentResponse paymentResponse=PaymentResponse();
-  void getPaymentUser({
+  Future getPaymentUser({
     required String token,
   }) async {
-    print("loadingpayment");
     emit(LoadingPaymentAppState());
     await PaymentRequest()
         .paymentRequest(token: token,)
         .then((value) {
       paymentResponse = value;
-      print("sucesspayment");
       emit(SuscessPaymentAppState());
     }).catchError((error) {
       emit(ErorrPaymentAppState());

@@ -29,45 +29,54 @@ class LoginAndRegisterLogic extends Cubit<LoginAndRegisterState> {
   }
 
   LoginDriverResponse loginDriverResponse = LoginDriverResponse();
-  void loginDriver(
+  Future loginDriver(
       {required String phone,
       required String password,
       required String deviceToken}) async {
     emit(LoadingDriverApiAppState());
-
     await LoginDriverRequest()
         .loginDriverRequest(
             phone: phone, password: password, deviceToken: deviceToken)
         .then((value) {
       loginDriverResponse = value;
-      emit(SuscessDriverApiAppState());
+      if (loginDriverResponse.stutus==200) {
+        emit(SuscessDriverApiAppState());
+      }else{
+        emit(ErorrDriverApiAppState());
+      }
     }).catchError((error) {
       emit(ErorrDriverApiAppState());
     });
   }
 
   LoginUserResponse loginUserResponse = LoginUserResponse();
-  void loginUser(
-      {required String phone,
-      required String password,
-      required String deviceToken}) async {
+  Future loginUser({
+    required String phone,
+    required String password,
+    required String deviceToken,
+  }) async {
     emit(LoadingUserApiAppState());
-    await LoginUserRequest()
-        .loginUserRequest(
-            phone: phone, password: password, deviceToken: deviceToken)
-        .then((value) {
-      loginUserResponse = value;
-      emit(SuscessUserApiAppState());
-    }).catchError((error) {
+    try {
+      loginUserResponse = await LoginUserRequest().loginUserRequest(
+        phone: phone,
+        password: password,
+        deviceToken: deviceToken,
+      );
+      if (loginUserResponse.message == "Success 👌") {
+        emit(SuscessUserApiAppState());
+      } else {
+        emit(ErorrUserApiAppState());
+      }
+    } catch (error) {
       emit(ErorrUserApiAppState());
-    });
+    }
   }
 
   String? numberPhone;
   String? firstName;
   String? lastName;
   SignupUserResponse signupUserResponse = SignupUserResponse();
-  void signUpUser({
+  Future signUpUser({
     required String userName,
     required String email,
     required String phone,
@@ -75,7 +84,6 @@ class LoginAndRegisterLogic extends Cubit<LoginAndRegisterState> {
     required String confirmPassword,
     required String addresses,
   }) async {
-    print("Loading1111");
     emit(LoadingSignUpUserApiAppState());
     await SignUpUserRequest()
         .signUpUserRequest(
@@ -87,10 +95,13 @@ class LoginAndRegisterLogic extends Cubit<LoginAndRegisterState> {
             addresses: addresses)
         .then((value) {
       signupUserResponse = value;
-      print("sucess");
-      emit(SuscessSignUpUserApiAppState());
+ if(signupUserResponse.message=="Create New User Successfully 😃"){
+   emit(SuscessSignUpUserApiAppState());
+ }else{
+   emit(ErorrSignUpUserApiAppState());
+ }
+
     }).catchError((error) {
-      print("Error is:$error");
       emit(ErorrSignUpUserApiAppState());
     });
   }
@@ -100,7 +111,7 @@ class LoginAndRegisterLogic extends Cubit<LoginAndRegisterState> {
   String? carId;
   String? id;
   SignupDriverResponse signupDriverResponse = SignupDriverResponse();
-  void signUpDriver({
+  Future signUpDriver({
     required String userName,
     required String email,
     required String phone,
@@ -113,7 +124,6 @@ class LoginAndRegisterLogic extends Cubit<LoginAndRegisterState> {
     required String id,
   }) async {
     emit(LoadingSignUpDriverApiAppState());
-    print("loading");
     await SignUpDriverRequest()
         .signUpDriverRequest(
             userName: userName,
@@ -128,11 +138,14 @@ class LoginAndRegisterLogic extends Cubit<LoginAndRegisterState> {
       listId: listId
     )
         .then((value) {
-      print("sucess1425555");
       signupDriverResponse = value;
-      emit(SuscessSignUpDriverApiAppState());
+      if(signupDriverResponse.message=="Sign up New Driver Successfully 😃"){
+        emit(SuscessSignUpDriverApiAppState());
+      }else{
+        emit(ErorrSignUpDriverApiAppState());
+      }
+
     }).catchError((error) {
-      print("error this:$error");
       emit(ErorrSignUpDriverApiAppState());
     });
   }

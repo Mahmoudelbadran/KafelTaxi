@@ -18,7 +18,6 @@ class PaymentRequest {
           'Authorization':'Bearer $token'
         },
       );
-print(response.body);
       return PaymentResponse.fromJson(jsonDecode(response.body));
 
     } catch (error) {

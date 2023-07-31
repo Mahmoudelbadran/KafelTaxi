@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
+import 'package:taxizer/bussinus_logic/admin_logic/admin_logic.dart';
 import 'package:taxizer/core/chang_page/controle_page.dart';
 import 'package:taxizer/presentation/style/style.dart';
 
+import '../../../../core/my_cache_keys/my_cache_keys.dart';
+import '../../../../data/local/my_cache.dart';
 import '../../../view/admin_view/payment_admin/payment_screen.dart';
 
 class HomeAdminScreen extends StatefulWidget {
@@ -14,10 +18,20 @@ class HomeAdminScreen extends StatefulWidget {
 
 class _HomeAdminScreenState extends State<HomeAdminScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  String? tokenAdmin;
+  late AdminLogic payment;
+  @override
+  void initState() {
+    tokenAdmin = MyCache.getString(keys: MyCacheKeys.tokenAdmin);
+    payment = AdminLogic.get(context)..allPayment(token: tokenAdmin.toString());
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key:_scaffoldKey ,
+      key: _scaffoldKey,
       backgroundColor: backgroundcolor,
       appBar: AppBar(
         backgroundColor: ycolor,
@@ -49,7 +63,27 @@ class _HomeAdminScreenState extends State<HomeAdminScreen> {
                 top: 5.h,
                 left: 10.w,
                 right: 10.w,
-                child: const PaymentAdmin()),
+                child: BlocBuilder<AdminLogic, AdminState>(
+                  builder: (context, state) {
+                    if (state is LoadingGetAllPaymentState) {
+                      return const Center(
+                        child: CircularProgressIndicator(
+                          color: ycolor,
+                        ),
+                      );
+                    } else if (state is SuscessGetAllPaymentState) {
+                      return PaymentAdmin(
+                        cubit: payment.getAllPaymentResponse.result,
+                      );
+                    } else {
+                      return const Center(
+                        child: CircularProgressIndicator(
+                          color: ycolor,
+                        ),
+                      );
+                    }
+                  },
+                )),
             Positioned(
                 top: 26.h,
                 left: 10.w,
@@ -101,18 +135,46 @@ class _HomeAdminScreenState extends State<HomeAdminScreen> {
                         ),
                       ),
                       ListTile(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(context, driverWaitingScreen);
+                        },
                         leading: const Icon(Icons.arrow_back_ios),
                         title: const Text(
-                          "ملاحظات",
+                          "قبول سائقين",
                           textAlign: TextAlign.end,
                         ),
                         subtitle: const Text(
-                          "السائقين،المستخدمين ",
+                          "تفعيل حساب السائق ",
                           textAlign: TextAlign.end,
                         ),
                         trailing: Icon(
-                          Icons.notifications_active_outlined,
+                          Icons.car_crash_sharp,
+                          size: 25.sp,
+                          color: Colors.black.withOpacity(0.7),
+                        ),
+                      ),
+                      ListTile(
+                        onTap: () {
+                          MyCache.removeFormcache(
+                              keys: MyCacheKeys.profileData);
+                          MyCache.removeFormcache(
+                              keys: MyCacheKeys.tokenDriver);
+                          MyCache.removeFormcache(keys: MyCacheKeys.token);
+                          MyCache.removeFormcache(keys: MyCacheKeys.tokenAdmin);
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, SingleOnBoarding, (route) => false);
+                        },
+                        leading: const Icon(Icons.arrow_back_ios),
+                        title: const Text(
+                          "تسجيل خروج",
+                          textAlign: TextAlign.end,
+                        ),
+                        subtitle: const Text(
+                          "تسجيل الخروج من حسابك",
+                          textAlign: TextAlign.end,
+                        ),
+                        trailing: Icon(
+                          Icons.output_outlined,
                           size: 25.sp,
                           color: Colors.black.withOpacity(0.7),
                         ),

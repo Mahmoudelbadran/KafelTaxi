@@ -13,9 +13,8 @@ class EditDriverRequest {
   }) async {
     try {
       Map<String, dynamic> data = {
-        "driverId": driverId,
-        "complete":complete
-
+        "driverId":driverId,
+        "complete":true
       };
       final response = await http.patch(
         Uri.parse("$baseUrlUser/$editDriver"),
@@ -24,7 +23,7 @@ class EditDriverRequest {
         },
         body: jsonEncode(data),
       );
-
+    print(response.body);
       return EditDriverResponse.fromJson(jsonDecode(response.body));
 
     } catch (error) {

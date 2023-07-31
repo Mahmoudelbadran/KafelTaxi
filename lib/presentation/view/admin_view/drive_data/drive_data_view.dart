@@ -1,35 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-
+import 'package:taxizer/data/Remote/response/admin/all_driver_response/all_driver_response.dart';
+import '../../../../bussinus_logic/admin_logic/admin_logic.dart';
 import '../../../../core/chang_page/controle_page.dart';
-import '../../../screens/admin/history/user/edit_user/edit_user.dart';
+import '../../../../core/my_cache_keys/my_cache_keys.dart';
+import '../../../../data/local/my_cache.dart';
+import '../../../screens/admin/history/driver/edit_driver/edit_driver.dart';
 import '../../../style/style.dart';
-
 class DriveDataView extends StatelessWidget {
- final TextEditingController nameUser;
- final TextEditingController numberUser;
- final TextEditingController todayPrice;
- final TextEditingController monthPrice;
-  const DriveDataView({Key? key, required this.nameUser, required this.numberUser, required this.todayPrice, required this.monthPrice}) : super(key: key);
+final ResultAllDriver data;
+  const DriveDataView({Key? key, required this.data,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    String? tokenAdmin = MyCache.getString(keys: MyCacheKeys.tokenAdmin);
+    late AdminLogic cubit = AdminLogic.get(context)
+      ..paymentAllById(driverId: data.driverId, token: tokenAdmin.toString());
     return  ListTile(
         onTap: () {
-          Navigator.pushNamed(context, UserHistory);
+          Navigator.pushNamed(context, driverHistory);
         },
-        leading: IconButton(icon: const Icon(Icons.edit),onPressed: (){
-          showDialog(
-              context: context,
-              builder: (context) => EditUser(
-                nameUser: nameUser,
-                numberUser: numberUser,
-                todayPrice: todayPrice,
-                monthPrice: monthPrice,
-              ));
+       leading: IconButton(icon: const Icon(Icons.edit),onPressed: (){
+        showDialog(
+            context: context,
+             builder: (context) => EditDriverOne(
+               data: data, paymentData: cubit.paymentByResponse.result,
+             ));
         },),
-        title: const Text(
-          "كفيل بار",
+        title:   Text(
+          data.userName.toString(),
           textAlign: TextAlign.end,
         ),
         subtitle: const Text(

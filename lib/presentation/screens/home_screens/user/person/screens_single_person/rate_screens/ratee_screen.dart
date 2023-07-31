@@ -111,7 +111,7 @@ class RateScreen extends StatelessWidget {
                     padding: EdgeInsets.all(10.sp),
                     child: ButtonFc(
                       onpres: () {
-                        comment.sendComment(
+                         comment.sendComment(
                             token: token.toString(),
                             comment: commentUser.text);
                         if (state is SuscessSentCommentAppState) {

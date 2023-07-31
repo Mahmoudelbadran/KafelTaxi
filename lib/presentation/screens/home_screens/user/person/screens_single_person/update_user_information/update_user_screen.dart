@@ -246,9 +246,9 @@ class _UpdateUserState extends State<UpdateUser> {
                                         PersonUserState>(
                                       builder: (context, state) {
                                         return ButtonFc(
-                                          onpres: () {
+                                          onpres: () async{
                                             if (key.currentState!.validate()) {
-                                              upDateUser.upDateUser(
+                                              await upDateUser.upDateUser(
                                                   token: token.toString(),
                                                   password: password.text,
                                                   email: email.text,
@@ -277,7 +277,9 @@ class _UpdateUserState extends State<UpdateUser> {
                                                     backgroundColor: ycolor,
                                                     textColor: Colors.white,
                                                     fontSize: 15.sp);
-                                                Navigator.pop(context);
+                                               if(mounted){
+                                                 Navigator.pop(context);
+                                               }
                                               } else {
                                                 Fluttertoast.showToast(
                                                     msg: "خطا في البيانات",

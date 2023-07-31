@@ -1,8 +1,13 @@
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
+import 'package:taxizer/core/chang_page/controle_page.dart';
+import 'package:taxizer/core/my_cache_keys/my_cache_keys.dart';
+import 'package:taxizer/data/local/my_cache.dart';
 import 'package:taxizer/presentation/style/style.dart';
 
+import '../../../../../bussinus_logic/admin_logic/admin_logic.dart';
 import '../../../../view/admin_view/user_data/user_data_view.dart';
 
 class UserDataScreen extends StatefulWidget {
@@ -13,16 +18,22 @@ class UserDataScreen extends StatefulWidget {
 }
 
 class _UserDataScreenState extends State<UserDataScreen> {
-   TextEditingController nameUser =TextEditingController();
-   TextEditingController numberUser=TextEditingController() ;
-   TextEditingController todayPrice=TextEditingController() ;
-   TextEditingController monthPrice =TextEditingController();
-   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  TextEditingController nameUser = TextEditingController();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  late AdminLogic cubit;
+  late String? tokenAdmin;
+  String searchText = '';
+  @override
+  void initState() {
+    tokenAdmin = MyCache.getString(keys: MyCacheKeys.tokenAdmin);
+    cubit = AdminLogic.get(context)..getAllUser(token: tokenAdmin.toString());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
+        key: _scaffoldKey,
         backgroundColor: backgroundcolor,
         appBar: AppBar(
           leading: IconButton(
@@ -32,12 +43,17 @@ class _UserDataScreenState extends State<UserDataScreen> {
               size: 15.sp,
             ),
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pushNamedAndRemoveUntil(
+                  context, HomeAdminScreen, (route) => false);
             },
           ),
           backgroundColor: backgroundcolor,
           centerTitle: true,
-          title: Text("قائمه المستخدمين",style: TextStyle(fontSize: 20.sp,color: ycolor,fontWeight: FontWeight.w800),),
+          title: Text(
+            "قائمه المستخدمين",
+            style: TextStyle(
+                fontSize: 20.sp, color: ycolor, fontWeight: FontWeight.w800),
+          ),
           elevation: 0,
         ),
         floatingActionButton: AnimSearchBar(
@@ -48,22 +64,56 @@ class _UserDataScreenState extends State<UserDataScreen> {
             setState(() {
               nameUser.clear();
             });
-          }, onSubmitted: (String ) {  },
+          },
+          onSubmitted: (val) {
+            setState(() {
+              searchText = val;
+            });
+          },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-        body: ListView.separated(
-            itemBuilder: (context, index) =>  UserDataView(nameUser: nameUser,numberUser: numberUser,monthPrice: monthPrice,todayPrice: todayPrice,),
-            separatorBuilder: (context, index) => const Divider(),
-            itemCount: 15)
-    );
+        body: BlocBuilder<AdminLogic, AdminState>(
+          builder: (context, state) {
+            if (state is LoadingGetAllState) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: ycolor,
+                ),
+              );
+            } else if (state is SuscessGetAllState) {
+              return ListView.separated(
+                itemCount: cubit.allUserResponse.result
+                    .where((element) => element.userName
+                        .toLowerCase()
+                        .contains(searchText.toLowerCase()))
+                    .toList()
+                    .length,
+                itemBuilder: (context, index) {
+                  final filteredUsers = cubit.allUserResponse.result
+                      .where((element) => element.userName
+                          .toLowerCase()
+                          .contains(searchText.toLowerCase()))
+                      .toList();
+                  return UserDataView(
+                    data: filteredUsers[index],
+                  );
+                },
+                separatorBuilder: (context, index) => const Divider(),
+              );
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: ycolor,
+                ),
+              );
+            }
+          },
+        ));
   }
+
   @override
   void dispose() {
-   nameUser.dispose();
-   numberUser.dispose();
-   monthPrice.dispose();
-   todayPrice.dispose();
+    nameUser.dispose();
     super.dispose();
   }
 }
-

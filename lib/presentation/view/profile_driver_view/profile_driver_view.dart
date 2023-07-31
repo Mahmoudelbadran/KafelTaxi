@@ -22,6 +22,7 @@ class ProfileDriverView extends StatelessWidget {
       ..getDriverProfile(token: token.toString());
     return BlocBuilder<HomeDriveLogic, HomeDriveState>(
       builder: (context, state) {
+        print(token);
         if(state is LoadingDriverProfile){
           return const Center(child: CircularProgressIndicator(color: ycolor,),);
         }
@@ -191,7 +192,9 @@ class ProfileDriverView extends StatelessWidget {
                   ListTile(
                     onTap: () {
                       MyCache.removeFormcache(keys: MyCacheKeys.profileData);
+                      MyCache.removeFormcache(keys: MyCacheKeys.tokenDriver);
                       MyCache.removeFormcache(keys: MyCacheKeys.token);
+                      MyCache.removeFormcache(keys: MyCacheKeys.tokenAdmin);
                       Navigator.pushNamedAndRemoveUntil(
                           context, SingleOnBoarding, (route) => false);
                     },

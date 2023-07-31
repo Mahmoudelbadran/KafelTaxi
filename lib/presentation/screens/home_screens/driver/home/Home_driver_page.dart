@@ -30,7 +30,7 @@ class _HomeDriverPageState extends State<HomeDriverPage> {
   late HomeDriveLogic drive ;
   late PaymentLogic payment;
   late LoginAndRegisterLogic userData ;
-  late String? token;
+  late String? tokenDriver;
   @override
   void initState() {
     FirebaseMessaging.onMessage.listen((RemoteMessage message){
@@ -72,14 +72,13 @@ class _HomeDriverPageState extends State<HomeDriverPage> {
     cubit = HomeUserLogic.get(context);
     userData = LoginAndRegisterLogic.get(context);
     payment =PaymentLogic.get(context)..getPaymentUser(token:userData.loginDriverResponse.token);
-    drive.loadData(context);
-    token=MyCache.getString(keys: MyCacheKeys.token);
+    tokenDriver=MyCache.getString(keys: MyCacheKeys.tokenDriver);
     cubit
         .requestLocationPermission(context)
         .then((value) => cubit.getCurrentLocation())
         .then((value) => cubit.getLocation());
     drive.locationDriver(
-        token: token.toString(),
+        token: tokenDriver.toString(),
         type: "type",
         lat: cubit.lat,
         lng: cubit.lng);
@@ -230,8 +229,6 @@ class _HomeDriverPageState extends State<HomeDriverPage> {
                                       BitmapDescriptor.hueOrange,
                                     ),
                                   ),
-                                for (int i = 0; i < drive.markers.length; i++)
-                                  drive.markers.elementAt(i)
                               },
                               onMapCreated: (GoogleMapController controller) {
                                 cubit.mapController = controller;

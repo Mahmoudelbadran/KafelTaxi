@@ -4,29 +4,35 @@ String loginDriverResponseToJson(LoginDriverResponse data) => json.encode(data.t
 class LoginDriverResponse {
   LoginDriverResponse({
       String? message, 
+      num? stutus, 
       String? token, 
       Data? data,}){
     _message = message;
+    _stutus = stutus;
     _token = token;
     _data = data;
 }
 
   LoginDriverResponse.fromJson(dynamic json) {
     _message = json['message'];
+    _stutus = json['stutus'];
     _token = json['token'];
     _data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
   String? _message;
+  num? _stutus;
   String? _token;
   Data? _data;
 
   String get message => _message??'';
+  num get stutus => _stutus??0;
   String get token => _token??'';
   Data get data => _data??Data();
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['message'] = _message;
+    map['stutus'] = _stutus;
     map['token'] = _token;
     if (_data != null) {
       map['data'] = _data?.toJson();
@@ -49,10 +55,11 @@ class Data {
       String? carType, 
       String? carId, 
       String? listId,
-    String? addresses,
+      String? addresses, 
       bool? active, 
       bool? complete, 
       String? role, 
+      String? driverId, 
       String? createdAt, 
       String? updatedAt, 
       num? v, 
@@ -71,6 +78,7 @@ class Data {
     _active = active;
     _complete = complete;
     _role = role;
+    _driverId = driverId;
     _createdAt = createdAt;
     _updatedAt = updatedAt;
     _v = v;
@@ -92,6 +100,7 @@ class Data {
     _active = json['active'];
     _complete = json['complete'];
     _role = json['role'];
+    _driverId = json['driverId'];
     _createdAt = json['createdAt'];
     _updatedAt = json['updatedAt'];
     _v = json['__v'];
@@ -110,6 +119,7 @@ class Data {
   bool? _active;
   bool? _complete;
   String? _role;
+  String? _driverId;
   String? _createdAt;
   String? _updatedAt;
   num? _v;
@@ -128,6 +138,7 @@ class Data {
   bool get active => _active??false;
   bool get complete => _complete??false;
   String get role => _role??'';
+  String get driverId => _driverId??'';
   String get createdAt => _createdAt??'';
   String get updatedAt => _updatedAt??'';
   num get v => _v??0;
@@ -151,6 +162,7 @@ class Data {
     map['active'] = _active;
     map['complete'] = _complete;
     map['role'] = _role;
+    map['driverId'] = _driverId;
     map['createdAt'] = _createdAt;
     map['updatedAt'] = _updatedAt;
     map['__v'] = _v;

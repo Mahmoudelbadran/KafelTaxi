@@ -2,16 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:taxizer/bussinus_logic/user_logic/home_user_logic.dart';
 import 'package:taxizer/core/chang_page/controle_page.dart';
+import 'package:taxizer/core/my_cache_keys/my_cache_keys.dart';
+import 'package:taxizer/data/local/my_cache.dart';
 
+import '../../../../../../bussinus_logic/user_logic/person_user_logic/person_user_logic.dart';
 import '../../../../../style/style.dart';
 import '../../../../../widget/button_fc.dart';
 
-class CallContentUser extends StatelessWidget {
+class CallContentUser extends StatefulWidget {
   const CallContentUser({Key? key}) : super(key: key);
 
   @override
+  State<CallContentUser> createState() => _CallContentUserState();
+}
+
+class _CallContentUserState extends State<CallContentUser> {
+  String? token =MyCache.getString(keys: MyCacheKeys.token);
+  late PersonUserLogic toHistory = PersonUserLogic.get(context)..toHistoryUser(token: token.toString());
+  late HomeUserLogic cubit = HomeUserLogic.get(context);
+  @override
   Widget build(BuildContext context) {
-    final cubit = HomeUserLogic.get(context);
     return Scaffold(
       backgroundColor: backgroundcolor,
       appBar: AppBar(
@@ -180,112 +190,112 @@ class CallContentUser extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-              Padding(
-                padding:  EdgeInsets.all(5.sp),
-                child: ButtonFc(
-                  onpres: () {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "الغاء الركوب؟",
+                Padding(
+                  padding:  EdgeInsets.all(5.sp),
+                  child: ButtonFc(
+                    onpres: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "الغاء الركوب؟",
+                                    style: TextStyle(
+                                        fontSize: 15.sp,
+                                        fontWeight: FontWeight.w700,
+                                        color: textcolor),
+                                  ),
+                                  Icon(
+                                    Icons.error,
+                                    color: Rcolor,
+                                    size: 25.sp,
+                                  ),
+                                ],
+                              ),
+                              content: SizedBox(
+                                width: 80.w,
+                                child: Text(
+                                  "هل انت متاكد انك تريد الغاء رحلتلك؟",
+                                  textAlign: TextAlign.right,
                                   style: TextStyle(
-                                      fontSize: 15.sp,
-                                      fontWeight: FontWeight.w700,
-                                      color: textcolor),
+                                      fontWeight: FontWeight.w600,
+                                      color: textcolor,
+                                      fontSize: 12.sp),
                                 ),
-                                Icon(
-                                  Icons.error,
-                                  color: Rcolor,
-                                  size: 25.sp,
+                              ),
+                              actions: [
+                                ButtonFc(
+                                  onpres: () {
+                                    Navigator.pop(context);
+                                  },
+                                  width: 25.w,
+                                  elevation: 0,
+                                  height: 4.h,
+                                  Boxcolor: wcolor,
+                                  child: Text(
+                                    "الغاء",
+                                    style: TextStyle(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black),
+                                  ),
+                                ),
+                                ButtonFc(
+                                  onpres: () {
+                                    Navigator.pushNamedAndRemoveUntil(context, CallContentUserCancel, (route) => false);
+                                  },
+                                  width: 25.w,
+                                  elevation: 0,
+                                  height: 4.h,
+                                  Boxcolor: ycolor,
+                                  child: Text(
+                                    "تاكيد",
+                                    style: TextStyle(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.white),
+                                  ),
                                 ),
                               ],
-                            ),
-                            content: SizedBox(
-                              width: 80.w,
-                              child: Text(
-                                "هل انت متاكد انك تريد الغاء رحلتلك؟",
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: textcolor,
-                                    fontSize: 12.sp),
-                              ),
-                            ),
-                            actions: [
-                              ButtonFc(
-                                onpres: () {
-                                  Navigator.pop(context);
-                                },
-                                width: 25.w,
-                                elevation: 0,
-                                height: 4.h,
-                                Boxcolor: wcolor,
-                                child: Text(
-                                  "الغاء",
-                                  style: TextStyle(
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.black),
-                                ),
-                              ),
-                              ButtonFc(
-                                onpres: () {
-                                  Navigator.pushNamedAndRemoveUntil(context, CallContentUserCancel, (route) => false);
-                                },
-                                width: 25.w,
-                                elevation: 0,
-                                height: 4.h,
-                                Boxcolor: ycolor,
-                                child: Text(
-                                  "تاكيد",
-                                  style: TextStyle(
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white),
-                                ),
-                              ),
-                            ],
-                          );
-                        });
-                  },
-                  width: 25.w,
-                  elevation: 0,
-                  height:5.h,
-                  Boxcolor: Rcolor,
-                  child: Text(
-                    "الغاء الرحلة",
-                    style: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white),
+                            );
+                          });
+                    },
+                    width: 25.w,
+                    elevation: 0,
+                    height:5.h,
+                    Boxcolor: Rcolor,
+                    child: Text(
+                      "الغاء الرحلة",
+                      style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white),
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding:  EdgeInsets.all(5.sp),
-                child: ButtonFc(
-                  onpres: () {
-                   Navigator.pushNamedAndRemoveUntil(context, HomeUserScreen, (route) => false);
-                  },
-                  width: 25.w,
-                  elevation: 0,
-                  height:5.h,
-                  Boxcolor: ycolor,
-                  child: Text(
-                    "الذهاب للمتابعه",
-                    style: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white),
+                Padding(
+                  padding:  EdgeInsets.all(5.sp),
+                  child: ButtonFc(
+                    onpres: () {
+                      Navigator.pushNamedAndRemoveUntil(context, HomeUserScreen, (route) => false);
+                    },
+                    width: 25.w,
+                    elevation: 0,
+                    height:5.h,
+                    Boxcolor: ycolor,
+                    child: Text(
+                      "الذهاب للمتابعه",
+                      style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white),
+                    ),
                   ),
                 ),
-              ),
-            ],)
+              ],)
 
           ],
         ),
@@ -293,3 +303,5 @@ class CallContentUser extends StatelessWidget {
     );
   }
 }
+
+

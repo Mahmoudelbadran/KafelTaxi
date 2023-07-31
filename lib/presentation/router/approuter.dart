@@ -9,11 +9,15 @@ import 'package:taxizer/presentation/screens/siginup_screen/signup_driver_screen
 import 'package:taxizer/presentation/screens/signin_screen/user/signin_user_screen.dart';
 import 'package:taxizer/presentation/screens/single_onboarding/single_onboarding.dart';
 import '../../core/chang_page/controle_page.dart' as screens;
+import '../../data/Remote/response/admin/all_user_response/all_user_response.dart';
 import '../screens/admin/admin_login_screen.dart';
+import '../screens/admin/driver_waiting_screen/driver_waiting_screen.dart';
 import '../screens/admin/history/driver/drive_data_screen.dart';
+import '../screens/admin/history/driver/driver_history/driver_history.dart';
 import '../screens/admin/history/user/user_data_screen.dart';
 import '../screens/admin/history/user/user_history/user_history.dart';
 import '../screens/admin/home_admin/home_admin_screens.dart';
+import '../screens/admin/loading_admin_login/loading_admin_login.dart';
 import '../screens/code_screen/code_login_user_screen.dart';
 import '../screens/confirmation_screen/confirm_signUp/confirmation_user_screen.dart';
 import '../screens/home_screens/driver/history_driver/history_driver.dart';
@@ -107,7 +111,8 @@ class AppRouter{
       case screens.DriveDataScreens:
         return MaterialPageRoute(builder: (_)=>const DriveDataScreens());
       case screens.UserHistory:
-        return MaterialPageRoute(builder: (_)=>const UserHistory());
+        List<HistoryAllUser> data=settings.arguments as List<HistoryAllUser>;
+        return MaterialPageRoute(builder: (_)=> UserHistory(data: data,));
       case screens.LoadingScreenUser:
         return MaterialPageRoute(builder: (_)=>const LoadingScreenUser());
       case screens.LoadingScreenDriver:
@@ -118,7 +123,13 @@ class AppRouter{
         return MaterialPageRoute(builder: (_)=>const UpdateDriver());
       case screens.rateDriverScreen:
         return MaterialPageRoute(builder: (_)=>const RateDriverScreen());
+      case screens.loadingAdminLogin:
+        return MaterialPageRoute(builder: (_)=>const LoadingAdminLogin());
+      case screens.driverHistory:
 
+        return MaterialPageRoute(builder: (_)=> const DriverHistory());
+      case screens.driverWaitingScreen:
+        return MaterialPageRoute(builder: (_)=> const DriverWaitingScreen());
 
 
 

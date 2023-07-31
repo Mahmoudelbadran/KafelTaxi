@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:taxizer/bussinus_logic/login_register_logic/login_and_register_logic.dart';
@@ -16,24 +17,44 @@ class LoadingScreenUser extends StatefulWidget {
   State<LoadingScreenUser> createState() => _LoadingScreenUserState();
 }
 
-
 class _LoadingScreenUserState extends State<LoadingScreenUser> {
-  late LoginAndRegisterLogic data=LoginAndRegisterLogic.get(context);
+  late LoginAndRegisterLogic _logic;
+
   @override
   void initState() {
-    MyCache.putString(keys: MyCacheKeys.token, value: data.loginUserResponse.token);
-  MyCache.putListString(keys: MyCacheKeys.profileData, value: [
-    data.loginUserResponse.data!.userName,
-    data.loginUserResponse.data!.phone,
-    data.loginUserResponse.data!.email,
-  ]);
-    print(data.loginUserResponse.token);
-    Timer(const Duration(milliseconds: 5000), () {
-      Navigator.pushNamedAndRemoveUntil(
-          context, HomeUserScreen, (route) => false);
-    });
     super.initState();
+    _logic = LoginAndRegisterLogic.get(context);
+    _initCache();
+    _startTimer();
   }
+
+  void _initCache() {
+    final token = _logic.loginUserResponse?.token;
+    final userData = _logic.loginUserResponse?.data;
+    if (token != null && userData != null) {
+      MyCache.putString(keys: MyCacheKeys.token, value: token);
+      MyCache.putListString(keys: MyCacheKeys.profileData, value: [
+        userData.userName,
+        userData.phone,
+        userData.email,
+      ]);
+      if (kDebugMode) {
+        print(token);
+      }
+    }
+  }
+
+  void _startTimer() {
+    Timer(const Duration(milliseconds: 5000), () {
+      final token = MyCache.getString(keys: MyCacheKeys.token);
+      if (token =='') {
+        Navigator.pushReplacementNamed(context, SignInUserScreen);
+      } else {
+        Navigator.pushReplacementNamed(context, HomeUserScreen);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -48,4 +69,3 @@ class _LoadingScreenUserState extends State<LoadingScreenUser> {
     );
   }
 }
-

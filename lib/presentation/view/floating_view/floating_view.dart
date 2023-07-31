@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
-import 'package:taxizer/bussinus_logic/login_register_logic/login_and_register_logic.dart';
 import 'package:taxizer/bussinus_logic/user_logic/person_user_logic/person_user_logic.dart';
 import 'package:taxizer/presentation/widget/button_fc.dart';
 import '../../../bussinus_logic/user_logic/home_user_logic.dart';
@@ -28,7 +27,6 @@ class FloatView extends StatelessWidget {
   Widget build(BuildContext context) {
     Map<String, dynamic> directions;
     PersonUserLogic toHistory = PersonUserLogic.get(context);
-    LoginAndRegisterLogic userData = LoginAndRegisterLogic.get(context);
     return BlocBuilder<PersonUserLogic, PersonUserState>(
       builder: (context, state) {
         return BlocBuilder<SystemLogic, SystemState>(
@@ -147,11 +145,9 @@ class FloatView extends StatelessWidget {
                                             place: directions['end_location']);
                                         cubit.setPolyline(
                                             directions['polyline_decode']);
-                                        toHistory.toHistoryUser(
-                                            token: userData.loginUserResponse
-                                                .token,
-                                            from: myMap.text,
-                                            to: location.text);
+                                        print(directions['distance']);
+                                    toHistory.from=myMap.text;
+                                        toHistory.to=location.text;
                                       },
                                       Boxcolor: ycolor,
                                       width: 15.w,

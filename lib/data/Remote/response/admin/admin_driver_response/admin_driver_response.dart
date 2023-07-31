@@ -3,27 +3,32 @@ AdminDriverResponse adminDriverResponseFromJson(String str) => AdminDriverRespon
 String adminDriverResponseToJson(AdminDriverResponse data) => json.encode(data.toJson());
 class AdminDriverResponse {
   AdminDriverResponse({
-      String? message,
-    AdminDriver? result,}){
+      String? message, 
+      List<AdminDriver>? result,}){
     _message = message;
     _result = result;
 }
 
   AdminDriverResponse.fromJson(dynamic json) {
     _message = json['message'];
-    _result = json['result'] != null ? AdminDriver.fromJson(json['result']) : null;
+    if (json['result'] != null) {
+      _result = [];
+      json['result'].forEach((v) {
+        _result?.add(AdminDriver.fromJson(v));
+      });
+    }
   }
   String? _message;
-  AdminDriver? _result;
+  List<AdminDriver>? _result;
 
-  String? get message => _message;
-  AdminDriver? get result => _result;
+  String get message => _message??'';
+  List<AdminDriver> get result => _result??[];
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['message'] = _message;
     if (_result != null) {
-      map['result'] = _result?.toJson();
+      map['result'] = _result?.map((v) => v.toJson()).toList();
     }
     return map;
   }
@@ -48,7 +53,7 @@ class AdminDriver {
       String? createdAt, 
       String? updatedAt, 
       num? v, 
-      String? deviceToken,}){
+      String? driverId,}){
     _location = location;
     _id = id;
     _userName = userName;
@@ -64,7 +69,7 @@ class AdminDriver {
     _createdAt = createdAt;
     _updatedAt = updatedAt;
     _v = v;
-    _deviceToken = deviceToken;
+    _driverId = driverId;
 }
 
   AdminDriver.fromJson(dynamic json) {
@@ -83,7 +88,7 @@ class AdminDriver {
     _createdAt = json['createdAt'];
     _updatedAt = json['updatedAt'];
     _v = json['__v'];
-    _deviceToken = json['deviceToken'];
+    _driverId = json['driverId'];
   }
   Location? _location;
   String? _id;
@@ -99,7 +104,7 @@ class AdminDriver {
   String? _createdAt;
   String? _updatedAt;
   num? _v;
-  String? _deviceToken;
+  String? _driverId;
 
   Location get location => _location??Location();
   String get id => _id??'';
@@ -115,7 +120,7 @@ class AdminDriver {
   String get createdAt => _createdAt??'';
   String get updatedAt => _updatedAt??'';
   num get v => _v??0;
-  String get deviceToken => _deviceToken??'';
+  String get driverId => _driverId??'';
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -136,7 +141,7 @@ class AdminDriver {
     map['createdAt'] = _createdAt;
     map['updatedAt'] = _updatedAt;
     map['__v'] = _v;
-    map['deviceToken'] = _deviceToken;
+    map['driverId'] = _driverId;
     return map;
   }
 

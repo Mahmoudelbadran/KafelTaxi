@@ -16,7 +16,7 @@ class PersonUserLogic extends Cubit<PersonUserState> {
       BlocProvider.of<PersonUserLogic>(context);
 
   UpdateUserResponse updateUserResponse = UpdateUserResponse();
-  void upDateUser(
+  Future upDateUser(
       {required String token,
       required String password,
       required String email,
@@ -33,17 +33,16 @@ class PersonUserLogic extends Cubit<PersonUserState> {
             token: token)
         .then((value) {
       updateUserResponse = value;
-      print("sucess");
       emit(SucessUpDateApiAppState());
     }).catchError((error) {
       emit(ErorrUpDateApiAppState());
     });
   }
+  String from='';
+  String to='';
   SearchDataHistoryResponse searchDataHistoryResponse=SearchDataHistoryResponse();
-  void toHistoryUser({
+  Future toHistoryUser({
     required String token,
-    required String from,
-    required String to,
   }) async {
     emit(LoadingToHistoryApiAppState());
 
@@ -54,23 +53,20 @@ class PersonUserLogic extends Cubit<PersonUserState> {
         token: token)
         .then((value) {
      searchDataHistoryResponse = value;
-      print("sucess");
       emit(SucessToHistoryApiAppState());
     }).catchError((error) {
       emit(ErorrToHistoryApiAppState());
     });
   }
   ProfileResponse profileResponse=ProfileResponse();
-  void getProfile({
+  Future getProfile({
     required String token,
   }) async {
-    print("loadingprofile");
     emit(LoadingProfile());
     await ProfileRequest()
         .profileRequest(token: token,)
         .then((value) {
       profileResponse = value;
-      print("sucessprofile");
       emit(SucessProfile());
     }).catchError((error) {
       emit(ErrorProfile());

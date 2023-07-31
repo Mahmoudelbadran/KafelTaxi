@@ -16,9 +16,9 @@ class RateDriverScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    late String? token=MyCache.getString(keys: MyCacheKeys.token);
+    late String? tokenDriver=MyCache.getString(keys: MyCacheKeys.tokenDriver);
     late HomeDriveLogic userData = HomeDriveLogic.get(context)
-      ..getDriverProfile(token: token.toString());
+      ..getDriverProfile(token: tokenDriver.toString());
     late CommentLogic comment = CommentLogic.get(context);
     TextEditingController commentUser = TextEditingController();
     return BlocBuilder<CommentLogic, CommentState>(
@@ -112,7 +112,7 @@ class RateDriverScreen extends StatelessWidget {
                     child: ButtonFc(
                       onpres: () {
                         comment.sendComment(
-                            token: token.toString(),
+                            token: tokenDriver.toString(),
                             comment: commentUser.text);
                         if (state is SuscessSentCommentAppState) {
                           Navigator.pushNamed(context, RateDone);
