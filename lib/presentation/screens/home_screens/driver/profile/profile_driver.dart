@@ -23,6 +23,7 @@ class _ProfileDriverState extends State<ProfileDriver> {
   void initState() {
     tokenDriver=MyCache.getString(keys: MyCacheKeys.tokenDriver);
     cubit=LoginAndRegisterLogic.get(context);
+    print(tokenDriver);
     super.initState();
   }
 

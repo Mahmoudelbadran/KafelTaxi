@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taxizer/bussinus_logic/user_logic/home_user_logic.dart';
 
-import '../../style/style.dart';
 import 'item_program_view/item_program_car.dart';
 
 class ItemBuilderView extends StatelessWidget {

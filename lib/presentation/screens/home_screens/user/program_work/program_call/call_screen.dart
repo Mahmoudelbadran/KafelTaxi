@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:taxizer/data/local/my_cache.dart';
 import 'package:taxizer/presentation/style/style.dart';
-
+import '../../../../../../bussinus_logic/user_logic/home_user_logic.dart';
 import '../../../../../../core/chang_page/controle_page.dart';
+import '../../../../../../core/my_cache_keys/my_cache_keys.dart';
 import '../../../../../../data/Remote/response/user/nearest_response/nearest_response.dart';
 import '../../../../../widget/button_fc.dart';
 import '../loading_screen/loading_screen.dart';
@@ -13,6 +15,9 @@ class CallScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List data=MyCache.getListString(keys: MyCacheKeys.dataLocation);
+    late HomeUserLogic cubit = HomeUserLogic.get(context);
+    String? token = MyCache.getString(keys: MyCacheKeys.token);
     return Container(
       color: backgroundcolor,
       width: 100.w,
@@ -191,17 +196,23 @@ class CallScreen extends StatelessWidget {
                       ),
                     )),
                 Expanded(
-                    child: Center(child: Container(
-                      margin: EdgeInsets.all(2.sp),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100.sp),
-                          border: Border.all(color: ycolor, width:2.sp)),
-                      child: ClipOval(
-                        clipBehavior: Clip.antiAlias,
-                        child: Image.asset("images/drive.jpg",fit: BoxFit.fill,width:20.w,height: 10.h,
-                        ),
+                    child: Center(
+                  child: Container(
+                    margin: EdgeInsets.all(2.sp),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100.sp),
+                        border: Border.all(color: ycolor, width: 2.sp)),
+                    child: ClipOval(
+                      clipBehavior: Clip.antiAlias,
+                      child: Image.asset(
+                        "images/drive.jpg",
+                        fit: BoxFit.fill,
+                        width: 20.w,
+                        height: 10.h,
                       ),
-                    ),))
+                    ),
+                  ),
+                ))
               ],
             ),
           ),
@@ -267,7 +278,8 @@ class CallScreen extends StatelessWidget {
                                 ),
                                 ButtonFc(
                                   onpres: () {
-                                    Navigator.pushNamedAndRemoveUntil(context, HomeUserScreen, (route) => false);
+                                    Navigator.pushNamedAndRemoveUntil(context,
+                                        HomeUserScreen, (route) => false);
                                   },
                                   width: 25.w,
                                   elevation: 0,
@@ -299,16 +311,37 @@ class CallScreen extends StatelessWidget {
                   ),
                 ),
                 ButtonFc(
-                  onpres: () {
-                    showModalBottomSheet(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return Container(
-                            color: Colors.transparent.withOpacity(0.1),
-                            height: 30.h,
-                            child: const LoadingCallScreen(),
-                          );}
-                    );
+                  onpres: () async {
+                    double? distance = double.tryParse(data[2].replaceAll(' km', ''));
+                    if (distance != null) {
+                      await cubit.getNotification(
+                        token: token.toString(),
+                        driverId: dataDriver.tId,
+                        point1: data[3],
+                        point2: data[4],
+                        lat: double.parse(data[3]),
+                        long: double.parse(data[4]),
+                        address: data[0],
+                        pointTo1: data[5],
+                        pointTo2: data[6],
+                        lat1: double.parse(data[5]),
+                        long1: double.parse(data[6]),
+                        address1:data[1],
+                        distance: distance,
+                      ).then((value) {
+                        showModalBottomSheet(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Container(
+                                color: Colors.transparent.withOpacity(0.1),
+                                height: 30.h,
+                                child: const LoadingCallScreen(),
+                              );
+                            }
+                        );
+                      });
+
+                    }
                   },
                   width: 25.w,
                   elevation: 0,

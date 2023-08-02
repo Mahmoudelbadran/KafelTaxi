@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 import 'package:taxizer/bussinus_logic/login_register_logic/login_and_register_logic.dart';
 import 'package:taxizer/bussinus_logic/user_logic/home_user_logic.dart';
+import 'package:taxizer/core/my_cache_keys/my_cache_keys.dart';
+import 'package:taxizer/data/local/my_cache.dart';
 import '../../../../bussinus_logic/user_logic/system_logic.dart';
 import '../../../../core/chang_page/controle_page.dart';
 import '../../../style/style.dart';
@@ -43,7 +45,23 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
             heroTag: "btn2",
             onPressed: () async {
               if (cubit.isBottomSheet) {
-                Navigator.pushNamed(context, ProgramWorkScreen);
+                var directions = await system.fetchDirection(
+                    origin: myMap.text, destination: location.text);
+                cubit.gotoLocationUserOne(place: directions['start_location']);
+                cubit.gotoLocationUserTwo(place: directions['end_location']);
+                cubit.setPolyline(directions['polyline_decode']);
+                if (mounted) {
+                  MyCache.putListString(keys: MyCacheKeys.dataLocation, value: [
+                    myMap.text,
+                    location.text,
+                    "${directions['distance']}",
+                    directions['bounds_ne']['lat'].toString(),
+                    directions['bounds_ne']['lng'].toString(),
+                    directions['bounds_sw']['lat'].toString(),
+                    directions['bounds_sw']['lng'].toString(),
+                  ]);
+                  Navigator.pushNamed(context, ProgramWorkScreen);
+                }
               } else {
                 cubit.changeBottonSheets(
                     isShow: true, icon: Icons.send_outlined);

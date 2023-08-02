@@ -231,7 +231,7 @@ class _SignInUserDoneState extends State<SignInUserDone> {
                                           fontSize: 15.sp);
                                     }else {
                                     Fluttertoast.showToast(
-                                        msg: "خطا البيانات",
+                                        msg: "حاول مره اخري",
                                         toastLength: Toast.LENGTH_SHORT,
                                         gravity: ToastGravity.BOTTOM,
                                         timeInSecForIosWeb: 1,

@@ -5,6 +5,8 @@ import 'package:taxizer/bussinus_logic/user_logic/person_user_logic/person_user_
 import 'package:taxizer/presentation/widget/button_fc.dart';
 import '../../../bussinus_logic/user_logic/home_user_logic.dart';
 import '../../../bussinus_logic/user_logic/system_logic.dart';
+import '../../../core/my_cache_keys/my_cache_keys.dart';
+import '../../../data/local/my_cache.dart';
 import '../../style/style.dart';
 
 
@@ -78,15 +80,7 @@ class FloatView extends StatelessWidget {
                                       myMap.text = cubit.address;
                                       return cubit.getLocation();
                                     });
-                                    directions = await system.fetchDirection(
-                                        origin: myMap.text,
-                                        destination: location.text);
-                                    cubit.gotoLocationUserOne(
-                                        place: directions['start_location']);
-                                    cubit.gotoLocationUserTwo(
-                                        place: directions['end_location']);
-                                    cubit.setPolyline(
-                                        directions['polyline_decode']);
+
                                   },
                                   icon: const Icon(
                                     Icons.my_location,
@@ -145,9 +139,17 @@ class FloatView extends StatelessWidget {
                                             place: directions['end_location']);
                                         cubit.setPolyline(
                                             directions['polyline_decode']);
-                                        print(directions['distance']);
                                     toHistory.from=myMap.text;
                                         toHistory.to=location.text;
+                                        MyCache.putListString(keys: MyCacheKeys.dataLocation, value: [
+                                          myMap.text,
+                                          location.text,
+                                          "${directions['distance']}",
+                                          directions['bounds_ne']['lat'].toString(),
+                                          directions['bounds_ne']['lng'].toString(),
+                                          directions['bounds_sw']['lat'].toString(),
+                                          directions['bounds_sw']['lng'].toString(),
+                                        ]);
                                       },
                                       Boxcolor: ycolor,
                                       width: 15.w,

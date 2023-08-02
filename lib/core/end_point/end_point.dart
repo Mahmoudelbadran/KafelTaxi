@@ -24,3 +24,7 @@ const paymentAll="payment/all/";
 const deleteUseri="admin/user";
 const deleteDriver="admin/driver";
 //request
+const requestUser="request";
+//update deviceToken
+const updateUserToken="driver/updateDeviceToken";
+

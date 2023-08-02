@@ -11,6 +11,7 @@ import 'package:taxizer/data/local/my_cache.dart';
 import '../../../../../bussinus_logic/payment_logic/payment_logic.dart';
 import '../../../../../bussinus_logic/user_logic/home_user_logic.dart';
 import '../../../../../bussinus_logic/user_logic/system_logic.dart';
+import '../../../../../core/chang_page/controle_page.dart';
 import '../../../../../core/contant/constant.dart';
 import '../../../../../core/my_cache_keys/my_cache_keys.dart';
 import '../../../../style/style.dart';
@@ -60,10 +61,25 @@ class _HomeDriverPageState extends State<HomeDriverPage> {
       AwesomeNotifications().actionStream.listen((event){
         if(event.buttonKeyInput=="Reject"){
           print("call Reject");
+          setState(() {
+            isCall = false;
+          });
         }else if(event.buttonKeyInput=="Accept"){
           print("call Accept");
+          if (mounted) {
+            setState(() {
+              isCall = false;
+            });
+          }
+          Navigator.push(context, HomeUserScreen as Route<Object?>);
         }else{
           print("click of notification");
+
+          if (mounted) {
+            setState(() {
+              isCall = false;
+            });
+          }
         }
 
       });

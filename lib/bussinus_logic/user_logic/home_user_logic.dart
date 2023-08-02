@@ -14,7 +14,9 @@ import 'package:taxizer/presentation/screens/home_screens/user/home/home_user_pa
 import 'package:taxizer/presentation/screens/home_screens/user/payment/payment_user_page.dart';
 import 'package:taxizer/presentation/screens/home_screens/user/person/person_user_page.dart';
 import 'package:taxizer/presentation/screens/home_screens/user/taxi/order_user_page.dart';
+import '../../data/Remote/request/system_notification_request/system_notification_request.dart';
 import '../../data/Remote/request/user/nearest_request/nearest_request.dart';
+import '../../data/Remote/response/system_notification_response/system_notification_response.dart';
 import '../../data/Remote/response/user/nearest_response/nearest_response.dart';
 import '../../presentation/style/style.dart';
 part 'home_user_state.dart';
@@ -118,8 +120,9 @@ class HomeUserLogic extends Cubit<HomeUserState> {
     }
     emit(GetLocationState());
   }
- double lat=0;
-  double lng=0;
+
+  double lat = 0;
+  double lng = 0;
   Future getCurrentLocation() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -147,13 +150,14 @@ class HomeUserLogic extends Cubit<HomeUserState> {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
     currentLocation = LatLng(position.latitude, position.longitude);
-    lat=position.latitude;
-    lng=position.longitude;
+    lat = position.latitude;
+    lng = position.longitude;
     emit(GetCurrentLocationState());
   }
 
   Future<void> requestLocationPermission(BuildContext context) async {
-    final PermissionStatus permissionStatus = await Permission.location.request();
+    final PermissionStatus permissionStatus =
+        await Permission.location.request();
     if (permissionStatus == PermissionStatus.granted) {
       getCurrentLocation();
     } else {
@@ -181,8 +185,7 @@ class HomeUserLogic extends Cubit<HomeUserState> {
     emit(ShowButtomsheetstates());
   }
 
-
-String imageDriver='images/car.png';
+  String imageDriver = 'images/car.png';
 
   Future<Uint8List> getBytesFromAsset(
       {required String path, required int width}) async {
@@ -197,7 +200,6 @@ String imageDriver='images/car.png';
         .buffer
         .asUint8List();
   }
-
 
   Set<Polyline> polyline = <Polyline>{};
   int polylineIdCounter = 1;
@@ -229,25 +231,69 @@ String imageDriver='images/car.png';
     await LocationUserRequest()
         .locationUserRequest(token: token, type: type, lat: lat, lng: lng)
         .then((value) {
-          print("sucess lat");
+      print("sucess lat");
       locationUserResponse = value;
       emit(SuscessLocationUserApiAppState());
     }).catchError((error) {
       emit(ErorrLocationUserApiAppState());
     });
   }
-  NearestResponse nearestResponse=NearestResponse();
+
+  NearestResponse nearestResponse = NearestResponse();
   Future getNearest({
     required String token,
   }) async {
     emit(LoadingLocationDriverApiAppState());
     await NearestRequset()
-        .nearestRequset(token: token,)
+        .nearestRequset(
+      token: token,
+    )
         .then((value) {
       nearestResponse = value;
       emit(SuscessLocationDriverApiAppState());
     }).catchError((error) {
       emit(ErorrLocationDriverApiAppState());
+    });
+  }
+
+  SystemNotificationResponse systemNotificationResponse =
+      SystemNotificationResponse();
+  Future getNotification({
+    required String token,
+    required String driverId,
+    required String point1,
+    required String point2,
+    required double lat,
+    required double long,
+    required String address,
+    required String pointTo1,
+    required String pointTo2,
+    required double lat1,
+    required double long1,
+    required String address1,
+    required double distance,
+  }) async {
+    emit(LoadingNotificationState());
+    await SystemNotificationRequest()
+        .systemNotificationRequest(
+            token: token,
+            driverId: driverId,
+            point1: point1,
+            point2: point2,
+            lat: lat,
+            long: long,
+            address: address,
+            pointTo1: pointTo1,
+            pointTo2: pointTo2,
+            lat1: lat1,
+            long1: long1,
+            address1: address1,
+            distance: distance)
+        .then((value) {
+      systemNotificationResponse = value;
+      emit(SucessNotificationState());
+    }).catchError((error) {
+      emit(ErorrNotificationState());
     });
   }
 }

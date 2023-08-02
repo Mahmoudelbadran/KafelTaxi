@@ -40,6 +40,7 @@ class PersonUserLogic extends Cubit<PersonUserState> {
   }
   String from='';
   String to='';
+  double distance=0;
   SearchDataHistoryResponse searchDataHistoryResponse=SearchDataHistoryResponse();
   Future toHistoryUser({
     required String token,

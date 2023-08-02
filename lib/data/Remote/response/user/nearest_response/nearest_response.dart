@@ -33,7 +33,7 @@ NearestDriver nearestDriverFromJson(String str) => NearestDriver.fromJson(json.d
 String nearestDriverToJson(NearestDriver data) => json.encode(data.toJson());
 class NearestDriver {
   NearestDriver({
-    DriverLocation? location,
+      Location? location, 
       String? id, 
       String? userName, 
       String? email, 
@@ -41,7 +41,8 @@ class NearestDriver {
       String? phone, 
       String? carType, 
       String? carId, 
-      String? listId,
+      String? listId, 
+      String? tId,
       bool? active, 
       bool? complete, 
       String? role, 
@@ -49,6 +50,7 @@ class NearestDriver {
       String? updatedAt, 
       num? v, 
       String? deviceToken, 
+      String? driverId, 
       num? distances,}){
     _location = location;
     _id = id;
@@ -59,7 +61,7 @@ class NearestDriver {
     _carType = carType;
     _carId = carId;
     _listId = listId;
-    _id = id;
+    _tId = tId;
     _active = active;
     _complete = complete;
     _role = role;
@@ -67,12 +69,13 @@ class NearestDriver {
     _updatedAt = updatedAt;
     _v = v;
     _deviceToken = deviceToken;
+    _driverId = driverId;
     _distances = distances;
 }
 
   NearestDriver.fromJson(dynamic json) {
-    _location = json['location'] != null ? DriverLocation.fromJson(json['location']) : null;
-    _id = json['_id'];
+    _location = json['location'] != null ? Location.fromJson(json['location']) : null;
+    _tId = json['_id'];
     _userName = json['userName'];
     _email = json['email'];
     _password = json['password'];
@@ -88,9 +91,10 @@ class NearestDriver {
     _updatedAt = json['updatedAt'];
     _v = json['__v'];
     _deviceToken = json['deviceToken'];
+    _driverId = json['driverId'];
     _distances = json['distances'];
   }
-  DriverLocation? _location;
+  Location? _location;
   String? _id;
   String? _userName;
   String? _email;
@@ -99,6 +103,7 @@ class NearestDriver {
   String? _carType;
   String? _carId;
   String? _listId;
+  String? _tId;
   bool? _active;
   bool? _complete;
   String? _role;
@@ -106,9 +111,10 @@ class NearestDriver {
   String? _updatedAt;
   num? _v;
   String? _deviceToken;
+  String? _driverId;
   num? _distances;
 
-  DriverLocation get location => _location??DriverLocation();
+  Location get location => _location??Location();
   String get id => _id??'';
   String get userName => _userName??'';
   String get email => _email??'';
@@ -117,6 +123,7 @@ class NearestDriver {
   String get carType => _carType??'';
   String get carId => _carId??'';
   String get listId => _listId??'';
+  String get tId => _tId??'';
   bool get active => _active??false;
   bool get complete => _complete??false;
   String get role => _role??'';
@@ -124,6 +131,7 @@ class NearestDriver {
   String get updatedAt => _updatedAt??'';
   num get v => _v??0;
   String get deviceToken => _deviceToken??'';
+  String get driverId => _driverId??'';
   num get distances => _distances??0;
 
   Map<String, dynamic> toJson() {
@@ -147,23 +155,24 @@ class NearestDriver {
     map['updatedAt'] = _updatedAt;
     map['__v'] = _v;
     map['deviceToken'] = _deviceToken;
+    map['driverId'] = _driverId;
     map['distances'] = _distances;
     return map;
   }
 
 }
 
-DriverLocation driverLocationFromJson(String str) => DriverLocation.fromJson(json.decode(str));
-String driverLocationToJson(DriverLocation data) => json.encode(data.toJson());
-class DriverLocation {
-  DriverLocation({
-      String? type,
+Location locationFromJson(String str) => Location.fromJson(json.decode(str));
+String locationToJson(Location data) => json.encode(data.toJson());
+class Location {
+  Location({
+      String? type, 
       List<num>? coordinates,}){
     _type = type;
     _coordinates = coordinates;
 }
 
-  DriverLocation.fromJson(dynamic json) {
+  Location.fromJson(dynamic json) {
     _type = json['type'];
     _coordinates = json['coordinates'] != null ? json['coordinates'].cast<num>() : [];
   }

@@ -22,6 +22,7 @@ late LoginAndRegisterLogic cubit;
   @override
   void initState() {
     token=MyCache.getString(keys: MyCacheKeys.token);
+    print(token);
    cubit=LoginAndRegisterLogic.get(context);
     super.initState();
   }

@@ -261,7 +261,7 @@ class _SignUpDriverDoneState extends State<SignUpDriverDone> {
                                         fontSize: 15.sp);
                                   }else {
                                     Fluttertoast.showToast(
-                                        msg: "خطا البيانات",
+                                        msg: "حاول مره اخري",
                                         toastLength: Toast.LENGTH_SHORT,
                                         gravity: ToastGravity.BOTTOM,
                                         timeInSecForIosWeb: 1,

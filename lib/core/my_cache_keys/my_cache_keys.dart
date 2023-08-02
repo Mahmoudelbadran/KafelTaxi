@@ -1,3 +1,3 @@
 enum MyCacheKeys{
-  token,profileData,tokenDriver,tokenAdmin
+  token,profileData,tokenDriver,tokenAdmin,dataLocation
 }

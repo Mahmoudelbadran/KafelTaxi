@@ -20,30 +20,46 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'core/my_bloc_observer.dart';
 
 Future<void> backgroundHandar(RemoteMessage message) async {
+  print("backgroundHandar is called with message: $message");
   String? title = message.notification!.title;
   String? body = message.notification!.body;
   AwesomeNotifications().createNotification(
-      content: NotificationContent(id: 123, channelKey: "call_channel",
-        title: title,
-        body: body,
-        category: NotificationCategory.Call,
-        wakeUpScreen: true,
-        fullScreenIntent: true,
-        autoDismissible: false,
-        backgroundColor: Colors.orange,
-
-      ),
+    content: NotificationContent(
+      id: 123,
+      channelKey: "call_channel",
+      title: title,
+      body: body,
+      category: NotificationCategory.Call,
+      wakeUpScreen: true,
+      fullScreenIntent: true,
+      autoDismissible: false,
+      backgroundColor: Colors.orange,
+    ),
     actionButtons: [
-      NotificationActionButton(key: "Accept", label: "Accept Call",color: Colors.green
-          ,autoDismissible: true,
+      NotificationActionButton(
+        key: "Accept",
+        label: "Accept Call",
+        color: Colors.green,
+        autoDismissible: true,
       ),
-      NotificationActionButton(key: "Reject", label: "Reject Call",color: Colors.red
-        ,autoDismissible: true,
+      NotificationActionButton(
+        key: "Reject",
+        label: "Reject Call",
+        color: Colors.red,
+        autoDismissible: true,
       ),
-
-    ]
+    ],
   );
 
+  AwesomeNotifications().actionStream.listen((event) {
+    if (event.buttonKeyInput == "Reject") {
+      print("call Reject");
+    } else if (event.buttonKeyInput == "Accept") {
+      print("call Accept");
+    } else {
+      print("click of notification");
+    }
+  });
 }
 
 void main() async {

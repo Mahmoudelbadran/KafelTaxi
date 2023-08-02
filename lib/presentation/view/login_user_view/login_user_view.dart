@@ -198,9 +198,18 @@ class _LoginUserViewState extends State<LoginUserView> {
                                     LoadingScreenUser,
                                         (route) => false);
                               }
-                            } else{
+                            } else if(state is ErorrUserApiAppState){
                               Fluttertoast.showToast(
                                   msg: "خطا في بيانات المستخدم الباسورد او الرقم",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.BOTTOM,
+                                  timeInSecForIosWeb: 1,
+                                  backgroundColor: Colors.red,
+                                  textColor: Colors.white,
+                                  fontSize: 15.sp);
+                            }else{
+                              Fluttertoast.showToast(
+                                  msg: "يرجي المحاوله مره اخري",
                                   toastLength: Toast.LENGTH_SHORT,
                                   gravity: ToastGravity.BOTTOM,
                                   timeInSecForIosWeb: 1,
